@@ -1,0 +1,31 @@
+{
+  "window_mosaic_px": [
+    1290,
+    5790,
+    39530,
+    44030
+  ],
+  "sigma": 1.0,
+  "k": 6,
+  "elements": [
+    "Al",
+    "Ca",
+    "Fe",
+    "K",
+    "Mg",
+    "Na",
+    "O",
+    "Si"
+  ],
+  "seg_ds": 1,
+  "extra_names": {},
+  "cluster_mapping": {
+    "0": 5,
+    "1": 11,
+    "2": 2,
+    "3": 4,
+    "4": 9,
+    "5": 4
+  },
+  "note": "local full-resolution re-segmentation for the fig 4 inset; clusters assigned to the global phase names by compositional similarity (cosine on mean net-count vectors), so areas that are mixed at map resolution resolve into their constituents"
+}

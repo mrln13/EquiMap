@@ -1,0 +1,9 @@
+cluster_id,name,pixel_count,top1_mineral,top1_abbrev,top1_score,top1_confidence,top1_method,Mg#,An,top2_mineral,top2_score,top3_mineral,top3_score,flags
+0,Quartz-rich matrix,5734024,Quartz,Qz,0.1644,low,structural,,,Calcite,0.0284,Dolomite,0.0270,polymorph_ambiguous;merged_from_0_1_13
+2,Quartz,8854575,Quartz,Qz,0.9602,high,structural,,,Calcite,0.0012,Dolomite,0.0012,polymorph_ambiguous;merged_from_2_6
+3,Mica-rich matrix,9176712,Cordierite,Crd,0.7027,moderate,structural,0.4771,,Biotite,0.2684,Calcite,0.0885,merged_from_3_8_10
+4,Biotite,14668063,Biotite,Bt,0.6774,moderate,structural,0.4700,,Garnet,0.4949,Chlorite,0.1930,hydrous_unmeasured_h2o;merged_from_4_7
+5,Muscovite,8680317,Muscovite,Ms,0.6418,moderate,structural,,,Biotite,0.2106,Alkali feldspar,0.0678,hydrous_unmeasured_h2o
+9,Sillimanite,591793,Al2SiO5 (kyanite/sillimanite/andalusite),Als,0.4381,low,structural,,,Muscovite,0.3037,Biotite,0.0761,polymorph_ambiguous
+11,Plagioclase,5147449,Plagioclase,Pl,1.0000,high,manual,,,Amphibole,0.3425,Plagioclase,0.2475,manual_override
+12,Chlorite,363505,Chlorite,Chl,0.8017,moderate,structural,0.4912,,Calcite,0.2614,Garnet,0.1953,hydrous_unmeasured_h2o

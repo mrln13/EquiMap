@@ -1,0 +1,2214 @@
+{
+ "map": 1,
+ "shape": [
+  1937,
+  1685
+ ],
+ "sigma": 1.0,
+ "min_size": 2,
+ "fe3": 0.0,
+ "stages": {
+  "baseline": {
+   "acc_6um": 0.3193,
+   "purity_6um": 0.8978,
+   "acc_bin2": 0.3192,
+   "purity_bin2": 0.8977,
+   "names": {
+    "0": "Garnet",
+    "1": "Chlorite",
+    "2": "Biotite",
+    "3": "Amphibole"
+   },
+   "majority_bin2": [
+    {
+     "phase": "Diopside",
+     "n": 781780,
+     "domain": "Amphibole",
+     "cid": 3,
+     "share": 0.9092813835094272,
+     "precision": 0.9021235229694041
+    },
+    {
+     "phase": "Chlorite",
+     "n": 525511,
+     "domain": "Chlorite",
+     "cid": 1,
+     "share": 0.807927902555798,
+     "precision": 0.9687654016757024
+    },
+    {
+     "phase": "Ilmenite",
+     "n": 13062,
+     "domain": "Garnet",
+     "cid": 0,
+     "share": 0.872454448017149,
+     "precision": 0.15896219835402428
+    },
+    {
+     "phase": "Magnetite",
+     "n": 9958,
+     "domain": "Garnet",
+     "cid": 0,
+     "share": 0.9128339023900381,
+     "precision": 0.12679592690751848
+    }
+   ]
+  },
+  "reid": {
+   "domain_means": {
+    "0": {
+     "n": 127267,
+     "Al": 4.55,
+     "Ca": 6.279,
+     "Cr": 0.733,
+     "Fe": 12.052,
+     "K": 0.255,
+     "Mg": 13.279,
+     "Mn": 0.581,
+     "Na": 0.295,
+     "Ni": 0.652,
+     "O": 41.252,
+     "Si": 17.525,
+     "Ti": 2.546
+    },
+    "1": {
+     "n": 1092856,
+     "Al": 7.64,
+     "Ca": 2.379,
+     "Cr": 0.801,
+     "Fe": 5.824,
+     "K": 0.253,
+     "Mg": 18.675,
+     "Mn": 0.432,
+     "Na": 0.295,
+     "Ni": 0.58,
+     "O": 44.062,
+     "Si": 18.714,
+     "Ti": 0.345
+    },
+    "2": {
+     "n": 97348,
+     "Al": 4.606,
+     "Ca": 9.241,
+     "Cr": 0.672,
+     "Fe": 5.885,
+     "K": 0.381,
+     "Mg": 12.378,
+     "Mn": 0.625,
+     "Na": 0.545,
+     "Ni": 0.971,
+     "O": 43.066,
+     "Si": 21.166,
+     "Ti": 0.464
+    },
+    "3": {
+     "n": 1081272,
+     "Al": 3.148,
+     "Ca": 12.878,
+     "Cr": 0.498,
+     "Fe": 3.818,
+     "K": 0.244,
+     "Mg": 12.086,
+     "Mn": 0.412,
+     "Na": 0.28,
+     "Ni": 0.564,
+     "O": 43.358,
+     "Si": 22.379,
+     "Ti": 0.334
+    }
+   },
+   "variants": {
+    "ratio/all12": {
+     "accuracy": 0.3192,
+     "purity": 0.8977,
+     "names": {
+      "0": "Garnet",
+      "1": "Chlorite",
+      "2": "Amphibole",
+      "3": "Amphibole"
+     },
+     "top3": {
+      "0": [
+       [
+        "Garnet",
+        92.5,
+        "ratio"
+       ],
+       [
+        "Biotite",
+        80.5,
+        "ratio"
+       ],
+       [
+        "Chlorite",
+        76.0,
+        "ratio"
+       ]
+      ],
+      "1": [
+       [
+        "Chlorite",
+        89.8,
+        "ratio"
+       ],
+       [
+        "Garnet",
+        85.7,
+        "ratio"
+       ],
+       [
+        "Olivine",
+        71.3,
+        "ratio"
+       ]
+      ],
+      "2": [
+       [
+        "Amphibole",
+        93.4,
+        "ratio"
+       ],
+       [
+        "Biotite",
+        92.5,
+        "ratio"
+       ],
+       [
+        "Garnet",
+        74.9,
+        "ratio"
+       ]
+      ],
+      "3": [
+       [
+        "Amphibole",
+        90.4,
+        "ratio"
+       ],
+       [
+        "Biotite",
+        85.4,
+        "ratio"
+       ],
+       [
+        "Clinopyroxene",
+        79.4,
+        "ratio"
+       ]
+      ]
+     },
+     "majority": [
+      {
+       "phase": "Diopside",
+       "n": 781780,
+       "domain": "Amphibole",
+       "cid": 3,
+       "share": 0.9092813835094272,
+       "precision": 0.9021235229694041
+      },
+      {
+       "phase": "Chlorite",
+       "n": 525511,
+       "domain": "Chlorite",
+       "cid": 1,
+       "share": 0.807927902555798,
+       "precision": 0.9687654016757024
+      },
+      {
+       "phase": "Ilmenite",
+       "n": 13062,
+       "domain": "Garnet",
+       "cid": 0,
+       "share": 0.872454448017149,
+       "precision": 0.15896219835402428
+      },
+      {
+       "phase": "Magnetite",
+       "n": 9958,
+       "domain": "Garnet",
+       "cid": 0,
+       "share": 0.9128339023900381,
+       "precision": 0.12679592690751848
+      }
+     ]
+    },
+    "ratio/noTrace": {
+     "accuracy": 0.3192,
+     "purity": 0.8977,
+     "names": {
+      "0": "Garnet",
+      "1": "Chlorite",
+      "2": "Biotite",
+      "3": "Amphibole"
+     },
+     "top3": {
+      "0": [
+       [
+        "Garnet",
+        94.9,
+        "ratio"
+       ],
+       [
+        "Chlorite",
+        79.4,
+        "ratio"
+       ],
+       [
+        "Biotite",
+        78.1,
+        "ratio"
+       ]
+      ],
+      "1": [
+       [
+        "Chlorite",
+        93.6,
+        "ratio"
+       ],
+       [
+        "Garnet",
+        86.0,
+        "ratio"
+       ],
+       [
+        "Olivine",
+        71.9,
+        "ratio"
+       ]
+      ],
+      "2": [
+       [
+        "Biotite",
+        98.9,
+        "ratio"
+       ],
+       [
+        "Amphibole",
+        96.9,
+        "ratio"
+       ],
+       [
+        "Garnet",
+        74.8,
+        "ratio"
+       ]
+      ],
+      "3": [
+       [
+        "Amphibole",
+        93.1,
+        "ratio"
+       ],
+       [
+        "Biotite",
+        88.1,
+        "ratio"
+       ],
+       [
+        "Clinopyroxene",
+        79.4,
+        "ratio"
+       ]
+      ]
+     },
+     "majority": [
+      {
+       "phase": "Diopside",
+       "n": 781780,
+       "domain": "Amphibole",
+       "cid": 3,
+       "share": 0.9092813835094272,
+       "precision": 0.9021235229694041
+      },
+      {
+       "phase": "Chlorite",
+       "n": 525511,
+       "domain": "Chlorite",
+       "cid": 1,
+       "share": 0.807927902555798,
+       "precision": 0.9687654016757024
+      },
+      {
+       "phase": "Ilmenite",
+       "n": 13062,
+       "domain": "Garnet",
+       "cid": 0,
+       "share": 0.872454448017149,
+       "precision": 0.15896219835402428
+      },
+      {
+       "phase": "Magnetite",
+       "n": 9958,
+       "domain": "Garnet",
+       "cid": 0,
+       "share": 0.9128339023900381,
+       "precision": 0.12679592690751848
+      }
+     ]
+    },
+    "ratio/majors": {
+     "accuracy": 0.3192,
+     "purity": 0.8977,
+     "names": {
+      "0": "Garnet",
+      "1": "Chlorite",
+      "2": "Biotite",
+      "3": "Amphibole"
+     },
+     "top3": {
+      "0": [
+       [
+        "Garnet",
+        91.5,
+        "ratio"
+       ],
+       [
+        "Chlorite",
+        83.9,
+        "ratio"
+       ],
+       [
+        "Biotite",
+        80.5,
+        "ratio"
+       ]
+      ],
+      "1": [
+       [
+        "Chlorite",
+        94.3,
+        "ratio"
+       ],
+       [
+        "Garnet",
+        85.3,
+        "ratio"
+       ],
+       [
+        "Olivine",
+        72.2,
+        "ratio"
+       ]
+      ],
+      "2": [
+       [
+        "Biotite",
+        98.8,
+        "ratio"
+       ],
+       [
+        "Amphibole",
+        97.5,
+        "ratio"
+       ],
+       [
+        "Garnet",
+        73.6,
+        "ratio"
+       ]
+      ],
+      "3": [
+       [
+        "Amphibole",
+        92.7,
+        "ratio"
+       ],
+       [
+        "Biotite",
+        87.9,
+        "ratio"
+       ],
+       [
+        "Clinopyroxene",
+        79.6,
+        "ratio"
+       ]
+      ]
+     },
+     "majority": [
+      {
+       "phase": "Diopside",
+       "n": 781780,
+       "domain": "Amphibole",
+       "cid": 3,
+       "share": 0.9092813835094272,
+       "precision": 0.9021235229694041
+      },
+      {
+       "phase": "Chlorite",
+       "n": 525511,
+       "domain": "Chlorite",
+       "cid": 1,
+       "share": 0.807927902555798,
+       "precision": 0.9687654016757024
+      },
+      {
+       "phase": "Ilmenite",
+       "n": 13062,
+       "domain": "Garnet",
+       "cid": 0,
+       "share": 0.872454448017149,
+       "precision": 0.15896219835402428
+      },
+      {
+       "phase": "Magnetite",
+       "n": 9958,
+       "domain": "Garnet",
+       "cid": 0,
+       "share": 0.9128339023900381,
+       "precision": 0.12679592690751848
+      }
+     ]
+    },
+    "structural/all12": {
+     "accuracy": 0.3192,
+     "purity": 0.8977,
+     "names": {
+      "0": "Garnet",
+      "1": "Chlorite",
+      "2": "Amphibole",
+      "3": "Calcite"
+     },
+     "top3": {
+      "0": [
+       [
+        "Garnet",
+        65.3,
+        "structural"
+       ],
+       [
+        "Calcite",
+        32.4,
+        "ratio"
+       ],
+       [
+        "Dolomite",
+        25.1,
+        "ratio"
+       ]
+      ],
+      "1": [
+       [
+        "Chlorite",
+        64.0,
+        "structural"
+       ],
+       [
+        "Garnet",
+        32.6,
+        "structural"
+       ],
+       [
+        "Calcite",
+        30.2,
+        "ratio"
+       ]
+      ],
+      "2": [
+       [
+        "Amphibole",
+        72.6,
+        "structural"
+       ],
+       [
+        "Biotite",
+        58.7,
+        "structural"
+       ],
+       [
+        "Calcite",
+        28.4,
+        "ratio"
+       ]
+      ],
+      "3": [
+       [
+        "Calcite",
+        30.1,
+        "ratio"
+       ],
+       [
+        "Dolomite",
+        27.3,
+        "ratio"
+       ],
+       [
+        "Amphibole",
+        5.0,
+        "structural"
+       ]
+      ]
+     },
+     "majority": [
+      {
+       "phase": "Diopside",
+       "n": 781780,
+       "domain": "Calcite",
+       "cid": 3,
+       "share": 0.9092813835094272,
+       "precision": 0.9021235229694041
+      },
+      {
+       "phase": "Chlorite",
+       "n": 525511,
+       "domain": "Chlorite",
+       "cid": 1,
+       "share": 0.807927902555798,
+       "precision": 0.9687654016757024
+      },
+      {
+       "phase": "Ilmenite",
+       "n": 13062,
+       "domain": "Garnet",
+       "cid": 0,
+       "share": 0.872454448017149,
+       "precision": 0.15896219835402428
+      },
+      {
+       "phase": "Magnetite",
+       "n": 9958,
+       "domain": "Garnet",
+       "cid": 0,
+       "share": 0.9128339023900381,
+       "precision": 0.12679592690751848
+      }
+     ]
+    },
+    "structural/noTrace": {
+     "accuracy": 0.3192,
+     "purity": 0.8977,
+     "names": {
+      "0": "Garnet",
+      "1": "Chlorite",
+      "2": "Amphibole",
+      "3": "Calcite"
+     },
+     "top3": {
+      "0": [
+       [
+        "Garnet",
+        68.4,
+        "structural"
+       ],
+       [
+        "Calcite",
+        33.3,
+        "ratio"
+       ],
+       [
+        "Dolomite",
+        25.8,
+        "ratio"
+       ]
+      ],
+      "1": [
+       [
+        "Chlorite",
+        75.0,
+        "structural"
+       ],
+       [
+        "Calcite",
+        31.0,
+        "ratio"
+       ],
+       [
+        "Garnet",
+        28.6,
+        "structural"
+       ]
+      ],
+      "2": [
+       [
+        "Amphibole",
+        78.8,
+        "structural"
+       ],
+       [
+        "Biotite",
+        72.2,
+        "structural"
+       ],
+       [
+        "Calcite",
+        29.4,
+        "ratio"
+       ]
+      ],
+      "3": [
+       [
+        "Calcite",
+        30.7,
+        "ratio"
+       ],
+       [
+        "Dolomite",
+        27.9,
+        "ratio"
+       ],
+       [
+        "Amphibole",
+        7.9,
+        "structural"
+       ]
+      ]
+     },
+     "majority": [
+      {
+       "phase": "Diopside",
+       "n": 781780,
+       "domain": "Calcite",
+       "cid": 3,
+       "share": 0.9092813835094272,
+       "precision": 0.9021235229694041
+      },
+      {
+       "phase": "Chlorite",
+       "n": 525511,
+       "domain": "Chlorite",
+       "cid": 1,
+       "share": 0.807927902555798,
+       "precision": 0.9687654016757024
+      },
+      {
+       "phase": "Ilmenite",
+       "n": 13062,
+       "domain": "Garnet",
+       "cid": 0,
+       "share": 0.872454448017149,
+       "precision": 0.15896219835402428
+      },
+      {
+       "phase": "Magnetite",
+       "n": 9958,
+       "domain": "Garnet",
+       "cid": 0,
+       "share": 0.9128339023900381,
+       "precision": 0.12679592690751848
+      }
+     ]
+    },
+    "structural/majors": {
+     "accuracy": 0.3192,
+     "purity": 0.8977,
+     "names": {
+      "0": "Garnet",
+      "1": "Chlorite",
+      "2": "Amphibole",
+      "3": "Calcite"
+     },
+     "top3": {
+      "0": [
+       [
+        "Garnet",
+        56.0,
+        "structural"
+       ],
+       [
+        "Chlorite",
+        41.6,
+        "structural"
+       ],
+       [
+        "Calcite",
+        34.7,
+        "ratio"
+       ]
+      ],
+      "1": [
+       [
+        "Chlorite",
+        78.5,
+        "structural"
+       ],
+       [
+        "Calcite",
+        31.1,
+        "ratio"
+       ],
+       [
+        "Garnet",
+        25.7,
+        "structural"
+       ]
+      ],
+      "2": [
+       [
+        "Amphibole",
+        78.2,
+        "structural"
+       ],
+       [
+        "Biotite",
+        70.9,
+        "structural"
+       ],
+       [
+        "Calcite",
+        29.6,
+        "ratio"
+       ]
+      ],
+      "3": [
+       [
+        "Calcite",
+        30.9,
+        "ratio"
+       ],
+       [
+        "Dolomite",
+        28.1,
+        "ratio"
+       ],
+       [
+        "Amphibole",
+        7.1,
+        "structural"
+       ]
+      ]
+     },
+     "majority": [
+      {
+       "phase": "Diopside",
+       "n": 781780,
+       "domain": "Calcite",
+       "cid": 3,
+       "share": 0.9092813835094272,
+       "precision": 0.9021235229694041
+      },
+      {
+       "phase": "Chlorite",
+       "n": 525511,
+       "domain": "Chlorite",
+       "cid": 1,
+       "share": 0.807927902555798,
+       "precision": 0.9687654016757024
+      },
+      {
+       "phase": "Ilmenite",
+       "n": 13062,
+       "domain": "Garnet",
+       "cid": 0,
+       "share": 0.872454448017149,
+       "precision": 0.15896219835402428
+      },
+      {
+       "phase": "Magnetite",
+       "n": 9958,
+       "domain": "Garnet",
+       "cid": 0,
+       "share": 0.9128339023900381,
+       "precision": 0.12679592690751848
+      }
+     ]
+    }
+   }
+  },
+  "gmm_all12": {
+   "k": 4,
+   "method": "icl_min",
+   "features": [
+    "Al",
+    "Ca",
+    "Cr",
+    "Fe",
+    "K",
+    "Mg",
+    "Mn",
+    "Na",
+    "Ni",
+    "O",
+    "Si",
+    "Ti"
+   ],
+   "excluded": [],
+   "domain_means": {
+    "0": {
+     "n": 1103458,
+     "Al": 7.715,
+     "Ca": 2.301,
+     "Cr": 0.808,
+     "Fe": 5.748,
+     "K": 0.255,
+     "Mg": 18.692,
+     "Mn": 0.436,
+     "Na": 0.294,
+     "Ni": 0.586,
+     "O": 44.099,
+     "Si": 18.716,
+     "Ti": 0.349
+    },
+    "1": {
+     "n": 117827,
+     "Al": 4.679,
+     "Ca": 7.489,
+     "Cr": 0.669,
+     "Fe": 7.756,
+     "K": 0.345,
+     "Mg": 12.835,
+     "Mn": 0.696,
+     "Na": 0.494,
+     "Ni": 0.773,
+     "O": 42.391,
+     "Si": 19.087,
+     "Ti": 2.786
+    },
+    "2": {
+     "n": 1130598,
+     "Al": 3.078,
+     "Ca": 12.972,
+     "Cr": 0.491,
+     "Fe": 3.83,
+     "K": 0.244,
+     "Mg": 12.039,
+     "Mn": 0.412,
+     "Na": 0.282,
+     "Ni": 0.566,
+     "O": 43.341,
+     "Si": 22.411,
+     "Ti": 0.335
+    },
+    "3": {
+     "n": 46860,
+     "Al": 5.033,
+     "Ca": 2.88,
+     "Cr": 1.015,
+     "Fe": 21.636,
+     "K": 0.253,
+     "Mg": 13.277,
+     "Mn": 0.514,
+     "Na": 0.299,
+     "Ni": 0.935,
+     "O": 38.855,
+     "Si": 14.944,
+     "Ti": 0.358
+    }
+   },
+   "variants": {
+    "ratio/all12": {
+     "accuracy": 0.3241,
+     "purity": 0.9019,
+     "names": {
+      "0": "Chlorite",
+      "1": "Biotite",
+      "2": "Amphibole",
+      "3": "Chlorite"
+     },
+     "top3": {
+      "0": [
+       [
+        "Chlorite",
+        89.9,
+        "ratio"
+       ],
+       [
+        "Garnet",
+        86.0,
+        "ratio"
+       ],
+       [
+        "Olivine",
+        71.1,
+        "ratio"
+       ]
+      ],
+      "1": [
+       [
+        "Biotite",
+        92.5,
+        "ratio"
+       ],
+       [
+        "Garnet",
+        87.6,
+        "ratio"
+       ],
+       [
+        "Amphibole",
+        84.5,
+        "ratio"
+       ]
+      ],
+      "2": [
+       [
+        "Amphibole",
+        90.2,
+        "ratio"
+       ],
+       [
+        "Biotite",
+        85.2,
+        "ratio"
+       ],
+       [
+        "Clinopyroxene",
+        79.7,
+        "ratio"
+       ]
+      ],
+      "3": [
+       [
+        "Chlorite",
+        86.8,
+        "ratio"
+       ],
+       [
+        "Garnet",
+        82.5,
+        "ratio"
+       ],
+       [
+        "Olivine",
+        81.0,
+        "ratio"
+       ]
+      ]
+     },
+     "majority": [
+      {
+       "phase": "Diopside",
+       "n": 781780,
+       "domain": "Amphibole",
+       "cid": 2,
+       "share": 0.9419862365371332,
+       "precision": 0.900991128658312
+      },
+      {
+       "phase": "Chlorite",
+       "n": 525511,
+       "domain": "Chlorite",
+       "cid": 0,
+       "share": 0.8047481403814573,
+       "precision": 0.9689254857755569
+      },
+      {
+       "phase": "Ilmenite",
+       "n": 13062,
+       "domain": "Biotite",
+       "cid": 1,
+       "share": 0.8619660082682591,
+       "precision": 0.19738779803646564
+      },
+      {
+       "phase": "Magnetite",
+       "n": 9958,
+       "domain": "Chlorite",
+       "cid": 3,
+       "share": 0.9155452902189195,
+       "precision": 0.46866807176271014
+      }
+     ]
+    },
+    "ratio/noTrace": {
+     "accuracy": 0.3241,
+     "purity": 0.9019,
+     "names": {
+      "0": "Chlorite",
+      "1": "Biotite",
+      "2": "Amphibole",
+      "3": "Chlorite"
+     },
+     "top3": {
+      "0": [
+       [
+        "Chlorite",
+        93.8,
+        "ratio"
+       ],
+       [
+        "Garnet",
+        86.2,
+        "ratio"
+       ],
+       [
+        "Olivine",
+        71.7,
+        "ratio"
+       ]
+      ],
+      "1": [
+       [
+        "Biotite",
+        89.0,
+        "ratio"
+       ],
+       [
+        "Garnet",
+        88.3,
+        "ratio"
+       ],
+       [
+        "Amphibole",
+        82.7,
+        "ratio"
+       ]
+      ],
+      "2": [
+       [
+        "Amphibole",
+        92.9,
+        "ratio"
+       ],
+       [
+        "Biotite",
+        87.8,
+        "ratio"
+       ],
+       [
+        "Clinopyroxene",
+        79.8,
+        "ratio"
+       ]
+      ],
+      "3": [
+       [
+        "Chlorite",
+        91.8,
+        "ratio"
+       ],
+       [
+        "Garnet",
+        84.8,
+        "ratio"
+       ],
+       [
+        "Olivine",
+        83.1,
+        "ratio"
+       ]
+      ]
+     },
+     "majority": [
+      {
+       "phase": "Diopside",
+       "n": 781780,
+       "domain": "Amphibole",
+       "cid": 2,
+       "share": 0.9419862365371332,
+       "precision": 0.900991128658312
+      },
+      {
+       "phase": "Chlorite",
+       "n": 525511,
+       "domain": "Chlorite",
+       "cid": 0,
+       "share": 0.8047481403814573,
+       "precision": 0.9689254857755569
+      },
+      {
+       "phase": "Ilmenite",
+       "n": 13062,
+       "domain": "Biotite",
+       "cid": 1,
+       "share": 0.8619660082682591,
+       "precision": 0.19738779803646564
+      },
+      {
+       "phase": "Magnetite",
+       "n": 9958,
+       "domain": "Chlorite",
+       "cid": 3,
+       "share": 0.9155452902189195,
+       "precision": 0.46866807176271014
+      }
+     ]
+    },
+    "ratio/majors": {
+     "accuracy": 0.3241,
+     "purity": 0.9019,
+     "names": {
+      "0": "Chlorite",
+      "1": "Biotite",
+      "2": "Amphibole",
+      "3": "Chlorite"
+     },
+     "top3": {
+      "0": [
+       [
+        "Chlorite",
+        94.5,
+        "ratio"
+       ],
+       [
+        "Garnet",
+        85.5,
+        "ratio"
+       ],
+       [
+        "Olivine",
+        72.0,
+        "ratio"
+       ]
+      ],
+      "1": [
+       [
+        "Biotite",
+        92.3,
+        "ratio"
+       ],
+       [
+        "Amphibole",
+        85.8,
+        "ratio"
+       ],
+       [
+        "Chlorite",
+        80.9,
+        "ratio"
+       ]
+      ],
+      "2": [
+       [
+        "Amphibole",
+        92.5,
+        "ratio"
+       ],
+       [
+        "Biotite",
+        87.6,
+        "ratio"
+       ],
+       [
+        "Clinopyroxene",
+        79.9,
+        "ratio"
+       ]
+      ],
+      "3": [
+       [
+        "Chlorite",
+        92.5,
+        "ratio"
+       ],
+       [
+        "Garnet",
+        85.1,
+        "ratio"
+       ],
+       [
+        "Olivine",
+        83.6,
+        "ratio"
+       ]
+      ]
+     },
+     "majority": [
+      {
+       "phase": "Diopside",
+       "n": 781780,
+       "domain": "Amphibole",
+       "cid": 2,
+       "share": 0.9419862365371332,
+       "precision": 0.900991128658312
+      },
+      {
+       "phase": "Chlorite",
+       "n": 525511,
+       "domain": "Chlorite",
+       "cid": 0,
+       "share": 0.8047481403814573,
+       "precision": 0.9689254857755569
+      },
+      {
+       "phase": "Ilmenite",
+       "n": 13062,
+       "domain": "Biotite",
+       "cid": 1,
+       "share": 0.8619660082682591,
+       "precision": 0.19738779803646564
+      },
+      {
+       "phase": "Magnetite",
+       "n": 9958,
+       "domain": "Chlorite",
+       "cid": 3,
+       "share": 0.9155452902189195,
+       "precision": 0.46866807176271014
+      }
+     ]
+    },
+    "structural/all12": {
+     "accuracy": 0.3241,
+     "purity": 0.9019,
+     "names": {
+      "0": "Chlorite",
+      "1": "Biotite",
+      "2": "Calcite",
+      "3": "Chlorite"
+     },
+     "top3": {
+      "0": [
+       [
+        "Chlorite",
+        64.3,
+        "structural"
+       ],
+       [
+        "Garnet",
+        33.6,
+        "structural"
+       ],
+       [
+        "Calcite",
+        30.1,
+        "ratio"
+       ]
+      ],
+      "1": [
+       [
+        "Biotite",
+        62.7,
+        "structural"
+       ],
+       [
+        "Garnet",
+        55.2,
+        "structural"
+       ],
+       [
+        "Calcite",
+        29.2,
+        "ratio"
+       ]
+      ],
+      "2": [
+       [
+        "Calcite",
+        30.1,
+        "ratio"
+       ],
+       [
+        "Dolomite",
+        27.4,
+        "ratio"
+       ],
+       [
+        "Clinopyroxene",
+        4.8,
+        "structural"
+       ]
+      ],
+      "3": [
+       [
+        "Chlorite",
+        76.7,
+        "structural"
+       ],
+       [
+        "Calcite",
+        37.1,
+        "ratio"
+       ],
+       [
+        "Olivine",
+        31.2,
+        "structural"
+       ]
+      ]
+     },
+     "majority": [
+      {
+       "phase": "Diopside",
+       "n": 781780,
+       "domain": "Calcite",
+       "cid": 2,
+       "share": 0.9419862365371332,
+       "precision": 0.900991128658312
+      },
+      {
+       "phase": "Chlorite",
+       "n": 525511,
+       "domain": "Chlorite",
+       "cid": 0,
+       "share": 0.8047481403814573,
+       "precision": 0.9689254857755569
+      },
+      {
+       "phase": "Ilmenite",
+       "n": 13062,
+       "domain": "Biotite",
+       "cid": 1,
+       "share": 0.8619660082682591,
+       "precision": 0.19738779803646564
+      },
+      {
+       "phase": "Magnetite",
+       "n": 9958,
+       "domain": "Chlorite",
+       "cid": 3,
+       "share": 0.9155452902189195,
+       "precision": 0.46866807176271014
+      }
+     ]
+    },
+    "structural/noTrace": {
+     "accuracy": 0.3241,
+     "purity": 0.9019,
+     "names": {
+      "0": "Chlorite",
+      "1": "Garnet",
+      "2": "Calcite",
+      "3": "Chlorite"
+     },
+     "top3": {
+      "0": [
+       [
+        "Chlorite",
+        75.4,
+        "structural"
+       ],
+       [
+        "Calcite",
+        30.8,
+        "ratio"
+       ],
+       [
+        "Garnet",
+        29.6,
+        "structural"
+       ]
+      ],
+      "1": [
+       [
+        "Garnet",
+        50.6,
+        "structural"
+       ],
+       [
+        "Biotite",
+        37.4,
+        "structural"
+       ],
+       [
+        "Calcite",
+        30.1,
+        "ratio"
+       ]
+      ],
+      "2": [
+       [
+        "Calcite",
+        30.8,
+        "ratio"
+       ],
+       [
+        "Dolomite",
+        28.0,
+        "ratio"
+       ],
+       [
+        "Amphibole",
+        6.8,
+        "structural"
+       ]
+      ],
+      "3": [
+       [
+        "Chlorite",
+        88.8,
+        "structural"
+       ],
+       [
+        "Calcite",
+        38.6,
+        "ratio"
+       ],
+       [
+        "Olivine",
+        37.0,
+        "structural"
+       ]
+      ]
+     },
+     "majority": [
+      {
+       "phase": "Diopside",
+       "n": 781780,
+       "domain": "Calcite",
+       "cid": 2,
+       "share": 0.9419862365371332,
+       "precision": 0.900991128658312
+      },
+      {
+       "phase": "Chlorite",
+       "n": 525511,
+       "domain": "Chlorite",
+       "cid": 0,
+       "share": 0.8047481403814573,
+       "precision": 0.9689254857755569
+      },
+      {
+       "phase": "Ilmenite",
+       "n": 13062,
+       "domain": "Garnet",
+       "cid": 1,
+       "share": 0.8619660082682591,
+       "precision": 0.19738779803646564
+      },
+      {
+       "phase": "Magnetite",
+       "n": 9958,
+       "domain": "Chlorite",
+       "cid": 3,
+       "share": 0.9155452902189195,
+       "precision": 0.46866807176271014
+      }
+     ]
+    },
+    "structural/majors": {
+     "accuracy": 0.3241,
+     "purity": 0.9019,
+     "names": {
+      "0": "Chlorite",
+      "1": "Biotite",
+      "2": "Calcite",
+      "3": "Chlorite"
+     },
+     "top3": {
+      "0": [
+       [
+        "Chlorite",
+        78.9,
+        "structural"
+       ],
+       [
+        "Calcite",
+        31.0,
+        "ratio"
+       ],
+       [
+        "Garnet",
+        26.6,
+        "structural"
+       ]
+      ],
+      "1": [
+       [
+        "Biotite",
+        54.8,
+        "structural"
+       ],
+       [
+        "Calcite",
+        31.5,
+        "ratio"
+       ],
+       [
+        "Dolomite",
+        25.6,
+        "ratio"
+       ]
+      ],
+      "2": [
+       [
+        "Calcite",
+        30.9,
+        "ratio"
+       ],
+       [
+        "Dolomite",
+        28.2,
+        "ratio"
+       ],
+       [
+        "Amphibole",
+        6.2,
+        "structural"
+       ]
+      ],
+      "3": [
+       [
+        "Chlorite",
+        91.0,
+        "structural"
+       ],
+       [
+        "Olivine",
+        39.9,
+        "structural"
+       ],
+       [
+        "Calcite",
+        38.8,
+        "ratio"
+       ]
+      ]
+     },
+     "majority": [
+      {
+       "phase": "Diopside",
+       "n": 781780,
+       "domain": "Calcite",
+       "cid": 2,
+       "share": 0.9419862365371332,
+       "precision": 0.900991128658312
+      },
+      {
+       "phase": "Chlorite",
+       "n": 525511,
+       "domain": "Chlorite",
+       "cid": 0,
+       "share": 0.8047481403814573,
+       "precision": 0.9689254857755569
+      },
+      {
+       "phase": "Ilmenite",
+       "n": 13062,
+       "domain": "Biotite",
+       "cid": 1,
+       "share": 0.8619660082682591,
+       "precision": 0.19738779803646564
+      },
+      {
+       "phase": "Magnetite",
+       "n": 9958,
+       "domain": "Chlorite",
+       "cid": 3,
+       "share": 0.9155452902189195,
+       "precision": 0.46866807176271014
+      }
+     ]
+    }
+   }
+  },
+  "gmm_noTrace": {
+   "k": 3,
+   "method": "icl_min",
+   "features": [
+    "Al",
+    "Ca",
+    "Fe",
+    "Mg",
+    "O",
+    "Si",
+    "Ti"
+   ],
+   "excluded": [],
+   "domain_means": {
+    "0": {
+     "n": 1166210,
+     "Al": 3.138,
+     "Ca": 12.802,
+     "Cr": 0.511,
+     "Fe": 3.866,
+     "K": 0.247,
+     "Mg": 12.123,
+     "Mn": 0.418,
+     "Na": 0.286,
+     "Ni": 0.571,
+     "O": 43.344,
+     "Si": 22.354,
+     "Ti": 0.34
+    },
+    "1": {
+     "n": 1090743,
+     "Al": 7.739,
+     "Ca": 2.272,
+     "Cr": 0.798,
+     "Fe": 5.773,
+     "K": 0.257,
+     "Mg": 18.7,
+     "Mn": 0.439,
+     "Na": 0.298,
+     "Ni": 0.595,
+     "O": 44.09,
+     "Si": 18.689,
+     "Ti": 0.348
+    },
+    "2": {
+     "n": 141790,
+     "Al": 4.796,
+     "Ca": 5.74,
+     "Cr": 0.754,
+     "Fe": 12.661,
+     "K": 0.293,
+     "Mg": 12.954,
+     "Mn": 0.605,
+     "Na": 0.404,
+     "Ni": 0.752,
+     "O": 41.173,
+     "Si": 17.532,
+     "Ti": 2.336
+    }
+   },
+   "variants": {
+    "ratio/all12": {
+     "accuracy": 0.3147,
+     "purity": 0.8944,
+     "names": {
+      "0": "Amphibole",
+      "1": "Chlorite",
+      "2": "Garnet"
+     },
+     "top3": {
+      "0": [
+       [
+        "Amphibole",
+        90.4,
+        "ratio"
+       ],
+       [
+        "Biotite",
+        85.7,
+        "ratio"
+       ],
+       [
+        "Clinopyroxene",
+        79.1,
+        "ratio"
+       ]
+      ],
+      "1": [
+       [
+        "Chlorite",
+        90.0,
+        "ratio"
+       ],
+       [
+        "Garnet",
+        86.1,
+        "ratio"
+       ],
+       [
+        "Olivine",
+        71.1,
+        "ratio"
+       ]
+      ],
+      "2": [
+       [
+        "Garnet",
+        92.8,
+        "ratio"
+       ],
+       [
+        "Biotite",
+        79.1,
+        "ratio"
+       ],
+       [
+        "Chlorite",
+        76.8,
+        "ratio"
+       ]
+      ]
+     },
+     "majority": [
+      {
+       "phase": "Diopside",
+       "n": 781780,
+       "domain": "Amphibole",
+       "cid": 0,
+       "share": 0.9521834787280309,
+       "precision": 0.8953149787656792
+      },
+      {
+       "phase": "Chlorite",
+       "n": 525511,
+       "domain": "Chlorite",
+       "cid": 1,
+       "share": 0.7965485023148897,
+       "precision": 0.972086434518073
+      },
+      {
+       "phase": "Ilmenite",
+       "n": 13062,
+       "domain": "Garnet",
+       "cid": 2,
+       "share": 0.8653345582606032,
+       "precision": 0.16558988558285354
+      },
+      {
+       "phase": "Magnetite",
+       "n": 9958,
+       "domain": "Garnet",
+       "cid": 2,
+       "share": 0.9397469371359711,
+       "precision": 0.13709547458943144
+      }
+     ]
+    },
+    "ratio/noTrace": {
+     "accuracy": 0.3147,
+     "purity": 0.8944,
+     "names": {
+      "0": "Amphibole",
+      "1": "Chlorite",
+      "2": "Garnet"
+     },
+     "top3": {
+      "0": [
+       [
+        "Amphibole",
+        93.1,
+        "ratio"
+       ],
+       [
+        "Biotite",
+        88.3,
+        "ratio"
+       ],
+       [
+        "Clinopyroxene",
+        79.1,
+        "ratio"
+       ]
+      ],
+      "1": [
+       [
+        "Chlorite",
+        93.9,
+        "ratio"
+       ],
+       [
+        "Garnet",
+        86.3,
+        "ratio"
+       ],
+       [
+        "Olivine",
+        71.7,
+        "ratio"
+       ]
+      ],
+      "2": [
+       [
+        "Garnet",
+        95.6,
+        "ratio"
+       ],
+       [
+        "Chlorite",
+        80.9,
+        "ratio"
+       ],
+       [
+        "Biotite",
+        75.6,
+        "ratio"
+       ]
+      ]
+     },
+     "majority": [
+      {
+       "phase": "Diopside",
+       "n": 781780,
+       "domain": "Amphibole",
+       "cid": 0,
+       "share": 0.9521834787280309,
+       "precision": 0.8953149787656792
+      },
+      {
+       "phase": "Chlorite",
+       "n": 525511,
+       "domain": "Chlorite",
+       "cid": 1,
+       "share": 0.7965485023148897,
+       "precision": 0.972086434518073
+      },
+      {
+       "phase": "Ilmenite",
+       "n": 13062,
+       "domain": "Garnet",
+       "cid": 2,
+       "share": 0.8653345582606032,
+       "precision": 0.16558988558285354
+      },
+      {
+       "phase": "Magnetite",
+       "n": 9958,
+       "domain": "Garnet",
+       "cid": 2,
+       "share": 0.9397469371359711,
+       "precision": 0.13709547458943144
+      }
+     ]
+    },
+    "ratio/majors": {
+     "accuracy": 0.3147,
+     "purity": 0.8944,
+     "names": {
+      "0": "Amphibole",
+      "1": "Chlorite",
+      "2": "Garnet"
+     },
+     "top3": {
+      "0": [
+       [
+        "Amphibole",
+        93.0,
+        "ratio"
+       ],
+       [
+        "Biotite",
+        88.1,
+        "ratio"
+       ],
+       [
+        "Clinopyroxene",
+        79.3,
+        "ratio"
+       ]
+      ],
+      "1": [
+       [
+        "Chlorite",
+        94.6,
+        "ratio"
+       ],
+       [
+        "Garnet",
+        85.6,
+        "ratio"
+       ],
+       [
+        "Olivine",
+        72.0,
+        "ratio"
+       ]
+      ],
+      "2": [
+       [
+        "Garnet",
+        95.3,
+        "ratio"
+       ],
+       [
+        "Chlorite",
+        85.2,
+        "ratio"
+       ],
+       [
+        "Biotite",
+        77.7,
+        "ratio"
+       ]
+      ]
+     },
+     "majority": [
+      {
+       "phase": "Diopside",
+       "n": 781780,
+       "domain": "Amphibole",
+       "cid": 0,
+       "share": 0.9521834787280309,
+       "precision": 0.8953149787656792
+      },
+      {
+       "phase": "Chlorite",
+       "n": 525511,
+       "domain": "Chlorite",
+       "cid": 1,
+       "share": 0.7965485023148897,
+       "precision": 0.972086434518073
+      },
+      {
+       "phase": "Ilmenite",
+       "n": 13062,
+       "domain": "Garnet",
+       "cid": 2,
+       "share": 0.8653345582606032,
+       "precision": 0.16558988558285354
+      },
+      {
+       "phase": "Magnetite",
+       "n": 9958,
+       "domain": "Garnet",
+       "cid": 2,
+       "share": 0.9397469371359711,
+       "precision": 0.13709547458943144
+      }
+     ]
+    },
+    "structural/all12": {
+     "accuracy": 0.3147,
+     "purity": 0.8944,
+     "names": {
+      "0": "Calcite",
+      "1": "Chlorite",
+      "2": "Garnet"
+     },
+     "top3": {
+      "0": [
+       [
+        "Calcite",
+        30.1,
+        "ratio"
+       ],
+       [
+        "Dolomite",
+        27.3,
+        "ratio"
+       ],
+       [
+        "Amphibole",
+        5.5,
+        "structural"
+       ]
+      ],
+      "1": [
+       [
+        "Chlorite",
+        64.7,
+        "structural"
+       ],
+       [
+        "Garnet",
+        34.0,
+        "structural"
+       ],
+       [
+        "Calcite",
+        30.1,
+        "ratio"
+       ]
+      ],
+      "2": [
+       [
+        "Garnet",
+        69.5,
+        "structural"
+       ],
+       [
+        "Calcite",
+        31.7,
+        "ratio"
+       ],
+       [
+        "Dolomite",
+        24.5,
+        "ratio"
+       ]
+      ]
+     },
+     "majority": [
+      {
+       "phase": "Diopside",
+       "n": 781780,
+       "domain": "Calcite",
+       "cid": 0,
+       "share": 0.9521834787280309,
+       "precision": 0.8953149787656792
+      },
+      {
+       "phase": "Chlorite",
+       "n": 525511,
+       "domain": "Chlorite",
+       "cid": 1,
+       "share": 0.7965485023148897,
+       "precision": 0.972086434518073
+      },
+      {
+       "phase": "Ilmenite",
+       "n": 13062,
+       "domain": "Garnet",
+       "cid": 2,
+       "share": 0.8653345582606032,
+       "precision": 0.16558988558285354
+      },
+      {
+       "phase": "Magnetite",
+       "n": 9958,
+       "domain": "Garnet",
+       "cid": 2,
+       "share": 0.9397469371359711,
+       "precision": 0.13709547458943144
+      }
+     ]
+    },
+    "structural/noTrace": {
+     "accuracy": 0.3147,
+     "purity": 0.8944,
+     "names": {
+      "0": "Calcite",
+      "1": "Chlorite",
+      "2": "Garnet"
+     },
+     "top3": {
+      "0": [
+       [
+        "Calcite",
+        30.8,
+        "ratio"
+       ],
+       [
+        "Dolomite",
+        27.9,
+        "ratio"
+       ],
+       [
+        "Amphibole",
+        8.7,
+        "structural"
+       ]
+      ],
+      "1": [
+       [
+        "Chlorite",
+        75.8,
+        "structural"
+       ],
+       [
+        "Calcite",
+        30.8,
+        "ratio"
+       ],
+       [
+        "Garnet",
+        30.0,
+        "structural"
+       ]
+      ],
+      "2": [
+       [
+        "Garnet",
+        72.3,
+        "structural"
+       ],
+       [
+        "Calcite",
+        32.8,
+        "ratio"
+       ],
+       [
+        "Dolomite",
+        25.2,
+        "ratio"
+       ]
+      ]
+     },
+     "majority": [
+      {
+       "phase": "Diopside",
+       "n": 781780,
+       "domain": "Calcite",
+       "cid": 0,
+       "share": 0.9521834787280309,
+       "precision": 0.8953149787656792
+      },
+      {
+       "phase": "Chlorite",
+       "n": 525511,
+       "domain": "Chlorite",
+       "cid": 1,
+       "share": 0.7965485023148897,
+       "precision": 0.972086434518073
+      },
+      {
+       "phase": "Ilmenite",
+       "n": 13062,
+       "domain": "Garnet",
+       "cid": 2,
+       "share": 0.8653345582606032,
+       "precision": 0.16558988558285354
+      },
+      {
+       "phase": "Magnetite",
+       "n": 9958,
+       "domain": "Garnet",
+       "cid": 2,
+       "share": 0.9397469371359711,
+       "precision": 0.13709547458943144
+      }
+     ]
+    },
+    "structural/majors": {
+     "accuracy": 0.3147,
+     "purity": 0.8944,
+     "names": {
+      "0": "Calcite",
+      "1": "Chlorite",
+      "2": "Garnet"
+     },
+     "top3": {
+      "0": [
+       [
+        "Calcite",
+        30.9,
+        "ratio"
+       ],
+       [
+        "Dolomite",
+        28.1,
+        "ratio"
+       ],
+       [
+        "Amphibole",
+        7.9,
+        "structural"
+       ]
+      ],
+      "1": [
+       [
+        "Chlorite",
+        79.3,
+        "structural"
+       ],
+       [
+        "Calcite",
+        31.0,
+        "ratio"
+       ],
+       [
+        "Garnet",
+        27.1,
+        "structural"
+       ]
+      ],
+      "2": [
+       [
+        "Garnet",
+        73.4,
+        "structural"
+       ],
+       [
+        "Chlorite",
+        45.0,
+        "structural"
+       ],
+       [
+        "Calcite",
+        34.0,
+        "ratio"
+       ]
+      ]
+     },
+     "majority": [
+      {
+       "phase": "Diopside",
+       "n": 781780,
+       "domain": "Calcite",
+       "cid": 0,
+       "share": 0.9521834787280309,
+       "precision": 0.8953149787656792
+      },
+      {
+       "phase": "Chlorite",
+       "n": 525511,
+       "domain": "Chlorite",
+       "cid": 1,
+       "share": 0.7965485023148897,
+       "precision": 0.972086434518073
+      },
+      {
+       "phase": "Ilmenite",
+       "n": 13062,
+       "domain": "Garnet",
+       "cid": 2,
+       "share": 0.8653345582606032,
+       "precision": 0.16558988558285354
+      },
+      {
+       "phase": "Magnetite",
+       "n": 9958,
+       "domain": "Garnet",
+       "cid": 2,
+       "share": 0.9397469371359711,
+       "precision": 0.13709547458943144
+      }
+     ]
+    }
+   }
+  }
+ }
+}

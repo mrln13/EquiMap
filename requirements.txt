@@ -1,0 +1,42 @@
+# THERMOD dependencies
+# Tested with Python 3.11.12 (conda env: THERMOD)
+#
+# Install:
+#   pip install -r requirements.txt
+#
+# Additional setup required:
+#   - Julia + MAGEMin_C.jl: see README.md and installer/INSTALL.md (needed for magemin backend)
+#   - Perple_X 7.x executables: see README.md and installer/INSTALL.md (needed for perplex backend)
+
+# --- SEM data I/O ---
+hyperspy>=2.3.0          # Bruker BCF file reading
+rosettasciio>=0.10.0     # file format backends used by HyperSpy
+h5py>=3.0               # Oxford .h5oina (EBSD+EDS HDF5) reader in oxford_loader (usually pulled in by hyperspy)
+tifffile>=2024.1        # Oxford BSE TIFF write + read (oxford_loader)
+
+# --- Core numerical ---
+numpy>=2.0
+scipy>=1.16
+pandas>=2.0
+
+# --- Image processing ---
+scikit-image>=0.25
+Pillow>=11.0
+
+# --- Visualisation ---
+matplotlib>=3.10
+napari>=0.6.5
+PyQt5>=5.15             # napari Qt backend
+
+# --- Utilities ---
+tqdm>=4.0
+psutil>=5.9             # available-RAM probe for the large-ROI EDS memory guard (optional; degrades gracefully)
+
+# --- Thermodynamic backends ---
+petthermotools==0.4.0   # manages Julia env with MAGEMin_C.jl for magemin backend (pin: API changed between versions)
+pycalphad>=0.11.1       # alloy/ceramics backend (needs a TDB database file)
+
+# --- Phase segmentation ---
+scikit-learn>=1.3        # GMM clustering + silhouette/CH scoring (viewer.py phase segmentation)
+umap-learn>=0.5          # dimensionality reduction (main.py only)
+sigma>=0.0.1             # SEM segmentation via UMAP+HDBSCAN (main.py only)

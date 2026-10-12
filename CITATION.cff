@@ -1,0 +1,32 @@
+cff-version: 1.2.0
+message: "If you use EquiMap, please cite it as below. A methods paper is in preparation; update preferred-citation once it is published."
+title: "EquiMap: from SEM/EDS map tiles to phase maps, mineral identification and P-T estimates"
+type: software
+authors:
+  - family-names: "van Melick"
+    given-names: "Hans"
+    affiliation: "Department of Earth Sciences, Utrecht University, The Netherlands"
+  - family-names: "Plümper"
+    given-names: "Oliver"
+    affiliation: "Faculty of Geosciences and MARUM, University of Bremen, Germany"
+repository-code: "https://github.com/mrln13/EquiMap"
+license: GPL-3.0
+version: 0.1.0
+date-released: 2026-10-12
+keywords:
+  - SEM
+  - EDS
+  - mosaic stitching
+  - phase segmentation
+  - mineral identification
+  - thermodynamic modelling
+  - MAGEMin
+  - Perple_X
+  - petrology
+abstract: >-
+  EquiMap is an open Python toolkit that stitches raw SEM/EDS tiles into a
+  large-area mosaic that keeps its spectra, segments it into phase domains,
+  suggests mineral names from a curated library, measures the length scale
+  over which a bulk composition is representative, and feeds the result to
+  pluggable thermodynamic backends (MAGEMin, Perple_X, pycalphad) for
+  pressure-temperature estimation.

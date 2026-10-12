@@ -1,0 +1,7146 @@
+{
+ "1": {
+  "published_bin2": {
+   "e0/ratio/all12": {
+    "accuracy": 0.3192,
+    "purity": 0.8977,
+    "names": {
+     "0": "Garnet",
+     "1": "Chlorite",
+     "2": "Amphibole",
+     "3": "Amphibole"
+    },
+    "top3": {
+     "0": [
+      [
+       "Garnet",
+       0.925
+      ],
+      [
+       "Biotite",
+       0.805
+      ],
+      [
+       "Chlorite",
+       0.76
+      ]
+     ],
+     "1": [
+      [
+       "Chlorite",
+       0.898
+      ],
+      [
+       "Garnet",
+       0.857
+      ],
+      [
+       "Olivine",
+       0.713
+      ]
+     ],
+     "2": [
+      [
+       "Amphibole",
+       0.934
+      ],
+      [
+       "Biotite",
+       0.925
+      ],
+      [
+       "Garnet",
+       0.749
+      ]
+     ],
+     "3": [
+      [
+       "Amphibole",
+       0.904
+      ],
+      [
+       "Biotite",
+       0.854
+      ],
+      [
+       "Clinopyroxene",
+       0.794
+      ]
+     ]
+    },
+    "n_px": {
+     "0": 127267,
+     "1": 1092856,
+     "2": 97348,
+     "3": 1081272
+    }
+   },
+   "e0/ratio/noTrace": {
+    "accuracy": 0.3192,
+    "purity": 0.8977,
+    "names": {
+     "0": "Garnet",
+     "1": "Chlorite",
+     "2": "Biotite",
+     "3": "Amphibole"
+    },
+    "top3": {
+     "0": [
+      [
+       "Garnet",
+       0.949
+      ],
+      [
+       "Chlorite",
+       0.794
+      ],
+      [
+       "Biotite",
+       0.781
+      ]
+     ],
+     "1": [
+      [
+       "Chlorite",
+       0.936
+      ],
+      [
+       "Garnet",
+       0.86
+      ],
+      [
+       "Olivine",
+       0.719
+      ]
+     ],
+     "2": [
+      [
+       "Biotite",
+       0.989
+      ],
+      [
+       "Amphibole",
+       0.969
+      ],
+      [
+       "Garnet",
+       0.748
+      ]
+     ],
+     "3": [
+      [
+       "Amphibole",
+       0.931
+      ],
+      [
+       "Biotite",
+       0.881
+      ],
+      [
+       "Clinopyroxene",
+       0.794
+      ]
+     ]
+    },
+    "n_px": {
+     "0": 127267,
+     "1": 1092856,
+     "2": 97348,
+     "3": 1081272
+    }
+   },
+   "e0/ratio/majors": {
+    "accuracy": 0.3192,
+    "purity": 0.8977,
+    "names": {
+     "0": "Garnet",
+     "1": "Chlorite",
+     "2": "Biotite",
+     "3": "Amphibole"
+    },
+    "top3": {
+     "0": [
+      [
+       "Garnet",
+       0.915
+      ],
+      [
+       "Chlorite",
+       0.839
+      ],
+      [
+       "Biotite",
+       0.805
+      ]
+     ],
+     "1": [
+      [
+       "Chlorite",
+       0.943
+      ],
+      [
+       "Garnet",
+       0.853
+      ],
+      [
+       "Olivine",
+       0.722
+      ]
+     ],
+     "2": [
+      [
+       "Biotite",
+       0.988
+      ],
+      [
+       "Amphibole",
+       0.975
+      ],
+      [
+       "Garnet",
+       0.736
+      ]
+     ],
+     "3": [
+      [
+       "Amphibole",
+       0.927
+      ],
+      [
+       "Biotite",
+       0.879
+      ],
+      [
+       "Clinopyroxene",
+       0.796
+      ]
+     ]
+    },
+    "n_px": {
+     "0": 127267,
+     "1": 1092856,
+     "2": 97348,
+     "3": 1081272
+    }
+   },
+   "e0/structural/all12": {
+    "accuracy": 0.3192,
+    "purity": 0.8977,
+    "names": {
+     "0": "Garnet",
+     "1": "Chlorite",
+     "2": "Amphibole",
+     "3": "Amphibole"
+    },
+    "top3": {
+     "0": [
+      [
+       "Garnet",
+       0.653
+      ],
+      [
+       "Chlorite",
+       0.159
+      ],
+      [
+       "Olivine",
+       0.118
+      ]
+     ],
+     "1": [
+      [
+       "Chlorite",
+       0.64
+      ],
+      [
+       "Garnet",
+       0.326
+      ],
+      [
+       "Orthopyroxene",
+       0.102
+      ]
+     ],
+     "2": [
+      [
+       "Amphibole",
+       0.726
+      ],
+      [
+       "Biotite",
+       0.587
+      ],
+      [
+       "Garnet",
+       0.073
+      ]
+     ],
+     "3": [
+      [
+       "Amphibole",
+       0.05
+      ],
+      [
+       "Clinopyroxene",
+       0.042
+      ],
+      [
+       "Plagioclase",
+       0.038
+      ]
+     ]
+    },
+    "n_px": {
+     "0": 127267,
+     "1": 1092856,
+     "2": 97348,
+     "3": 1081272
+    }
+   },
+   "e0/structural/noTrace": {
+    "accuracy": 0.3192,
+    "purity": 0.8977,
+    "names": {
+     "0": "Garnet",
+     "1": "Chlorite",
+     "2": "Amphibole",
+     "3": "Amphibole"
+    },
+    "top3": {
+     "0": [
+      [
+       "Garnet",
+       0.684
+      ],
+      [
+       "Chlorite",
+       0.21
+      ],
+      [
+       "Orthopyroxene",
+       0.127
+      ]
+     ],
+     "1": [
+      [
+       "Chlorite",
+       0.75
+      ],
+      [
+       "Garnet",
+       0.286
+      ],
+      [
+       "Orthopyroxene",
+       0.126
+      ]
+     ],
+     "2": [
+      [
+       "Amphibole",
+       0.788
+      ],
+      [
+       "Biotite",
+       0.722
+      ],
+      [
+       "Chlorite",
+       0.074
+      ]
+     ],
+     "3": [
+      [
+       "Amphibole",
+       0.079
+      ],
+      [
+       "Biotite",
+       0.068
+      ],
+      [
+       "Plagioclase",
+       0.045
+      ]
+     ]
+    },
+    "n_px": {
+     "0": 127267,
+     "1": 1092856,
+     "2": 97348,
+     "3": 1081272
+    }
+   },
+   "e0/structural/majors": {
+    "accuracy": 0.3192,
+    "purity": 0.8977,
+    "names": {
+     "0": "Garnet",
+     "1": "Chlorite",
+     "2": "Amphibole",
+     "3": "Amphibole"
+    },
+    "top3": {
+     "0": [
+      [
+       "Garnet",
+       0.56
+      ],
+      [
+       "Chlorite",
+       0.416
+      ],
+      [
+       "Olivine",
+       0.18
+      ]
+     ],
+     "1": [
+      [
+       "Chlorite",
+       0.785
+      ],
+      [
+       "Garnet",
+       0.257
+      ],
+      [
+       "Orthopyroxene",
+       0.132
+      ]
+     ],
+     "2": [
+      [
+       "Amphibole",
+       0.782
+      ],
+      [
+       "Biotite",
+       0.709
+      ],
+      [
+       "Chlorite",
+       0.08
+      ]
+     ],
+     "3": [
+      [
+       "Amphibole",
+       0.071
+      ],
+      [
+       "Biotite",
+       0.061
+      ],
+      [
+       "Plagioclase",
+       0.048
+      ]
+     ]
+    },
+    "n_px": {
+     "0": 127267,
+     "1": 1092856,
+     "2": 97348,
+     "3": 1081272
+    }
+   },
+   "e1/ratio/all12": {
+    "accuracy": 0.3192,
+    "purity": 0.8977,
+    "names": {
+     "0": "Garnet",
+     "1": "Chlorite",
+     "2": "Amphibole",
+     "3": "Amphibole"
+    },
+    "top3": {
+     "0": [
+      [
+       "Garnet",
+       0.827
+      ],
+      [
+       "Olivine",
+       0.757
+      ],
+      [
+       "Chlorite",
+       0.745
+      ]
+     ],
+     "1": [
+      [
+       "Chlorite",
+       0.903
+      ],
+      [
+       "Garnet",
+       0.861
+      ],
+      [
+       "Olivine",
+       0.713
+      ]
+     ],
+     "2": [
+      [
+       "Amphibole",
+       0.951
+      ],
+      [
+       "Biotite",
+       0.921
+      ],
+      [
+       "Garnet",
+       0.774
+      ]
+     ],
+     "3": [
+      [
+       "Amphibole",
+       0.859
+      ],
+      [
+       "Clinopyroxene",
+       0.857
+      ],
+      [
+       "Biotite",
+       0.807
+      ]
+     ]
+    },
+    "n_px": {
+     "0": 55270,
+     "1": 833166,
+     "2": 47216,
+     "3": 785426
+    }
+   },
+   "e1/ratio/noTrace": {
+    "accuracy": 0.3192,
+    "purity": 0.8977,
+    "names": {
+     "0": "Garnet",
+     "1": "Chlorite",
+     "2": "Biotite",
+     "3": "Amphibole"
+    },
+    "top3": {
+     "0": [
+      [
+       "Garnet",
+       0.849
+      ],
+      [
+       "Olivine",
+       0.773
+      ],
+      [
+       "Chlorite",
+       0.77
+      ]
+     ],
+     "1": [
+      [
+       "Chlorite",
+       0.942
+      ],
+      [
+       "Garnet",
+       0.864
+      ],
+      [
+       "Olivine",
+       0.719
+      ]
+     ],
+     "2": [
+      [
+       "Biotite",
+       0.995
+      ],
+      [
+       "Amphibole",
+       0.956
+      ],
+      [
+       "Garnet",
+       0.775
+      ]
+     ],
+     "3": [
+      [
+       "Amphibole",
+       0.877
+      ],
+      [
+       "Clinopyroxene",
+       0.857
+      ],
+      [
+       "Biotite",
+       0.831
+      ]
+     ]
+    },
+    "n_px": {
+     "0": 55270,
+     "1": 833166,
+     "2": 47216,
+     "3": 785426
+    }
+   },
+   "e1/ratio/majors": {
+    "accuracy": 0.3192,
+    "purity": 0.8977,
+    "names": {
+     "0": "Garnet",
+     "1": "Chlorite",
+     "2": "Biotite",
+     "3": "Amphibole"
+    },
+    "top3": {
+     "0": [
+      [
+       "Garnet",
+       0.893
+      ],
+      [
+       "Chlorite",
+       0.859
+      ],
+      [
+       "Olivine",
+       0.847
+      ]
+     ],
+     "1": [
+      [
+       "Chlorite",
+       0.949
+      ],
+      [
+       "Garnet",
+       0.857
+      ],
+      [
+       "Olivine",
+       0.722
+      ]
+     ],
+     "2": [
+      [
+       "Biotite",
+       0.999
+      ],
+      [
+       "Amphibole",
+       0.96
+      ],
+      [
+       "Garnet",
+       0.761
+      ]
+     ],
+     "3": [
+      [
+       "Amphibole",
+       0.872
+      ],
+      [
+       "Clinopyroxene",
+       0.86
+      ],
+      [
+       "Biotite",
+       0.829
+      ]
+     ]
+    },
+    "n_px": {
+     "0": 55270,
+     "1": 833166,
+     "2": 47216,
+     "3": 785426
+    }
+   },
+   "e1/structural/all12": {
+    "accuracy": 0.8685,
+    "purity": 0.8977,
+    "names": {
+     "0": "Chlorite",
+     "1": "Chlorite",
+     "2": "Amphibole",
+     "3": "Clinopyroxene"
+    },
+    "top3": {
+     "0": [
+      [
+       "Chlorite",
+       0.189
+      ],
+      [
+       "Garnet",
+       0.135
+      ],
+      [
+       "Olivine",
+       0.119
+      ]
+     ],
+     "1": [
+      [
+       "Chlorite",
+       0.666
+      ],
+      [
+       "Garnet",
+       0.335
+      ],
+      [
+       "Orthopyroxene",
+       0.098
+      ]
+     ],
+     "2": [
+      [
+       "Amphibole",
+       0.823
+      ],
+      [
+       "Biotite",
+       0.526
+      ],
+      [
+       "Garnet",
+       0.133
+      ]
+     ],
+     "3": [
+      [
+       "Clinopyroxene",
+       0.229
+      ],
+      [
+       "Plagioclase",
+       0.029
+      ],
+      [
+       "Olivine",
+       0.015
+      ]
+     ]
+    },
+    "n_px": {
+     "0": 55270,
+     "1": 833166,
+     "2": 47216,
+     "3": 785426
+    }
+   },
+   "e1/structural/noTrace": {
+    "accuracy": 0.8685,
+    "purity": 0.8977,
+    "names": {
+     "0": "Chlorite",
+     "1": "Chlorite",
+     "2": "Amphibole",
+     "3": "Clinopyroxene"
+    },
+    "top3": {
+     "0": [
+      [
+       "Chlorite",
+       0.214
+      ],
+      [
+       "Garnet",
+       0.154
+      ],
+      [
+       "Olivine",
+       0.137
+      ]
+     ],
+     "1": [
+      [
+       "Chlorite",
+       0.776
+      ],
+      [
+       "Garnet",
+       0.296
+      ],
+      [
+       "Orthopyroxene",
+       0.12
+      ]
+     ],
+     "2": [
+      [
+       "Amphibole",
+       0.755
+      ],
+      [
+       "Biotite",
+       0.588
+      ],
+      [
+       "Garnet",
+       0.098
+      ]
+     ],
+     "3": [
+      [
+       "Clinopyroxene",
+       0.194
+      ],
+      [
+       "Plagioclase",
+       0.039
+      ],
+      [
+       "Olivine",
+       0.012
+      ]
+     ]
+    },
+    "n_px": {
+     "0": 55270,
+     "1": 833166,
+     "2": 47216,
+     "3": 785426
+    }
+   },
+   "e1/structural/majors": {
+    "accuracy": 0.8685,
+    "purity": 0.8977,
+    "names": {
+     "0": "Chlorite",
+     "1": "Chlorite",
+     "2": "Amphibole",
+     "3": "Clinopyroxene"
+    },
+    "top3": {
+     "0": [
+      [
+       "Chlorite",
+       0.655
+      ],
+      [
+       "Olivine",
+       0.433
+      ],
+      [
+       "Garnet",
+       0.213
+      ]
+     ],
+     "1": [
+      [
+       "Chlorite",
+       0.81
+      ],
+      [
+       "Garnet",
+       0.267
+      ],
+      [
+       "Orthopyroxene",
+       0.127
+      ]
+     ],
+     "2": [
+      [
+       "Amphibole",
+       0.755
+      ],
+      [
+       "Biotite",
+       0.576
+      ],
+      [
+       "Chlorite",
+       0.086
+      ]
+     ],
+     "3": [
+      [
+       "Clinopyroxene",
+       0.198
+      ],
+      [
+       "Plagioclase",
+       0.04
+      ],
+      [
+       "Olivine",
+       0.012
+      ]
+     ]
+    },
+    "n_px": {
+     "0": 55270,
+     "1": 833166,
+     "2": 47216,
+     "3": 785426
+    }
+   },
+   "e2/ratio/all12": {
+    "accuracy": 0.8685,
+    "purity": 0.8977,
+    "names": {
+     "0": "Chlorite",
+     "1": "Chlorite",
+     "2": "Amphibole",
+     "3": "Clinopyroxene"
+    },
+    "top3": {
+     "0": [
+      [
+       "Chlorite",
+       0.702
+      ],
+      [
+       "Garnet",
+       0.677
+      ],
+      [
+       "Olivine",
+       0.671
+      ]
+     ],
+     "1": [
+      [
+       "Chlorite",
+       0.906
+      ],
+      [
+       "Garnet",
+       0.864
+      ],
+      [
+       "Olivine",
+       0.713
+      ]
+     ],
+     "2": [
+      [
+       "Amphibole",
+       0.957
+      ],
+      [
+       "Biotite",
+       0.925
+      ],
+      [
+       "Garnet",
+       0.809
+      ]
+     ],
+     "3": [
+      [
+       "Clinopyroxene",
+       0.884
+      ],
+      [
+       "Amphibole",
+       0.837
+      ],
+      [
+       "Biotite",
+       0.787
+      ]
+     ]
+    },
+    "n_px": {
+     "0": 17938,
+     "1": 620158,
+     "2": 26788,
+     "3": 552471
+    }
+   },
+   "e2/ratio/noTrace": {
+    "accuracy": 0.8685,
+    "purity": 0.8977,
+    "names": {
+     "0": "Chlorite",
+     "1": "Chlorite",
+     "2": "Biotite",
+     "3": "Clinopyroxene"
+    },
+    "top3": {
+     "0": [
+      [
+       "Chlorite",
+       0.734
+      ],
+      [
+       "Olivine",
+       0.695
+      ],
+      [
+       "Garnet",
+       0.694
+      ]
+     ],
+     "1": [
+      [
+       "Chlorite",
+       0.945
+      ],
+      [
+       "Garnet",
+       0.866
+      ],
+      [
+       "Olivine",
+       0.719
+      ]
+     ],
+     "2": [
+      [
+       "Biotite",
+       0.947
+      ],
+      [
+       "Amphibole",
+       0.911
+      ],
+      [
+       "Garnet",
+       0.814
+      ]
+     ],
+     "3": [
+      [
+       "Clinopyroxene",
+       0.885
+      ],
+      [
+       "Amphibole",
+       0.854
+      ],
+      [
+       "Biotite",
+       0.81
+      ]
+     ]
+    },
+    "n_px": {
+     "0": 17938,
+     "1": 620158,
+     "2": 26788,
+     "3": 552471
+    }
+   },
+   "e2/ratio/majors": {
+    "accuracy": 0.8685,
+    "purity": 0.8977,
+    "names": {
+     "0": "Chlorite",
+     "1": "Chlorite",
+     "2": "Biotite",
+     "3": "Clinopyroxene"
+    },
+    "top3": {
+     "0": [
+      [
+       "Chlorite",
+       0.868
+      ],
+      [
+       "Olivine",
+       0.82
+      ],
+      [
+       "Garnet",
+       0.751
+      ]
+     ],
+     "1": [
+      [
+       "Chlorite",
+       0.951
+      ],
+      [
+       "Garnet",
+       0.859
+      ],
+      [
+       "Olivine",
+       0.722
+      ]
+     ],
+     "2": [
+      [
+       "Biotite",
+       0.951
+      ],
+      [
+       "Amphibole",
+       0.915
+      ],
+      [
+       "Garnet",
+       0.796
+      ]
+     ],
+     "3": [
+      [
+       "Clinopyroxene",
+       0.887
+      ],
+      [
+       "Amphibole",
+       0.85
+      ],
+      [
+       "Biotite",
+       0.808
+      ]
+     ]
+    },
+    "n_px": {
+     "0": 17938,
+     "1": 620158,
+     "2": 26788,
+     "3": 552471
+    }
+   },
+   "e2/structural/all12": {
+    "accuracy": 0.8685,
+    "purity": 0.8977,
+    "names": {
+     "0": "Chlorite",
+     "1": "Chlorite",
+     "2": "Amphibole",
+     "3": "Clinopyroxene"
+    },
+    "top3": {
+     "0": [
+      [
+       "Chlorite",
+       0.109
+      ],
+      [
+       "Olivine",
+       0.02
+      ],
+      [
+       "Apatite",
+       0.002
+      ]
+     ],
+     "1": [
+      [
+       "Chlorite",
+       0.679
+      ],
+      [
+       "Garnet",
+       0.339
+      ],
+      [
+       "Orthopyroxene",
+       0.095
+      ]
+     ],
+     "2": [
+      [
+       "Amphibole",
+       0.878
+      ],
+      [
+       "Biotite",
+       0.492
+      ],
+      [
+       "Garnet",
+       0.256
+      ]
+     ],
+     "3": [
+      [
+       "Clinopyroxene",
+       0.383
+      ],
+      [
+       "Plagioclase",
+       0.021
+      ],
+      [
+       "Olivine",
+       0.013
+      ]
+     ]
+    },
+    "n_px": {
+     "0": 17938,
+     "1": 620158,
+     "2": 26788,
+     "3": 552471
+    }
+   },
+   "e2/structural/noTrace": {
+    "accuracy": 0.8685,
+    "purity": 0.8977,
+    "names": {
+     "0": "Chlorite",
+     "1": "Chlorite",
+     "2": "Amphibole",
+     "3": "Clinopyroxene"
+    },
+    "top3": {
+     "0": [
+      [
+       "Chlorite",
+       0.154
+      ],
+      [
+       "Olivine",
+       0.028
+      ],
+      [
+       "Apatite",
+       0.002
+      ]
+     ],
+     "1": [
+      [
+       "Chlorite",
+       0.789
+      ],
+      [
+       "Garnet",
+       0.301
+      ],
+      [
+       "Orthopyroxene",
+       0.118
+      ]
+     ],
+     "2": [
+      [
+       "Amphibole",
+       0.548
+      ],
+      [
+       "Biotite",
+       0.407
+      ],
+      [
+       "Garnet",
+       0.198
+      ]
+     ],
+     "3": [
+      [
+       "Clinopyroxene",
+       0.338
+      ],
+      [
+       "Plagioclase",
+       0.029
+      ],
+      [
+       "Olivine",
+       0.01
+      ]
+     ]
+    },
+    "n_px": {
+     "0": 17938,
+     "1": 620158,
+     "2": 26788,
+     "3": 552471
+    }
+   },
+   "e2/structural/majors": {
+    "accuracy": 0.8685,
+    "purity": 0.8977,
+    "names": {
+     "0": "Chlorite",
+     "1": "Chlorite",
+     "2": "Amphibole",
+     "3": "Clinopyroxene"
+    },
+    "top3": {
+     "0": [
+      [
+       "Chlorite",
+       0.654
+      ],
+      [
+       "Olivine",
+       0.307
+      ],
+      [
+       "Apatite",
+       0.075
+      ]
+     ],
+     "1": [
+      [
+       "Chlorite",
+       0.822
+      ],
+      [
+       "Garnet",
+       0.273
+      ],
+      [
+       "Orthopyroxene",
+       0.124
+      ]
+     ],
+     "2": [
+      [
+       "Amphibole",
+       0.56
+      ],
+      [
+       "Biotite",
+       0.436
+      ],
+      [
+       "Garnet",
+       0.145
+      ]
+     ],
+     "3": [
+      [
+       "Clinopyroxene",
+       0.344
+      ],
+      [
+       "Plagioclase",
+       0.029
+      ],
+      [
+       "Olivine",
+       0.01
+      ]
+     ]
+    },
+    "n_px": {
+     "0": 17938,
+     "1": 620158,
+     "2": 26788,
+     "3": 552471
+    }
+   }
+  },
+  "gmm_all12": {
+   "e0/ratio/all12": {
+    "accuracy": 0.3241,
+    "purity": 0.9019,
+    "names": {
+     "0": "Chlorite",
+     "1": "Biotite",
+     "2": "Amphibole",
+     "3": "Chlorite"
+    },
+    "top3": {
+     "0": [
+      [
+       "Chlorite",
+       0.899
+      ],
+      [
+       "Garnet",
+       0.86
+      ],
+      [
+       "Olivine",
+       0.711
+      ]
+     ],
+     "1": [
+      [
+       "Biotite",
+       0.925
+      ],
+      [
+       "Garnet",
+       0.876
+      ],
+      [
+       "Amphibole",
+       0.845
+      ]
+     ],
+     "2": [
+      [
+       "Amphibole",
+       0.902
+      ],
+      [
+       "Biotite",
+       0.852
+      ],
+      [
+       "Clinopyroxene",
+       0.797
+      ]
+     ],
+     "3": [
+      [
+       "Chlorite",
+       0.868
+      ],
+      [
+       "Garnet",
+       0.825
+      ],
+      [
+       "Olivine",
+       0.81
+      ]
+     ]
+    },
+    "n_px": {
+     "0": 1103458,
+     "1": 117827,
+     "2": 1130598,
+     "3": 46860
+    }
+   },
+   "e0/ratio/noTrace": {
+    "accuracy": 0.3241,
+    "purity": 0.9019,
+    "names": {
+     "0": "Chlorite",
+     "1": "Biotite",
+     "2": "Amphibole",
+     "3": "Chlorite"
+    },
+    "top3": {
+     "0": [
+      [
+       "Chlorite",
+       0.938
+      ],
+      [
+       "Garnet",
+       0.862
+      ],
+      [
+       "Olivine",
+       0.717
+      ]
+     ],
+     "1": [
+      [
+       "Biotite",
+       0.89
+      ],
+      [
+       "Garnet",
+       0.883
+      ],
+      [
+       "Amphibole",
+       0.827
+      ]
+     ],
+     "2": [
+      [
+       "Amphibole",
+       0.929
+      ],
+      [
+       "Biotite",
+       0.878
+      ],
+      [
+       "Clinopyroxene",
+       0.798
+      ]
+     ],
+     "3": [
+      [
+       "Chlorite",
+       0.918
+      ],
+      [
+       "Garnet",
+       0.848
+      ],
+      [
+       "Olivine",
+       0.831
+      ]
+     ]
+    },
+    "n_px": {
+     "0": 1103458,
+     "1": 117827,
+     "2": 1130598,
+     "3": 46860
+    }
+   },
+   "e0/ratio/majors": {
+    "accuracy": 0.3241,
+    "purity": 0.9019,
+    "names": {
+     "0": "Chlorite",
+     "1": "Biotite",
+     "2": "Amphibole",
+     "3": "Chlorite"
+    },
+    "top3": {
+     "0": [
+      [
+       "Chlorite",
+       0.945
+      ],
+      [
+       "Garnet",
+       0.855
+      ],
+      [
+       "Olivine",
+       0.72
+      ]
+     ],
+     "1": [
+      [
+       "Biotite",
+       0.923
+      ],
+      [
+       "Amphibole",
+       0.858
+      ],
+      [
+       "Chlorite",
+       0.809
+      ]
+     ],
+     "2": [
+      [
+       "Amphibole",
+       0.925
+      ],
+      [
+       "Biotite",
+       0.876
+      ],
+      [
+       "Clinopyroxene",
+       0.799
+      ]
+     ],
+     "3": [
+      [
+       "Chlorite",
+       0.925
+      ],
+      [
+       "Garnet",
+       0.851
+      ],
+      [
+       "Olivine",
+       0.836
+      ]
+     ]
+    },
+    "n_px": {
+     "0": 1103458,
+     "1": 117827,
+     "2": 1130598,
+     "3": 46860
+    }
+   },
+   "e0/structural/all12": {
+    "accuracy": 0.8777,
+    "purity": 0.9019,
+    "names": {
+     "0": "Chlorite",
+     "1": "Biotite",
+     "2": "Clinopyroxene",
+     "3": "Chlorite"
+    },
+    "top3": {
+     "0": [
+      [
+       "Chlorite",
+       0.643
+      ],
+      [
+       "Garnet",
+       0.336
+      ],
+      [
+       "Orthopyroxene",
+       0.101
+      ]
+     ],
+     "1": [
+      [
+       "Biotite",
+       0.627
+      ],
+      [
+       "Garnet",
+       0.552
+      ],
+      [
+       "Amphibole",
+       0.177
+      ]
+     ],
+     "2": [
+      [
+       "Clinopyroxene",
+       0.048
+      ],
+      [
+       "Amphibole",
+       0.043
+      ],
+      [
+       "Plagioclase",
+       0.038
+      ]
+     ],
+     "3": [
+      [
+       "Chlorite",
+       0.767
+      ],
+      [
+       "Olivine",
+       0.312
+      ],
+      [
+       "Garnet",
+       0.077
+      ]
+     ]
+    },
+    "n_px": {
+     "0": 1103458,
+     "1": 117827,
+     "2": 1130598,
+     "3": 46860
+    }
+   },
+   "e0/structural/noTrace": {
+    "accuracy": 0.3241,
+    "purity": 0.9019,
+    "names": {
+     "0": "Chlorite",
+     "1": "Garnet",
+     "2": "Amphibole",
+     "3": "Chlorite"
+    },
+    "top3": {
+     "0": [
+      [
+       "Chlorite",
+       0.754
+      ],
+      [
+       "Garnet",
+       0.296
+      ],
+      [
+       "Orthopyroxene",
+       0.125
+      ]
+     ],
+     "1": [
+      [
+       "Garnet",
+       0.506
+      ],
+      [
+       "Biotite",
+       0.374
+      ],
+      [
+       "Amphibole",
+       0.122
+      ]
+     ],
+     "2": [
+      [
+       "Amphibole",
+       0.068
+      ],
+      [
+       "Biotite",
+       0.059
+      ],
+      [
+       "Plagioclase",
+       0.045
+      ]
+     ],
+     "3": [
+      [
+       "Chlorite",
+       0.888
+      ],
+      [
+       "Olivine",
+       0.37
+      ],
+      [
+       "Garnet",
+       0.08
+      ]
+     ]
+    },
+    "n_px": {
+     "0": 1103458,
+     "1": 117827,
+     "2": 1130598,
+     "3": 46860
+    }
+   },
+   "e0/structural/majors": {
+    "accuracy": 0.3241,
+    "purity": 0.9019,
+    "names": {
+     "0": "Chlorite",
+     "1": "Biotite",
+     "2": "Amphibole",
+     "3": "Chlorite"
+    },
+    "top3": {
+     "0": [
+      [
+       "Chlorite",
+       0.789
+      ],
+      [
+       "Garnet",
+       0.266
+      ],
+      [
+       "Orthopyroxene",
+       0.131
+      ]
+     ],
+     "1": [
+      [
+       "Biotite",
+       0.548
+      ],
+      [
+       "Amphibole",
+       0.245
+      ],
+      [
+       "Chlorite",
+       0.209
+      ]
+     ],
+     "2": [
+      [
+       "Amphibole",
+       0.062
+      ],
+      [
+       "Biotite",
+       0.053
+      ],
+      [
+       "Plagioclase",
+       0.048
+      ]
+     ],
+     "3": [
+      [
+       "Chlorite",
+       0.91
+      ],
+      [
+       "Olivine",
+       0.399
+      ],
+      [
+       "Garnet",
+       0.082
+      ]
+     ]
+    },
+    "n_px": {
+     "0": 1103458,
+     "1": 117827,
+     "2": 1130598,
+     "3": 46860
+    }
+   },
+   "e1/ratio/all12": {
+    "accuracy": 0.3241,
+    "purity": 0.9019,
+    "names": {
+     "0": "Chlorite",
+     "1": "Garnet",
+     "2": "Amphibole",
+     "3": "Chlorite"
+    },
+    "top3": {
+     "0": [
+      [
+       "Chlorite",
+       0.903
+      ],
+      [
+       "Garnet",
+       0.863
+      ],
+      [
+       "Olivine",
+       0.711
+      ]
+     ],
+     "1": [
+      [
+       "Garnet",
+       0.924
+      ],
+      [
+       "Biotite",
+       0.854
+      ],
+      [
+       "Amphibole",
+       0.768
+      ]
+     ],
+     "2": [
+      [
+       "Amphibole",
+       0.86
+      ],
+      [
+       "Clinopyroxene",
+       0.856
+      ],
+      [
+       "Biotite",
+       0.808
+      ]
+     ],
+     "3": [
+      [
+       "Chlorite",
+       0.837
+      ],
+      [
+       "Olivine",
+       0.763
+      ],
+      [
+       "Garnet",
+       0.711
+      ]
+     ]
+    },
+    "n_px": {
+     "0": 847626,
+     "1": 46522,
+     "2": 867511,
+     "3": 20477
+    }
+   },
+   "e1/ratio/noTrace": {
+    "accuracy": 0.3241,
+    "purity": 0.9019,
+    "names": {
+     "0": "Chlorite",
+     "1": "Garnet",
+     "2": "Amphibole",
+     "3": "Chlorite"
+    },
+    "top3": {
+     "0": [
+      [
+       "Chlorite",
+       0.943
+      ],
+      [
+       "Garnet",
+       0.865
+      ],
+      [
+       "Olivine",
+       0.717
+      ]
+     ],
+     "1": [
+      [
+       "Garnet",
+       0.963
+      ],
+      [
+       "Biotite",
+       0.791
+      ],
+      [
+       "Amphibole",
+       0.736
+      ]
+     ],
+     "2": [
+      [
+       "Amphibole",
+       0.878
+      ],
+      [
+       "Clinopyroxene",
+       0.857
+      ],
+      [
+       "Biotite",
+       0.831
+      ]
+     ],
+     "3": [
+      [
+       "Chlorite",
+       0.865
+      ],
+      [
+       "Olivine",
+       0.796
+      ],
+      [
+       "Garnet",
+       0.731
+      ]
+     ]
+    },
+    "n_px": {
+     "0": 847626,
+     "1": 46522,
+     "2": 867511,
+     "3": 20477
+    }
+   },
+   "e1/ratio/majors": {
+    "accuracy": 0.3241,
+    "purity": 0.9019,
+    "names": {
+     "0": "Chlorite",
+     "1": "Garnet",
+     "2": "Amphibole",
+     "3": "Chlorite"
+    },
+    "top3": {
+     "0": [
+      [
+       "Chlorite",
+       0.949
+      ],
+      [
+       "Garnet",
+       0.858
+      ],
+      [
+       "Olivine",
+       0.72
+      ]
+     ],
+     "1": [
+      [
+       "Garnet",
+       0.918
+      ],
+      [
+       "Biotite",
+       0.854
+      ],
+      [
+       "Chlorite",
+       0.832
+      ]
+     ],
+     "2": [
+      [
+       "Amphibole",
+       0.873
+      ],
+      [
+       "Clinopyroxene",
+       0.859
+      ],
+      [
+       "Biotite",
+       0.829
+      ]
+     ],
+     "3": [
+      [
+       "Chlorite",
+       0.869
+      ],
+      [
+       "Olivine",
+       0.802
+      ],
+      [
+       "Garnet",
+       0.734
+      ]
+     ]
+    },
+    "n_px": {
+     "0": 847626,
+     "1": 46522,
+     "2": 867511,
+     "3": 20477
+    }
+   },
+   "e1/structural/all12": {
+    "accuracy": 0.8777,
+    "purity": 0.9019,
+    "names": {
+     "0": "Chlorite",
+     "1": "Garnet",
+     "2": "Clinopyroxene",
+     "3": "Chlorite"
+    },
+    "top3": {
+     "0": [
+      [
+       "Chlorite",
+       0.665
+      ],
+      [
+       "Garnet",
+       0.342
+      ],
+      [
+       "Orthopyroxene",
+       0.097
+      ]
+     ],
+     "1": [
+      [
+       "Garnet",
+       0.815
+      ],
+      [
+       "Biotite",
+       0.243
+      ],
+      [
+       "Orthopyroxene",
+       0.066
+      ]
+     ],
+     "2": [
+      [
+       "Clinopyroxene",
+       0.227
+      ],
+      [
+       "Plagioclase",
+       0.029
+      ],
+      [
+       "Olivine",
+       0.015
+      ]
+     ],
+     "3": [
+      [
+       "Chlorite",
+       0.478
+      ],
+      [
+       "Olivine",
+       0.156
+      ],
+      [
+       "Apatite",
+       0.04
+      ]
+     ]
+    },
+    "n_px": {
+     "0": 847626,
+     "1": 46522,
+     "2": 867511,
+     "3": 20477
+    }
+   },
+   "e1/structural/noTrace": {
+    "accuracy": 0.8777,
+    "purity": 0.9019,
+    "names": {
+     "0": "Chlorite",
+     "1": "Garnet",
+     "2": "Clinopyroxene",
+     "3": "Chlorite"
+    },
+    "top3": {
+     "0": [
+      [
+       "Chlorite",
+       0.776
+      ],
+      [
+       "Garnet",
+       0.302
+      ],
+      [
+       "Orthopyroxene",
+       0.12
+      ]
+     ],
+     "1": [
+      [
+       "Garnet",
+       0.883
+      ],
+      [
+       "Orthopyroxene",
+       0.088
+      ],
+      [
+       "Biotite",
+       0.065
+      ]
+     ],
+     "2": [
+      [
+       "Clinopyroxene",
+       0.191
+      ],
+      [
+       "Plagioclase",
+       0.038
+      ],
+      [
+       "Olivine",
+       0.012
+      ]
+     ],
+     "3": [
+      [
+       "Chlorite",
+       0.504
+      ],
+      [
+       "Olivine",
+       0.218
+      ],
+      [
+       "Apatite",
+       0.053
+      ]
+     ]
+    },
+    "n_px": {
+     "0": 847626,
+     "1": 46522,
+     "2": 867511,
+     "3": 20477
+    }
+   },
+   "e1/structural/majors": {
+    "accuracy": 0.8777,
+    "purity": 0.9019,
+    "names": {
+     "0": "Chlorite",
+     "1": "Garnet",
+     "2": "Clinopyroxene",
+     "3": "Chlorite"
+    },
+    "top3": {
+     "0": [
+      [
+       "Chlorite",
+       0.81
+      ],
+      [
+       "Garnet",
+       0.273
+      ],
+      [
+       "Orthopyroxene",
+       0.126
+      ]
+     ],
+     "1": [
+      [
+       "Garnet",
+       0.676
+      ],
+      [
+       "Chlorite",
+       0.298
+      ],
+      [
+       "Biotite",
+       0.235
+      ]
+     ],
+     "2": [
+      [
+       "Clinopyroxene",
+       0.195
+      ],
+      [
+       "Plagioclase",
+       0.04
+      ],
+      [
+       "Olivine",
+       0.012
+      ]
+     ],
+     "3": [
+      [
+       "Chlorite",
+       0.495
+      ],
+      [
+       "Olivine",
+       0.234
+      ],
+      [
+       "Apatite",
+       0.061
+      ]
+     ]
+    },
+    "n_px": {
+     "0": 847626,
+     "1": 46522,
+     "2": 867511,
+     "3": 20477
+    }
+   },
+   "e2/ratio/all12": {
+    "accuracy": 0.8777,
+    "purity": 0.9019,
+    "names": {
+     "0": "Chlorite",
+     "1": "Garnet",
+     "2": "Clinopyroxene",
+     "3": "Chlorite"
+    },
+    "top3": {
+     "0": [
+      [
+       "Chlorite",
+       0.906
+      ],
+      [
+       "Garnet",
+       0.864
+      ],
+      [
+       "Olivine",
+       0.711
+      ]
+     ],
+     "1": [
+      [
+       "Garnet",
+       0.903
+      ],
+      [
+       "Biotite",
+       0.878
+      ],
+      [
+       "Amphibole",
+       0.779
+      ]
+     ],
+     "2": [
+      [
+       "Clinopyroxene",
+       0.879
+      ],
+      [
+       "Amphibole",
+       0.841
+      ],
+      [
+       "Biotite",
+       0.79
+      ]
+     ],
+     "3": [
+      [
+       "Chlorite",
+       0.682
+      ],
+      [
+       "Olivine",
+       0.656
+      ],
+      [
+       "Calcite",
+       0.608
+      ]
+     ]
+    },
+    "n_px": {
+     "0": 632673,
+     "1": 16870,
+     "2": 640741,
+     "3": 8617
+    }
+   },
+   "e2/ratio/noTrace": {
+    "accuracy": 0.8777,
+    "purity": 0.9019,
+    "names": {
+     "0": "Chlorite",
+     "1": "Garnet",
+     "2": "Clinopyroxene",
+     "3": "Chlorite"
+    },
+    "top3": {
+     "0": [
+      [
+       "Chlorite",
+       0.945
+      ],
+      [
+       "Garnet",
+       0.867
+      ],
+      [
+       "Olivine",
+       0.718
+      ]
+     ],
+     "1": [
+      [
+       "Garnet",
+       0.964
+      ],
+      [
+       "Biotite",
+       0.763
+      ],
+      [
+       "Amphibole",
+       0.711
+      ]
+     ],
+     "2": [
+      [
+       "Clinopyroxene",
+       0.881
+      ],
+      [
+       "Amphibole",
+       0.858
+      ],
+      [
+       "Biotite",
+       0.813
+      ]
+     ],
+     "3": [
+      [
+       "Chlorite",
+       0.703
+      ],
+      [
+       "Olivine",
+       0.673
+      ],
+      [
+       "Calcite",
+       0.64
+      ]
+     ]
+    },
+    "n_px": {
+     "0": 632673,
+     "1": 16870,
+     "2": 640741,
+     "3": 8617
+    }
+   },
+   "e2/ratio/majors": {
+    "accuracy": 0.8777,
+    "purity": 0.9019,
+    "names": {
+     "0": "Chlorite",
+     "1": "Garnet",
+     "2": "Clinopyroxene",
+     "3": "Chlorite"
+    },
+    "top3": {
+     "0": [
+      [
+       "Chlorite",
+       0.952
+      ],
+      [
+       "Garnet",
+       0.86
+      ],
+      [
+       "Olivine",
+       0.72
+      ]
+     ],
+     "1": [
+      [
+       "Garnet",
+       0.949
+      ],
+      [
+       "Chlorite",
+       0.845
+      ],
+      [
+       "Biotite",
+       0.821
+      ]
+     ],
+     "2": [
+      [
+       "Clinopyroxene",
+       0.883
+      ],
+      [
+       "Amphibole",
+       0.853
+      ],
+      [
+       "Biotite",
+       0.811
+      ]
+     ],
+     "3": [
+      [
+       "Chlorite",
+       0.706
+      ],
+      [
+       "Olivine",
+       0.676
+      ],
+      [
+       "Calcite",
+       0.646
+      ]
+     ]
+    },
+    "n_px": {
+     "0": 632673,
+     "1": 16870,
+     "2": 640741,
+     "3": 8617
+    }
+   },
+   "e2/structural/all12": {
+    "accuracy": 0.8715,
+    "purity": 0.9019,
+    "names": {
+     "0": "Chlorite",
+     "1": "Garnet",
+     "2": "Clinopyroxene",
+     "3": "Rutile"
+    },
+    "top3": {
+     "0": [
+      [
+       "Chlorite",
+       0.678
+      ],
+      [
+       "Garnet",
+       0.345
+      ],
+      [
+       "Orthopyroxene",
+       0.095
+      ]
+     ],
+     "1": [
+      [
+       "Garnet",
+       0.794
+      ],
+      [
+       "Biotite",
+       0.326
+      ],
+      [
+       "Amphibole",
+       0.047
+      ]
+     ],
+     "2": [
+      [
+       "Clinopyroxene",
+       0.36
+      ],
+      [
+       "Plagioclase",
+       0.022
+      ],
+      [
+       "Olivine",
+       0.013
+      ]
+     ],
+     "3": [
+      [
+       "Rutile",
+       0.047
+      ],
+      [
+       "Apatite",
+       0.012
+      ],
+      [
+       "Chlorite",
+       0.008
+      ]
+     ]
+    },
+    "n_px": {
+     "0": 632673,
+     "1": 16870,
+     "2": 640741,
+     "3": 8617
+    }
+   },
+   "e2/structural/noTrace": {
+    "accuracy": 0.8715,
+    "purity": 0.9019,
+    "names": {
+     "0": "Chlorite",
+     "1": "Garnet",
+     "2": "Clinopyroxene",
+     "3": "Rutile"
+    },
+    "top3": {
+     "0": [
+      [
+       "Chlorite",
+       0.788
+      ],
+      [
+       "Garnet",
+       0.306
+      ],
+      [
+       "Orthopyroxene",
+       0.117
+      ]
+     ],
+     "1": [
+      [
+       "Garnet",
+       0.915
+      ],
+      [
+       "Orthopyroxene",
+       0.062
+      ],
+      [
+       "Biotite",
+       0.028
+      ]
+     ],
+     "2": [
+      [
+       "Clinopyroxene",
+       0.315
+      ],
+      [
+       "Plagioclase",
+       0.03
+      ],
+      [
+       "Olivine",
+       0.01
+      ]
+     ],
+     "3": [
+      [
+       "Rutile",
+       0.089
+      ],
+      [
+       "Apatite",
+       0.019
+      ],
+      [
+       "Calcite",
+       0.017
+      ]
+     ]
+    },
+    "n_px": {
+     "0": 632673,
+     "1": 16870,
+     "2": 640741,
+     "3": 8617
+    }
+   },
+   "e2/structural/majors": {
+    "accuracy": 0.8715,
+    "purity": 0.9019,
+    "names": {
+     "0": "Chlorite",
+     "1": "Garnet",
+     "2": "Clinopyroxene",
+     "3": "Rutile"
+    },
+    "top3": {
+     "0": [
+      [
+       "Chlorite",
+       0.822
+      ],
+      [
+       "Garnet",
+       0.278
+      ],
+      [
+       "Orthopyroxene",
+       0.124
+      ]
+     ],
+     "1": [
+      [
+       "Garnet",
+       0.835
+      ],
+      [
+       "Chlorite",
+       0.278
+      ],
+      [
+       "Biotite",
+       0.122
+      ]
+     ],
+     "2": [
+      [
+       "Clinopyroxene",
+       0.321
+      ],
+      [
+       "Plagioclase",
+       0.03
+      ],
+      [
+       "Olivine",
+       0.01
+      ]
+     ],
+     "3": [
+      [
+       "Rutile",
+       0.086
+      ],
+      [
+       "Apatite",
+       0.021
+      ],
+      [
+       "Calcite",
+       0.019
+      ]
+     ]
+    },
+    "n_px": {
+     "0": 632673,
+     "1": 16870,
+     "2": 640741,
+     "3": 8617
+    }
+   }
+  },
+  "gmm_noTrace": {
+   "e0/ratio/all12": {
+    "accuracy": 0.3147,
+    "purity": 0.8944,
+    "names": {
+     "0": "Amphibole",
+     "1": "Chlorite",
+     "2": "Garnet"
+    },
+    "top3": {
+     "0": [
+      [
+       "Amphibole",
+       0.904
+      ],
+      [
+       "Biotite",
+       0.857
+      ],
+      [
+       "Clinopyroxene",
+       0.791
+      ]
+     ],
+     "1": [
+      [
+       "Chlorite",
+       0.9
+      ],
+      [
+       "Garnet",
+       0.861
+      ],
+      [
+       "Olivine",
+       0.711
+      ]
+     ],
+     "2": [
+      [
+       "Garnet",
+       0.928
+      ],
+      [
+       "Biotite",
+       0.791
+      ],
+      [
+       "Chlorite",
+       0.768
+      ]
+     ]
+    },
+    "n_px": {
+     "0": 1166210,
+     "1": 1090743,
+     "2": 141790
+    }
+   },
+   "e0/ratio/noTrace": {
+    "accuracy": 0.3147,
+    "purity": 0.8944,
+    "names": {
+     "0": "Amphibole",
+     "1": "Chlorite",
+     "2": "Garnet"
+    },
+    "top3": {
+     "0": [
+      [
+       "Amphibole",
+       0.931
+      ],
+      [
+       "Biotite",
+       0.883
+      ],
+      [
+       "Clinopyroxene",
+       0.791
+      ]
+     ],
+     "1": [
+      [
+       "Chlorite",
+       0.939
+      ],
+      [
+       "Garnet",
+       0.863
+      ],
+      [
+       "Olivine",
+       0.717
+      ]
+     ],
+     "2": [
+      [
+       "Garnet",
+       0.956
+      ],
+      [
+       "Chlorite",
+       0.809
+      ],
+      [
+       "Biotite",
+       0.756
+      ]
+     ]
+    },
+    "n_px": {
+     "0": 1166210,
+     "1": 1090743,
+     "2": 141790
+    }
+   },
+   "e0/ratio/majors": {
+    "accuracy": 0.3147,
+    "purity": 0.8944,
+    "names": {
+     "0": "Amphibole",
+     "1": "Chlorite",
+     "2": "Garnet"
+    },
+    "top3": {
+     "0": [
+      [
+       "Amphibole",
+       0.93
+      ],
+      [
+       "Biotite",
+       0.881
+      ],
+      [
+       "Clinopyroxene",
+       0.793
+      ]
+     ],
+     "1": [
+      [
+       "Chlorite",
+       0.946
+      ],
+      [
+       "Garnet",
+       0.856
+      ],
+      [
+       "Olivine",
+       0.72
+      ]
+     ],
+     "2": [
+      [
+       "Garnet",
+       0.953
+      ],
+      [
+       "Chlorite",
+       0.852
+      ],
+      [
+       "Biotite",
+       0.777
+      ]
+     ]
+    },
+    "n_px": {
+     "0": 1166210,
+     "1": 1090743,
+     "2": 141790
+    }
+   },
+   "e0/structural/all12": {
+    "accuracy": 0.3147,
+    "purity": 0.8944,
+    "names": {
+     "0": "Amphibole",
+     "1": "Chlorite",
+     "2": "Garnet"
+    },
+    "top3": {
+     "0": [
+      [
+       "Amphibole",
+       0.055
+      ],
+      [
+       "Clinopyroxene",
+       0.039
+      ],
+      [
+       "Plagioclase",
+       0.037
+      ]
+     ],
+     "1": [
+      [
+       "Chlorite",
+       0.647
+      ],
+      [
+       "Garnet",
+       0.34
+      ],
+      [
+       "Orthopyroxene",
+       0.1
+      ]
+     ],
+     "2": [
+      [
+       "Garnet",
+       0.695
+      ],
+      [
+       "Chlorite",
+       0.18
+      ],
+      [
+       "Orthopyroxene",
+       0.103
+      ]
+     ]
+    },
+    "n_px": {
+     "0": 1166210,
+     "1": 1090743,
+     "2": 141790
+    }
+   },
+   "e0/structural/noTrace": {
+    "accuracy": 0.3147,
+    "purity": 0.8944,
+    "names": {
+     "0": "Amphibole",
+     "1": "Chlorite",
+     "2": "Garnet"
+    },
+    "top3": {
+     "0": [
+      [
+       "Amphibole",
+       0.087
+      ],
+      [
+       "Biotite",
+       0.075
+      ],
+      [
+       "Plagioclase",
+       0.044
+      ]
+     ],
+     "1": [
+      [
+       "Chlorite",
+       0.758
+      ],
+      [
+       "Garnet",
+       0.3
+      ],
+      [
+       "Orthopyroxene",
+       0.123
+      ]
+     ],
+     "2": [
+      [
+       "Garnet",
+       0.723
+      ],
+      [
+       "Chlorite",
+       0.246
+      ],
+      [
+       "Orthopyroxene",
+       0.132
+      ]
+     ]
+    },
+    "n_px": {
+     "0": 1166210,
+     "1": 1090743,
+     "2": 141790
+    }
+   },
+   "e0/structural/majors": {
+    "accuracy": 0.3147,
+    "purity": 0.8944,
+    "names": {
+     "0": "Amphibole",
+     "1": "Chlorite",
+     "2": "Garnet"
+    },
+    "top3": {
+     "0": [
+      [
+       "Amphibole",
+       0.079
+      ],
+      [
+       "Biotite",
+       0.067
+      ],
+      [
+       "Plagioclase",
+       0.047
+      ]
+     ],
+     "1": [
+      [
+       "Chlorite",
+       0.793
+      ],
+      [
+       "Garnet",
+       0.271
+      ],
+      [
+       "Orthopyroxene",
+       0.13
+      ]
+     ],
+     "2": [
+      [
+       "Garnet",
+       0.734
+      ],
+      [
+       "Chlorite",
+       0.45
+      ],
+      [
+       "Orthopyroxene",
+       0.182
+      ]
+     ]
+    },
+    "n_px": {
+     "0": 1166210,
+     "1": 1090743,
+     "2": 141790
+    }
+   },
+   "e1/ratio/all12": {
+    "accuracy": 0.3147,
+    "purity": 0.8944,
+    "names": {
+     "0": "Amphibole",
+     "1": "Chlorite",
+     "2": "Garnet"
+    },
+    "top3": {
+     "0": [
+      [
+       "Amphibole",
+       0.865
+      ],
+      [
+       "Clinopyroxene",
+       0.849
+      ],
+      [
+       "Biotite",
+       0.812
+      ]
+     ],
+     "1": [
+      [
+       "Chlorite",
+       0.904
+      ],
+      [
+       "Garnet",
+       0.863
+      ],
+      [
+       "Olivine",
+       0.711
+      ]
+     ],
+     "2": [
+      [
+       "Garnet",
+       0.838
+      ],
+      [
+       "Chlorite",
+       0.751
+      ],
+      [
+       "Olivine",
+       0.745
+      ]
+     ]
+    },
+    "n_px": {
+     "0": 911143,
+     "1": 838755,
+     "2": 62304
+    }
+   },
+   "e1/ratio/noTrace": {
+    "accuracy": 0.3147,
+    "purity": 0.8944,
+    "names": {
+     "0": "Amphibole",
+     "1": "Chlorite",
+     "2": "Garnet"
+    },
+    "top3": {
+     "0": [
+      [
+       "Amphibole",
+       0.883
+      ],
+      [
+       "Clinopyroxene",
+       0.851
+      ],
+      [
+       "Biotite",
+       0.836
+      ]
+     ],
+     "1": [
+      [
+       "Chlorite",
+       0.943
+      ],
+      [
+       "Garnet",
+       0.866
+      ],
+      [
+       "Olivine",
+       0.717
+      ]
+     ],
+     "2": [
+      [
+       "Garnet",
+       0.866
+      ],
+      [
+       "Chlorite",
+       0.792
+      ],
+      [
+       "Olivine",
+       0.767
+      ]
+     ]
+    },
+    "n_px": {
+     "0": 911143,
+     "1": 838755,
+     "2": 62304
+    }
+   },
+   "e1/ratio/majors": {
+    "accuracy": 0.3147,
+    "purity": 0.8944,
+    "names": {
+     "0": "Amphibole",
+     "1": "Chlorite",
+     "2": "Garnet"
+    },
+    "top3": {
+     "0": [
+      [
+       "Amphibole",
+       0.879
+      ],
+      [
+       "Clinopyroxene",
+       0.853
+      ],
+      [
+       "Biotite",
+       0.834
+      ]
+     ],
+     "1": [
+      [
+       "Chlorite",
+       0.95
+      ],
+      [
+       "Garnet",
+       0.859
+      ],
+      [
+       "Olivine",
+       0.72
+      ]
+     ],
+     "2": [
+      [
+       "Garnet",
+       0.906
+      ],
+      [
+       "Chlorite",
+       0.877
+      ],
+      [
+       "Olivine",
+       0.831
+      ]
+     ]
+    },
+    "n_px": {
+     "0": 911143,
+     "1": 838755,
+     "2": 62304
+    }
+   },
+   "e1/structural/all12": {
+    "accuracy": 0.8742,
+    "purity": 0.8944,
+    "names": {
+     "0": "Clinopyroxene",
+     "1": "Chlorite",
+     "2": "Garnet"
+    },
+    "top3": {
+     "0": [
+      [
+       "Clinopyroxene",
+       0.198
+      ],
+      [
+       "Plagioclase",
+       0.03
+      ],
+      [
+       "Olivine",
+       0.016
+      ]
+     ],
+     "1": [
+      [
+       "Chlorite",
+       0.667
+      ],
+      [
+       "Garnet",
+       0.345
+      ],
+      [
+       "Orthopyroxene",
+       0.097
+      ]
+     ],
+     "2": [
+      [
+       "Garnet",
+       0.2
+      ],
+      [
+       "Chlorite",
+       0.189
+      ],
+      [
+       "Olivine",
+       0.11
+      ]
+     ]
+    },
+    "n_px": {
+     "0": 911143,
+     "1": 838755,
+     "2": 62304
+    }
+   },
+   "e1/structural/noTrace": {
+    "accuracy": 0.8899,
+    "purity": 0.8944,
+    "names": {
+     "0": "Clinopyroxene",
+     "1": "Chlorite",
+     "2": "Chlorite"
+    },
+    "top3": {
+     "0": [
+      [
+       "Clinopyroxene",
+       0.165
+      ],
+      [
+       "Plagioclase",
+       0.04
+      ],
+      [
+       "Olivine",
+       0.012
+      ]
+     ],
+     "1": [
+      [
+       "Chlorite",
+       0.778
+      ],
+      [
+       "Garnet",
+       0.306
+      ],
+      [
+       "Orthopyroxene",
+       0.119
+      ]
+     ],
+     "2": [
+      [
+       "Chlorite",
+       0.242
+      ],
+      [
+       "Garnet",
+       0.222
+      ],
+      [
+       "Olivine",
+       0.128
+      ]
+     ]
+    },
+    "n_px": {
+     "0": 911143,
+     "1": 838755,
+     "2": 62304
+    }
+   },
+   "e1/structural/majors": {
+    "accuracy": 0.8899,
+    "purity": 0.8944,
+    "names": {
+     "0": "Clinopyroxene",
+     "1": "Chlorite",
+     "2": "Chlorite"
+    },
+    "top3": {
+     "0": [
+      [
+       "Clinopyroxene",
+       0.168
+      ],
+      [
+       "Plagioclase",
+       0.042
+      ],
+      [
+       "Olivine",
+       0.012
+      ]
+     ],
+     "1": [
+      [
+       "Chlorite",
+       0.811
+      ],
+      [
+       "Garnet",
+       0.277
+      ],
+      [
+       "Orthopyroxene",
+       0.125
+      ]
+     ],
+     "2": [
+      [
+       "Chlorite",
+       0.691
+      ],
+      [
+       "Olivine",
+       0.352
+      ],
+      [
+       "Garnet",
+       0.291
+      ]
+     ]
+    },
+    "n_px": {
+     "0": 911143,
+     "1": 838755,
+     "2": 62304
+    }
+   },
+   "e2/ratio/all12": {
+    "accuracy": 0.8899,
+    "purity": 0.8944,
+    "names": {
+     "0": "Clinopyroxene",
+     "1": "Chlorite",
+     "2": "Chlorite"
+    },
+    "top3": {
+     "0": [
+      [
+       "Clinopyroxene",
+       0.874
+      ],
+      [
+       "Amphibole",
+       0.845
+      ],
+      [
+       "Biotite",
+       0.794
+      ]
+     ],
+     "1": [
+      [
+       "Chlorite",
+       0.906
+      ],
+      [
+       "Garnet",
+       0.865
+      ],
+      [
+       "Olivine",
+       0.711
+      ]
+     ],
+     "2": [
+      [
+       "Chlorite",
+       0.77
+      ],
+      [
+       "Garnet",
+       0.747
+      ],
+      [
+       "Olivine",
+       0.723
+      ]
+     ]
+    },
+    "n_px": {
+     "0": 687900,
+     "1": 627955,
+     "2": 22402
+    }
+   },
+   "e2/ratio/noTrace": {
+    "accuracy": 0.8899,
+    "purity": 0.8944,
+    "names": {
+     "0": "Clinopyroxene",
+     "1": "Chlorite",
+     "2": "Chlorite"
+    },
+    "top3": {
+     "0": [
+      [
+       "Clinopyroxene",
+       0.875
+      ],
+      [
+       "Amphibole",
+       0.863
+      ],
+      [
+       "Biotite",
+       0.817
+      ]
+     ],
+     "1": [
+      [
+       "Chlorite",
+       0.945
+      ],
+      [
+       "Garnet",
+       0.868
+      ],
+      [
+       "Olivine",
+       0.718
+      ]
+     ],
+     "2": [
+      [
+       "Chlorite",
+       0.816
+      ],
+      [
+       "Garnet",
+       0.776
+      ],
+      [
+       "Olivine",
+       0.764
+      ]
+     ]
+    },
+    "n_px": {
+     "0": 687900,
+     "1": 627955,
+     "2": 22402
+    }
+   },
+   "e2/ratio/majors": {
+    "accuracy": 0.8899,
+    "purity": 0.8944,
+    "names": {
+     "0": "Clinopyroxene",
+     "1": "Chlorite",
+     "2": "Chlorite"
+    },
+    "top3": {
+     "0": [
+      [
+       "Clinopyroxene",
+       0.878
+      ],
+      [
+       "Amphibole",
+       0.858
+      ],
+      [
+       "Biotite",
+       0.815
+      ]
+     ],
+     "1": [
+      [
+       "Chlorite",
+       0.952
+      ],
+      [
+       "Garnet",
+       0.861
+      ],
+      [
+       "Olivine",
+       0.72
+      ]
+     ],
+     "2": [
+      [
+       "Chlorite",
+       0.907
+      ],
+      [
+       "Olivine",
+       0.849
+      ],
+      [
+       "Garnet",
+       0.819
+      ]
+     ]
+    },
+    "n_px": {
+     "0": 687900,
+     "1": 627955,
+     "2": 22402
+    }
+   },
+   "e2/structural/all12": {
+    "accuracy": 0.8899,
+    "purity": 0.8944,
+    "names": {
+     "0": "Clinopyroxene",
+     "1": "Chlorite",
+     "2": "Chlorite"
+    },
+    "top3": {
+     "0": [
+      [
+       "Clinopyroxene",
+       0.326
+      ],
+      [
+       "Plagioclase",
+       0.023
+      ],
+      [
+       "Olivine",
+       0.014
+      ]
+     ],
+     "1": [
+      [
+       "Chlorite",
+       0.679
+      ],
+      [
+       "Garnet",
+       0.347
+      ],
+      [
+       "Orthopyroxene",
+       0.095
+      ]
+     ],
+     "2": [
+      [
+       "Chlorite",
+       0.322
+      ],
+      [
+       "Olivine",
+       0.073
+      ],
+      [
+       "Garnet",
+       0.015
+      ]
+     ]
+    },
+    "n_px": {
+     "0": 687900,
+     "1": 627955,
+     "2": 22402
+    }
+   },
+   "e2/structural/noTrace": {
+    "accuracy": 0.8899,
+    "purity": 0.8944,
+    "names": {
+     "0": "Clinopyroxene",
+     "1": "Chlorite",
+     "2": "Chlorite"
+    },
+    "top3": {
+     "0": [
+      [
+       "Clinopyroxene",
+       0.282
+      ],
+      [
+       "Plagioclase",
+       0.032
+      ],
+      [
+       "Olivine",
+       0.011
+      ]
+     ],
+     "1": [
+      [
+       "Chlorite",
+       0.79
+      ],
+      [
+       "Garnet",
+       0.309
+      ],
+      [
+       "Orthopyroxene",
+       0.117
+      ]
+     ],
+     "2": [
+      [
+       "Chlorite",
+       0.438
+      ],
+      [
+       "Olivine",
+       0.107
+      ],
+      [
+       "Garnet",
+       0.017
+      ]
+     ]
+    },
+    "n_px": {
+     "0": 687900,
+     "1": 627955,
+     "2": 22402
+    }
+   },
+   "e2/structural/majors": {
+    "accuracy": 0.8899,
+    "purity": 0.8944,
+    "names": {
+     "0": "Clinopyroxene",
+     "1": "Chlorite",
+     "2": "Chlorite"
+    },
+    "top3": {
+     "0": [
+      [
+       "Clinopyroxene",
+       0.288
+      ],
+      [
+       "Plagioclase",
+       0.033
+      ],
+      [
+       "Olivine",
+       0.011
+      ]
+     ],
+     "1": [
+      [
+       "Chlorite",
+       0.823
+      ],
+      [
+       "Garnet",
+       0.281
+      ],
+      [
+       "Orthopyroxene",
+       0.123
+      ]
+     ],
+     "2": [
+      [
+       "Chlorite",
+       0.893
+      ],
+      [
+       "Olivine",
+       0.464
+      ],
+      [
+       "Apatite",
+       0.056
+      ]
+     ]
+    },
+    "n_px": {
+     "0": 687900,
+     "1": 627955,
+     "2": 22402
+    }
+   }
+  }
+ },
+ "2": {
+  "published_bin2": {
+   "e0/ratio/all12": {
+    "accuracy": 0.2697,
+    "purity": 0.9104,
+    "names": {
+     "0": "Amphibole",
+     "1": "Chlorite",
+     "2": "Garnet",
+     "3": "Biotite"
+    },
+    "top3": {
+     "0": [
+      [
+       "Amphibole",
+       0.892
+      ],
+      [
+       "Biotite",
+       0.854
+      ],
+      [
+       "Clinopyroxene",
+       0.787
+      ]
+     ],
+     "1": [
+      [
+       "Chlorite",
+       0.884
+      ],
+      [
+       "Garnet",
+       0.833
+      ],
+      [
+       "Olivine",
+       0.722
+      ]
+     ],
+     "2": [
+      [
+       "Garnet",
+       0.84
+      ],
+      [
+       "Chlorite",
+       0.79
+      ],
+      [
+       "Olivine",
+       0.785
+      ]
+     ],
+     "3": [
+      [
+       "Biotite",
+       0.941
+      ],
+      [
+       "Amphibole",
+       0.894
+      ],
+      [
+       "Garnet",
+       0.72
+      ]
+     ]
+    },
+    "n_px": {
+     "0": 1131429,
+     "1": 1539549,
+     "2": 156078,
+     "3": 129726
+    }
+   },
+   "e0/ratio/noTrace": {
+    "accuracy": 0.2697,
+    "purity": 0.9104,
+    "names": {
+     "0": "Amphibole",
+     "1": "Chlorite",
+     "2": "Garnet",
+     "3": "Biotite"
+    },
+    "top3": {
+     "0": [
+      [
+       "Amphibole",
+       0.928
+      ],
+      [
+       "Biotite",
+       0.883
+      ],
+      [
+       "Clinopyroxene",
+       0.79
+      ]
+     ],
+     "1": [
+      [
+       "Chlorite",
+       0.935
+      ],
+      [
+       "Garnet",
+       0.839
+      ],
+      [
+       "Olivine",
+       0.73
+      ]
+     ],
+     "2": [
+      [
+       "Garnet",
+       0.868
+      ],
+      [
+       "Chlorite",
+       0.833
+      ],
+      [
+       "Olivine",
+       0.81
+      ]
+     ],
+     "3": [
+      [
+       "Biotite",
+       0.993
+      ],
+      [
+       "Amphibole",
+       0.933
+      ],
+      [
+       "Chlorite",
+       0.722
+      ]
+     ]
+    },
+    "n_px": {
+     "0": 1131429,
+     "1": 1539549,
+     "2": 156078,
+     "3": 129726
+    }
+   },
+   "e0/ratio/majors": {
+    "accuracy": 0.2697,
+    "purity": 0.9104,
+    "names": {
+     "0": "Amphibole",
+     "1": "Chlorite",
+     "2": "Garnet",
+     "3": "Biotite"
+    },
+    "top3": {
+     "0": [
+      [
+       "Amphibole",
+       0.929
+      ],
+      [
+       "Biotite",
+       0.881
+      ],
+      [
+       "Clinopyroxene",
+       0.793
+      ]
+     ],
+     "1": [
+      [
+       "Chlorite",
+       0.944
+      ],
+      [
+       "Garnet",
+       0.829
+      ],
+      [
+       "Olivine",
+       0.734
+      ]
+     ],
+     "2": [
+      [
+       "Garnet",
+       0.891
+      ],
+      [
+       "Chlorite",
+       0.882
+      ],
+      [
+       "Olivine",
+       0.848
+      ]
+     ],
+     "3": [
+      [
+       "Biotite",
+       0.991
+      ],
+      [
+       "Amphibole",
+       0.941
+      ],
+      [
+       "Chlorite",
+       0.726
+      ]
+     ]
+    },
+    "n_px": {
+     "0": 1131429,
+     "1": 1539549,
+     "2": 156078,
+     "3": 129726
+    }
+   },
+   "e0/structural/all12": {
+    "accuracy": 0.2794,
+    "purity": 0.9104,
+    "names": {
+     "0": "Amphibole",
+     "1": "Chlorite",
+     "2": "Chlorite",
+     "3": "Biotite"
+    },
+    "top3": {
+     "0": [
+      [
+       "Amphibole",
+       0.046
+      ],
+      [
+       "Clinopyroxene",
+       0.042
+      ],
+      [
+       "Plagioclase",
+       0.031
+      ]
+     ],
+     "1": [
+      [
+       "Chlorite",
+       0.605
+      ],
+      [
+       "Garnet",
+       0.254
+      ],
+      [
+       "Orthopyroxene",
+       0.113
+      ]
+     ],
+     "2": [
+      [
+       "Chlorite",
+       0.36
+      ],
+      [
+       "Olivine",
+       0.219
+      ],
+      [
+       "Garnet",
+       0.16
+      ]
+     ],
+     "3": [
+      [
+       "Biotite",
+       0.663
+      ],
+      [
+       "Amphibole",
+       0.536
+      ],
+      [
+       "Orthopyroxene",
+       0.11
+      ]
+     ]
+    },
+    "n_px": {
+     "0": 1131429,
+     "1": 1539549,
+     "2": 156078,
+     "3": 129726
+    }
+   },
+   "e0/structural/noTrace": {
+    "accuracy": 0.2794,
+    "purity": 0.9104,
+    "names": {
+     "0": "Amphibole",
+     "1": "Chlorite",
+     "2": "Chlorite",
+     "3": "Biotite"
+    },
+    "top3": {
+     "0": [
+      [
+       "Amphibole",
+       0.091
+      ],
+      [
+       "Biotite",
+       0.082
+      ],
+      [
+       "Plagioclase",
+       0.039
+      ]
+     ],
+     "1": [
+      [
+       "Chlorite",
+       0.746
+      ],
+      [
+       "Garnet",
+       0.21
+      ],
+      [
+       "Orthopyroxene",
+       0.148
+      ]
+     ],
+     "2": [
+      [
+       "Chlorite",
+       0.47
+      ],
+      [
+       "Olivine",
+       0.26
+      ],
+      [
+       "Garnet",
+       0.177
+      ]
+     ],
+     "3": [
+      [
+       "Biotite",
+       0.815
+      ],
+      [
+       "Amphibole",
+       0.608
+      ],
+      [
+       "Orthopyroxene",
+       0.106
+      ]
+     ]
+    },
+    "n_px": {
+     "0": 1131429,
+     "1": 1539549,
+     "2": 156078,
+     "3": 129726
+    }
+   },
+   "e0/structural/majors": {
+    "accuracy": 0.2794,
+    "purity": 0.9104,
+    "names": {
+     "0": "Amphibole",
+     "1": "Chlorite",
+     "2": "Chlorite",
+     "3": "Biotite"
+    },
+    "top3": {
+     "0": [
+      [
+       "Amphibole",
+       0.081
+      ],
+      [
+       "Biotite",
+       0.071
+      ],
+      [
+       "Plagioclase",
+       0.043
+      ]
+     ],
+     "1": [
+      [
+       "Chlorite",
+       0.793
+      ],
+      [
+       "Garnet",
+       0.177
+      ],
+      [
+       "Orthopyroxene",
+       0.158
+      ]
+     ],
+     "2": [
+      [
+       "Chlorite",
+       0.751
+      ],
+      [
+       "Olivine",
+       0.439
+      ],
+      [
+       "Garnet",
+       0.203
+      ]
+     ],
+     "3": [
+      [
+       "Biotite",
+       0.819
+      ],
+      [
+       "Amphibole",
+       0.651
+      ],
+      [
+       "Orthopyroxene",
+       0.101
+      ]
+     ]
+    },
+    "n_px": {
+     "0": 1131429,
+     "1": 1539549,
+     "2": 156078,
+     "3": 129726
+    }
+   },
+   "e1/ratio/all12": {
+    "accuracy": 0.2794,
+    "purity": 0.9104,
+    "names": {
+     "0": "Amphibole",
+     "1": "Chlorite",
+     "2": "Chlorite",
+     "3": "Biotite"
+    },
+    "top3": {
+     "0": [
+      [
+       "Amphibole",
+       0.865
+      ],
+      [
+       "Clinopyroxene",
+       0.842
+      ],
+      [
+       "Biotite",
+       0.812
+      ]
+     ],
+     "1": [
+      [
+       "Chlorite",
+       0.89
+      ],
+      [
+       "Garnet",
+       0.837
+      ],
+      [
+       "Olivine",
+       0.723
+      ]
+     ],
+     "2": [
+      [
+       "Chlorite",
+       0.782
+      ],
+      [
+       "Olivine",
+       0.733
+      ],
+      [
+       "Garnet",
+       0.715
+      ]
+     ],
+     "3": [
+      [
+       "Biotite",
+       0.931
+      ],
+      [
+       "Amphibole",
+       0.888
+      ],
+      [
+       "Garnet",
+       0.719
+      ]
+     ]
+    },
+    "n_px": {
+     "0": 813750,
+     "1": 1242892,
+     "2": 80164,
+     "3": 59966
+    }
+   },
+   "e1/ratio/noTrace": {
+    "accuracy": 0.2794,
+    "purity": 0.9104,
+    "names": {
+     "0": "Amphibole",
+     "1": "Chlorite",
+     "2": "Chlorite",
+     "3": "Biotite"
+    },
+    "top3": {
+     "0": [
+      [
+       "Amphibole",
+       0.891
+      ],
+      [
+       "Clinopyroxene",
+       0.847
+      ],
+      [
+       "Biotite",
+       0.838
+      ]
+     ],
+     "1": [
+      [
+       "Chlorite",
+       0.941
+      ],
+      [
+       "Garnet",
+       0.843
+      ],
+      [
+       "Olivine",
+       0.731
+      ]
+     ],
+     "2": [
+      [
+       "Chlorite",
+       0.829
+      ],
+      [
+       "Olivine",
+       0.769
+      ],
+      [
+       "Garnet",
+       0.738
+      ]
+     ],
+     "3": [
+      [
+       "Biotite",
+       0.989
+      ],
+      [
+       "Amphibole",
+       0.936
+      ],
+      [
+       "Chlorite",
+       0.718
+      ]
+     ]
+    },
+    "n_px": {
+     "0": 813750,
+     "1": 1242892,
+     "2": 80164,
+     "3": 59966
+    }
+   },
+   "e1/ratio/majors": {
+    "accuracy": 0.2794,
+    "purity": 0.9104,
+    "names": {
+     "0": "Amphibole",
+     "1": "Chlorite",
+     "2": "Chlorite",
+     "3": "Biotite"
+    },
+    "top3": {
+     "0": [
+      [
+       "Amphibole",
+       0.885
+      ],
+      [
+       "Clinopyroxene",
+       0.85
+      ],
+      [
+       "Biotite",
+       0.836
+      ]
+     ],
+     "1": [
+      [
+       "Chlorite",
+       0.95
+      ],
+      [
+       "Garnet",
+       0.834
+      ],
+      [
+       "Olivine",
+       0.735
+      ]
+     ],
+     "2": [
+      [
+       "Chlorite",
+       0.893
+      ],
+      [
+       "Olivine",
+       0.827
+      ],
+      [
+       "Garnet",
+       0.765
+      ]
+     ],
+     "3": [
+      [
+       "Biotite",
+       0.986
+      ],
+      [
+       "Amphibole",
+       0.945
+      ],
+      [
+       "Chlorite",
+       0.724
+      ]
+     ]
+    },
+    "n_px": {
+     "0": 813750,
+     "1": 1242892,
+     "2": 80164,
+     "3": 59966
+    }
+   },
+   "e1/structural/all12": {
+    "accuracy": 0.8722,
+    "purity": 0.9104,
+    "names": {
+     "0": "Clinopyroxene",
+     "1": "Chlorite",
+     "2": "Chlorite",
+     "3": "Biotite"
+    },
+    "top3": {
+     "0": [
+      [
+       "Clinopyroxene",
+       0.185
+      ],
+      [
+       "Plagioclase",
+       0.025
+      ],
+      [
+       "Olivine",
+       0.015
+      ]
+     ],
+     "1": [
+      [
+       "Chlorite",
+       0.636
+      ],
+      [
+       "Garnet",
+       0.265
+      ],
+      [
+       "Orthopyroxene",
+       0.106
+      ]
+     ],
+     "2": [
+      [
+       "Chlorite",
+       0.403
+      ],
+      [
+       "Olivine",
+       0.101
+      ],
+      [
+       "Apatite",
+       0.006
+      ]
+     ],
+     "3": [
+      [
+       "Biotite",
+       0.567
+      ],
+      [
+       "Amphibole",
+       0.5
+      ],
+      [
+       "Orthopyroxene",
+       0.101
+      ]
+     ]
+    },
+    "n_px": {
+     "0": 813750,
+     "1": 1242892,
+     "2": 80164,
+     "3": 59966
+    }
+   },
+   "e1/structural/noTrace": {
+    "accuracy": 0.8722,
+    "purity": 0.9104,
+    "names": {
+     "0": "Clinopyroxene",
+     "1": "Chlorite",
+     "2": "Chlorite",
+     "3": "Biotite"
+    },
+    "top3": {
+     "0": [
+      [
+       "Clinopyroxene",
+       0.158
+      ],
+      [
+       "Plagioclase",
+       0.037
+      ],
+      [
+       "Orthopyroxene",
+       0.012
+      ]
+     ],
+     "1": [
+      [
+       "Chlorite",
+       0.777
+      ],
+      [
+       "Garnet",
+       0.222
+      ],
+      [
+       "Orthopyroxene",
+       0.138
+      ]
+     ],
+     "2": [
+      [
+       "Chlorite",
+       0.538
+      ],
+      [
+       "Olivine",
+       0.15
+      ],
+      [
+       "Apatite",
+       0.007
+      ]
+     ],
+     "3": [
+      [
+       "Biotite",
+       0.812
+      ],
+      [
+       "Amphibole",
+       0.632
+      ],
+      [
+       "Orthopyroxene",
+       0.098
+      ]
+     ]
+    },
+    "n_px": {
+     "0": 813750,
+     "1": 1242892,
+     "2": 80164,
+     "3": 59966
+    }
+   },
+   "e1/structural/majors": {
+    "accuracy": 0.8722,
+    "purity": 0.9104,
+    "names": {
+     "0": "Clinopyroxene",
+     "1": "Chlorite",
+     "2": "Chlorite",
+     "3": "Biotite"
+    },
+    "top3": {
+     "0": [
+      [
+       "Clinopyroxene",
+       0.163
+      ],
+      [
+       "Plagioclase",
+       0.039
+      ],
+      [
+       "Olivine",
+       0.011
+      ]
+     ],
+     "1": [
+      [
+       "Chlorite",
+       0.822
+      ],
+      [
+       "Garnet",
+       0.188
+      ],
+      [
+       "Orthopyroxene",
+       0.148
+      ]
+     ],
+     "2": [
+      [
+       "Chlorite",
+       0.719
+      ],
+      [
+       "Olivine",
+       0.361
+      ],
+      [
+       "Apatite",
+       0.029
+      ]
+     ],
+     "3": [
+      [
+       "Biotite",
+       0.81
+      ],
+      [
+       "Amphibole",
+       0.678
+      ],
+      [
+       "Orthopyroxene",
+       0.092
+      ]
+     ]
+    },
+    "n_px": {
+     "0": 813750,
+     "1": 1242892,
+     "2": 80164,
+     "3": 59966
+    }
+   },
+   "e2/ratio/all12": {
+    "accuracy": 0.8722,
+    "purity": 0.9104,
+    "names": {
+     "0": "Clinopyroxene",
+     "1": "Chlorite",
+     "2": "Chlorite",
+     "3": "Biotite"
+    },
+    "top3": {
+     "0": [
+      [
+       "Clinopyroxene",
+       0.863
+      ],
+      [
+       "Amphibole",
+       0.848
+      ],
+      [
+       "Biotite",
+       0.797
+      ]
+     ],
+     "1": [
+      [
+       "Chlorite",
+       0.893
+      ],
+      [
+       "Garnet",
+       0.841
+      ],
+      [
+       "Olivine",
+       0.723
+      ]
+     ],
+     "2": [
+      [
+       "Chlorite",
+       0.665
+      ],
+      [
+       "Olivine",
+       0.642
+      ],
+      [
+       "Garnet",
+       0.587
+      ]
+     ],
+     "3": [
+      [
+       "Biotite",
+       0.924
+      ],
+      [
+       "Amphibole",
+       0.884
+      ],
+      [
+       "Garnet",
+       0.712
+      ]
+     ]
+    },
+    "n_px": {
+     "0": 560060,
+     "1": 994964,
+     "2": 39150,
+     "3": 31499
+    }
+   },
+   "e2/ratio/noTrace": {
+    "accuracy": 0.2794,
+    "purity": 0.9104,
+    "names": {
+     "0": "Amphibole",
+     "1": "Chlorite",
+     "2": "Chlorite",
+     "3": "Biotite"
+    },
+    "top3": {
+     "0": [
+      [
+       "Amphibole",
+       0.874
+      ],
+      [
+       "Clinopyroxene",
+       0.869
+      ],
+      [
+       "Biotite",
+       0.822
+      ]
+     ],
+     "1": [
+      [
+       "Chlorite",
+       0.945
+      ],
+      [
+       "Garnet",
+       0.847
+      ],
+      [
+       "Olivine",
+       0.731
+      ]
+     ],
+     "2": [
+      [
+       "Chlorite",
+       0.689
+      ],
+      [
+       "Olivine",
+       0.662
+      ],
+      [
+       "Garnet",
+       0.605
+      ]
+     ],
+     "3": [
+      [
+       "Biotite",
+       0.984
+      ],
+      [
+       "Amphibole",
+       0.938
+      ],
+      [
+       "Chlorite",
+       0.719
+      ]
+     ]
+    },
+    "n_px": {
+     "0": 560060,
+     "1": 994964,
+     "2": 39150,
+     "3": 31499
+    }
+   },
+   "e2/ratio/majors": {
+    "accuracy": 0.8722,
+    "purity": 0.9104,
+    "names": {
+     "0": "Clinopyroxene",
+     "1": "Chlorite",
+     "2": "Chlorite",
+     "3": "Biotite"
+    },
+    "top3": {
+     "0": [
+      [
+       "Clinopyroxene",
+       0.872
+      ],
+      [
+       "Amphibole",
+       0.867
+      ],
+      [
+       "Biotite",
+       0.819
+      ]
+     ],
+     "1": [
+      [
+       "Chlorite",
+       0.954
+      ],
+      [
+       "Garnet",
+       0.838
+      ],
+      [
+       "Olivine",
+       0.735
+      ]
+     ],
+     "2": [
+      [
+       "Chlorite",
+       0.713
+      ],
+      [
+       "Olivine",
+       0.681
+      ],
+      [
+       "Calcite",
+       0.642
+      ]
+     ],
+     "3": [
+      [
+       "Biotite",
+       0.981
+      ],
+      [
+       "Amphibole",
+       0.948
+      ],
+      [
+       "Chlorite",
+       0.725
+      ]
+     ]
+    },
+    "n_px": {
+     "0": 560060,
+     "1": 994964,
+     "2": 39150,
+     "3": 31499
+    }
+   },
+   "e2/structural/all12": {
+    "accuracy": 0.8625,
+    "purity": 0.9104,
+    "names": {
+     "0": "Clinopyroxene",
+     "1": "Chlorite",
+     "2": "Rutile",
+     "3": "Biotite"
+    },
+    "top3": {
+     "0": [
+      [
+       "Clinopyroxene",
+       0.282
+      ],
+      [
+       "Plagioclase",
+       0.02
+      ],
+      [
+       "Olivine",
+       0.014
+      ]
+     ],
+     "1": [
+      [
+       "Chlorite",
+       0.655
+      ],
+      [
+       "Garnet",
+       0.274
+      ],
+      [
+       "Orthopyroxene",
+       0.101
+      ]
+     ],
+     "2": [
+      [
+       "Rutile",
+       0.02
+      ],
+      [
+       "Chlorite",
+       0.013
+      ],
+      [
+       "Apatite",
+       0.006
+      ]
+     ],
+     "3": [
+      [
+       "Biotite",
+       0.461
+      ],
+      [
+       "Amphibole",
+       0.453
+      ],
+      [
+       "Orthopyroxene",
+       0.087
+      ]
+     ]
+    },
+    "n_px": {
+     "0": 560060,
+     "1": 994964,
+     "2": 39150,
+     "3": 31499
+    }
+   },
+   "e2/structural/noTrace": {
+    "accuracy": 0.8625,
+    "purity": 0.9104,
+    "names": {
+     "0": "Clinopyroxene",
+     "1": "Chlorite",
+     "2": "Rutile",
+     "3": "Biotite"
+    },
+    "top3": {
+     "0": [
+      [
+       "Clinopyroxene",
+       0.256
+      ],
+      [
+       "Plagioclase",
+       0.031
+      ],
+      [
+       "Olivine",
+       0.01
+      ]
+     ],
+     "1": [
+      [
+       "Chlorite",
+       0.795
+      ],
+      [
+       "Garnet",
+       0.232
+      ],
+      [
+       "Orthopyroxene",
+       0.132
+      ]
+     ],
+     "2": [
+      [
+       "Rutile",
+       0.044
+      ],
+      [
+       "Chlorite",
+       0.015
+      ],
+      [
+       "Apatite",
+       0.01
+      ]
+     ],
+     "3": [
+      [
+       "Biotite",
+       0.808
+      ],
+      [
+       "Amphibole",
+       0.647
+      ],
+      [
+       "Orthopyroxene",
+       0.087
+      ]
+     ]
+    },
+    "n_px": {
+     "0": 560060,
+     "1": 994964,
+     "2": 39150,
+     "3": 31499
+    }
+   },
+   "e2/structural/majors": {
+    "accuracy": 0.8625,
+    "purity": 0.9104,
+    "names": {
+     "0": "Clinopyroxene",
+     "1": "Chlorite",
+     "2": "Rutile",
+     "3": "Biotite"
+    },
+    "top3": {
+     "0": [
+      [
+       "Clinopyroxene",
+       0.263
+      ],
+      [
+       "Plagioclase",
+       0.032
+      ],
+      [
+       "Olivine",
+       0.01
+      ]
+     ],
+     "1": [
+      [
+       "Chlorite",
+       0.839
+      ],
+      [
+       "Garnet",
+       0.198
+      ],
+      [
+       "Orthopyroxene",
+       0.142
+      ]
+     ],
+     "2": [
+      [
+       "Rutile",
+       0.029
+      ],
+      [
+       "Apatite",
+       0.028
+      ],
+      [
+       "Calcite",
+       0.018
+      ]
+     ],
+     "3": [
+      [
+       "Biotite",
+       0.797
+      ],
+      [
+       "Amphibole",
+       0.693
+      ],
+      [
+       "Orthopyroxene",
+       0.082
+      ]
+     ]
+    },
+    "n_px": {
+     "0": 560060,
+     "1": 994964,
+     "2": 39150,
+     "3": 31499
+    }
+   }
+  },
+  "gmm_all12": {
+   "e0/ratio/all12": {
+    "accuracy": 0.2704,
+    "purity": 0.9151,
+    "names": {
+     "0": "Chlorite",
+     "1": "Amphibole",
+     "2": "Garnet"
+    },
+    "top3": {
+     "0": [
+      [
+       "Chlorite",
+       0.885
+      ],
+      [
+       "Garnet",
+       0.835
+      ],
+      [
+       "Olivine",
+       0.721
+      ]
+     ],
+     "1": [
+      [
+       "Amphibole",
+       0.89
+      ],
+      [
+       "Biotite",
+       0.856
+      ],
+      [
+       "Clinopyroxene",
+       0.784
+      ]
+     ],
+     "2": [
+      [
+       "Garnet",
+       0.846
+      ],
+      [
+       "Chlorite",
+       0.789
+      ],
+      [
+       "Olivine",
+       0.785
+      ]
+     ]
+    },
+    "n_px": {
+     "0": 1563625,
+     "1": 1232700,
+     "2": 160457
+    }
+   },
+   "e0/ratio/noTrace": {
+    "accuracy": 0.2704,
+    "purity": 0.9151,
+    "names": {
+     "0": "Chlorite",
+     "1": "Amphibole",
+     "2": "Garnet"
+    },
+    "top3": {
+     "0": [
+      [
+       "Chlorite",
+       0.936
+      ],
+      [
+       "Garnet",
+       0.84
+      ],
+      [
+       "Olivine",
+       0.729
+      ]
+     ],
+     "1": [
+      [
+       "Amphibole",
+       0.927
+      ],
+      [
+       "Biotite",
+       0.884
+      ],
+      [
+       "Clinopyroxene",
+       0.789
+      ]
+     ],
+     "2": [
+      [
+       "Garnet",
+       0.879
+      ],
+      [
+       "Chlorite",
+       0.838
+      ],
+      [
+       "Olivine",
+       0.811
+      ]
+     ]
+    },
+    "n_px": {
+     "0": 1563625,
+     "1": 1232700,
+     "2": 160457
+    }
+   },
+   "e0/ratio/majors": {
+    "accuracy": 0.2704,
+    "purity": 0.9151,
+    "names": {
+     "0": "Chlorite",
+     "1": "Amphibole",
+     "2": "Garnet"
+    },
+    "top3": {
+     "0": [
+      [
+       "Chlorite",
+       0.945
+      ],
+      [
+       "Garnet",
+       0.83
+      ],
+      [
+       "Olivine",
+       0.733
+      ]
+     ],
+     "1": [
+      [
+       "Amphibole",
+       0.929
+      ],
+      [
+       "Biotite",
+       0.882
+      ],
+      [
+       "Clinopyroxene",
+       0.792
+      ]
+     ],
+     "2": [
+      [
+       "Garnet",
+       0.901
+      ],
+      [
+       "Chlorite",
+       0.887
+      ],
+      [
+       "Olivine",
+       0.849
+      ]
+     ]
+    },
+    "n_px": {
+     "0": 1563625,
+     "1": 1232700,
+     "2": 160457
+    }
+   },
+   "e0/structural/all12": {
+    "accuracy": 0.2789,
+    "purity": 0.9151,
+    "names": {
+     "0": "Chlorite",
+     "1": "Amphibole",
+     "2": "Chlorite"
+    },
+    "top3": {
+     "0": [
+      [
+       "Chlorite",
+       0.607
+      ],
+      [
+       "Garnet",
+       0.263
+      ],
+      [
+       "Orthopyroxene",
+       0.114
+      ]
+     ],
+     "1": [
+      [
+       "Amphibole",
+       0.047
+      ],
+      [
+       "Clinopyroxene",
+       0.038
+      ],
+      [
+       "Orthopyroxene",
+       0.03
+      ]
+     ],
+     "2": [
+      [
+       "Chlorite",
+       0.353
+      ],
+      [
+       "Olivine",
+       0.224
+      ],
+      [
+       "Garnet",
+       0.201
+      ]
+     ]
+    },
+    "n_px": {
+     "0": 1563625,
+     "1": 1232700,
+     "2": 160457
+    }
+   },
+   "e0/structural/noTrace": {
+    "accuracy": 0.2789,
+    "purity": 0.9151,
+    "names": {
+     "0": "Chlorite",
+     "1": "Amphibole",
+     "2": "Chlorite"
+    },
+    "top3": {
+     "0": [
+      [
+       "Chlorite",
+       0.749
+      ],
+      [
+       "Garnet",
+       0.218
+      ],
+      [
+       "Orthopyroxene",
+       0.149
+      ]
+     ],
+     "1": [
+      [
+       "Amphibole",
+       0.094
+      ],
+      [
+       "Biotite",
+       0.086
+      ],
+      [
+       "Plagioclase",
+       0.038
+      ]
+     ],
+     "2": [
+      [
+       "Chlorite",
+       0.48
+      ],
+      [
+       "Olivine",
+       0.261
+      ],
+      [
+       "Garnet",
+       0.219
+      ]
+     ]
+    },
+    "n_px": {
+     "0": 1563625,
+     "1": 1232700,
+     "2": 160457
+    }
+   },
+   "e0/structural/majors": {
+    "accuracy": 0.2789,
+    "purity": 0.9151,
+    "names": {
+     "0": "Chlorite",
+     "1": "Amphibole",
+     "2": "Chlorite"
+    },
+    "top3": {
+     "0": [
+      [
+       "Chlorite",
+       0.796
+      ],
+      [
+       "Garnet",
+       0.183
+      ],
+      [
+       "Orthopyroxene",
+       0.159
+      ]
+     ],
+     "1": [
+      [
+       "Amphibole",
+       0.083
+      ],
+      [
+       "Biotite",
+       0.075
+      ],
+      [
+       "Plagioclase",
+       0.042
+      ]
+     ],
+     "2": [
+      [
+       "Chlorite",
+       0.756
+      ],
+      [
+       "Olivine",
+       0.429
+      ],
+      [
+       "Garnet",
+       0.249
+      ]
+     ]
+    },
+    "n_px": {
+     "0": 1563625,
+     "1": 1232700,
+     "2": 160457
+    }
+   },
+   "e1/ratio/all12": {
+    "accuracy": 0.2789,
+    "purity": 0.9151,
+    "names": {
+     "0": "Chlorite",
+     "1": "Amphibole",
+     "2": "Chlorite"
+    },
+    "top3": {
+     "0": [
+      [
+       "Chlorite",
+       0.89
+      ],
+      [
+       "Garnet",
+       0.838
+      ],
+      [
+       "Olivine",
+       0.721
+      ]
+     ],
+     "1": [
+      [
+       "Amphibole",
+       0.869
+      ],
+      [
+       "Clinopyroxene",
+       0.838
+      ],
+      [
+       "Biotite",
+       0.815
+      ]
+     ],
+     "2": [
+      [
+       "Chlorite",
+       0.784
+      ],
+      [
+       "Olivine",
+       0.744
+      ],
+      [
+       "Garnet",
+       0.726
+      ]
+     ]
+    },
+    "n_px": {
+     "0": 1271992,
+     "1": 950363,
+     "2": 80631
+    }
+   },
+   "e1/ratio/noTrace": {
+    "accuracy": 0.2789,
+    "purity": 0.9151,
+    "names": {
+     "0": "Chlorite",
+     "1": "Amphibole",
+     "2": "Chlorite"
+    },
+    "top3": {
+     "0": [
+      [
+       "Chlorite",
+       0.941
+      ],
+      [
+       "Garnet",
+       0.844
+      ],
+      [
+       "Olivine",
+       0.73
+      ]
+     ],
+     "1": [
+      [
+       "Amphibole",
+       0.896
+      ],
+      [
+       "Clinopyroxene",
+       0.844
+      ],
+      [
+       "Biotite",
+       0.841
+      ]
+     ],
+     "2": [
+      [
+       "Chlorite",
+       0.837
+      ],
+      [
+       "Olivine",
+       0.784
+      ],
+      [
+       "Garnet",
+       0.754
+      ]
+     ]
+    },
+    "n_px": {
+     "0": 1271992,
+     "1": 950363,
+     "2": 80631
+    }
+   },
+   "e1/ratio/majors": {
+    "accuracy": 0.2789,
+    "purity": 0.9151,
+    "names": {
+     "0": "Chlorite",
+     "1": "Amphibole",
+     "2": "Chlorite"
+    },
+    "top3": {
+     "0": [
+      [
+       "Chlorite",
+       0.95
+      ],
+      [
+       "Garnet",
+       0.834
+      ],
+      [
+       "Olivine",
+       0.734
+      ]
+     ],
+     "1": [
+      [
+       "Amphibole",
+       0.889
+      ],
+      [
+       "Clinopyroxene",
+       0.847
+      ],
+      [
+       "Biotite",
+       0.839
+      ]
+     ],
+     "2": [
+      [
+       "Chlorite",
+       0.899
+      ],
+      [
+       "Olivine",
+       0.841
+      ],
+      [
+       "Garnet",
+       0.781
+      ]
+     ]
+    },
+    "n_px": {
+     "0": 1271992,
+     "1": 950363,
+     "2": 80631
+    }
+   },
+   "e1/structural/all12": {
+    "accuracy": 0.8987,
+    "purity": 0.9151,
+    "names": {
+     "0": "Chlorite",
+     "1": "Clinopyroxene",
+     "2": "Chlorite"
+    },
+    "top3": {
+     "0": [
+      [
+       "Chlorite",
+       0.634
+      ],
+      [
+       "Garnet",
+       0.271
+      ],
+      [
+       "Orthopyroxene",
+       0.107
+      ]
+     ],
+     "1": [
+      [
+       "Clinopyroxene",
+       0.166
+      ],
+      [
+       "Plagioclase",
+       0.025
+      ],
+      [
+       "Olivine",
+       0.016
+      ]
+     ],
+     "2": [
+      [
+       "Chlorite",
+       0.417
+      ],
+      [
+       "Olivine",
+       0.127
+      ],
+      [
+       "Apatite",
+       0.011
+      ]
+     ]
+    },
+    "n_px": {
+     "0": 1271992,
+     "1": 950363,
+     "2": 80631
+    }
+   },
+   "e1/structural/noTrace": {
+    "accuracy": 0.8987,
+    "purity": 0.9151,
+    "names": {
+     "0": "Chlorite",
+     "1": "Clinopyroxene",
+     "2": "Chlorite"
+    },
+    "top3": {
+     "0": [
+      [
+       "Chlorite",
+       0.776
+      ],
+      [
+       "Garnet",
+       0.227
+      ],
+      [
+       "Orthopyroxene",
+       0.14
+      ]
+     ],
+     "1": [
+      [
+       "Clinopyroxene",
+       0.145
+      ],
+      [
+       "Plagioclase",
+       0.037
+      ],
+      [
+       "Orthopyroxene",
+       0.013
+      ]
+     ],
+     "2": [
+      [
+       "Chlorite",
+       0.57
+      ],
+      [
+       "Olivine",
+       0.191
+      ],
+      [
+       "Apatite",
+       0.012
+      ]
+     ]
+    },
+    "n_px": {
+     "0": 1271992,
+     "1": 950363,
+     "2": 80631
+    }
+   },
+   "e1/structural/majors": {
+    "accuracy": 0.8987,
+    "purity": 0.9151,
+    "names": {
+     "0": "Chlorite",
+     "1": "Clinopyroxene",
+     "2": "Chlorite"
+    },
+    "top3": {
+     "0": [
+      [
+       "Chlorite",
+       0.821
+      ],
+      [
+       "Garnet",
+       0.192
+      ],
+      [
+       "Orthopyroxene",
+       0.15
+      ]
+     ],
+     "1": [
+      [
+       "Clinopyroxene",
+       0.149
+      ],
+      [
+       "Plagioclase",
+       0.039
+      ],
+      [
+       "Olivine",
+       0.011
+      ]
+     ],
+     "2": [
+      [
+       "Chlorite",
+       0.75
+      ],
+      [
+       "Olivine",
+       0.431
+      ],
+      [
+       "Apatite",
+       0.044
+      ]
+     ]
+    },
+    "n_px": {
+     "0": 1271992,
+     "1": 950363,
+     "2": 80631
+    }
+   },
+   "e2/ratio/all12": {
+    "accuracy": 0.8987,
+    "purity": 0.9151,
+    "names": {
+     "0": "Chlorite",
+     "1": "Clinopyroxene",
+     "2": "Chlorite"
+    },
+    "top3": {
+     "0": [
+      [
+       "Chlorite",
+       0.893
+      ],
+      [
+       "Garnet",
+       0.841
+      ],
+      [
+       "Olivine",
+       0.722
+      ]
+     ],
+     "1": [
+      [
+       "Clinopyroxene",
+       0.857
+      ],
+      [
+       "Amphibole",
+       0.852
+      ],
+      [
+       "Biotite",
+       0.801
+      ]
+     ],
+     "2": [
+      [
+       "Chlorite",
+       0.695
+      ],
+      [
+       "Olivine",
+       0.678
+      ],
+      [
+       "Garnet",
+       0.619
+      ]
+     ]
+    },
+    "n_px": {
+     "0": 1024060,
+     "1": 708828,
+     "2": 39315
+    }
+   },
+   "e2/ratio/noTrace": {
+    "accuracy": 0.2789,
+    "purity": 0.9151,
+    "names": {
+     "0": "Chlorite",
+     "1": "Amphibole",
+     "2": "Chlorite"
+    },
+    "top3": {
+     "0": [
+      [
+       "Chlorite",
+       0.945
+      ],
+      [
+       "Garnet",
+       0.847
+      ],
+      [
+       "Olivine",
+       0.731
+      ]
+     ],
+     "1": [
+      [
+       "Amphibole",
+       0.878
+      ],
+      [
+       "Clinopyroxene",
+       0.864
+      ],
+      [
+       "Biotite",
+       0.826
+      ]
+     ],
+     "2": [
+      [
+       "Chlorite",
+       0.722
+      ],
+      [
+       "Olivine",
+       0.702
+      ],
+      [
+       "Garnet",
+       0.64
+      ]
+     ]
+    },
+    "n_px": {
+     "0": 1024060,
+     "1": 708828,
+     "2": 39315
+    }
+   },
+   "e2/ratio/majors": {
+    "accuracy": 0.2789,
+    "purity": 0.9151,
+    "names": {
+     "0": "Chlorite",
+     "1": "Amphibole",
+     "2": "Chlorite"
+    },
+    "top3": {
+     "0": [
+      [
+       "Chlorite",
+       0.954
+      ],
+      [
+       "Garnet",
+       0.838
+      ],
+      [
+       "Olivine",
+       0.735
+      ]
+     ],
+     "1": [
+      [
+       "Amphibole",
+       0.872
+      ],
+      [
+       "Clinopyroxene",
+       0.867
+      ],
+      [
+       "Biotite",
+       0.823
+      ]
+     ],
+     "2": [
+      [
+       "Chlorite",
+       0.741
+      ],
+      [
+       "Olivine",
+       0.718
+      ],
+      [
+       "Garnet",
+       0.654
+      ]
+     ]
+    },
+    "n_px": {
+     "0": 1024060,
+     "1": 708828,
+     "2": 39315
+    }
+   },
+   "e2/structural/all12": {
+    "accuracy": 0.8987,
+    "purity": 0.9151,
+    "names": {
+     "0": "Chlorite",
+     "1": "Clinopyroxene",
+     "2": "Chlorite"
+    },
+    "top3": {
+     "0": [
+      [
+       "Chlorite",
+       0.653
+      ],
+      [
+       "Garnet",
+       0.277
+      ],
+      [
+       "Orthopyroxene",
+       0.102
+      ]
+     ],
+     "1": [
+      [
+       "Clinopyroxene",
+       0.254
+      ],
+      [
+       "Plagioclase",
+       0.021
+      ],
+      [
+       "Olivine",
+       0.015
+      ]
+     ],
+     "2": [
+      [
+       "Chlorite",
+       0.032
+      ],
+      [
+       "Apatite",
+       0.019
+      ],
+      [
+       "Olivine",
+       0.014
+      ]
+     ]
+    },
+    "n_px": {
+     "0": 1024060,
+     "1": 708828,
+     "2": 39315
+    }
+   },
+   "e2/structural/noTrace": {
+    "accuracy": 0.8987,
+    "purity": 0.9151,
+    "names": {
+     "0": "Chlorite",
+     "1": "Clinopyroxene",
+     "2": "Chlorite"
+    },
+    "top3": {
+     "0": [
+      [
+       "Chlorite",
+       0.794
+      ],
+      [
+       "Garnet",
+       0.234
+      ],
+      [
+       "Orthopyroxene",
+       0.134
+      ]
+     ],
+     "1": [
+      [
+       "Clinopyroxene",
+       0.23
+      ],
+      [
+       "Plagioclase",
+       0.032
+      ],
+      [
+       "Olivine",
+       0.01
+      ]
+     ],
+     "2": [
+      [
+       "Chlorite",
+       0.037
+      ],
+      [
+       "Apatite",
+       0.032
+      ],
+      [
+       "Rutile",
+       0.023
+      ]
+     ]
+    },
+    "n_px": {
+     "0": 1024060,
+     "1": 708828,
+     "2": 39315
+    }
+   },
+   "e2/structural/majors": {
+    "accuracy": 0.8901,
+    "purity": 0.9151,
+    "names": {
+     "0": "Chlorite",
+     "1": "Clinopyroxene",
+     "2": "Apatite"
+    },
+    "top3": {
+     "0": [
+      [
+       "Chlorite",
+       0.838
+      ],
+      [
+       "Garnet",
+       0.199
+      ],
+      [
+       "Orthopyroxene",
+       0.143
+      ]
+     ],
+     "1": [
+      [
+       "Clinopyroxene",
+       0.237
+      ],
+      [
+       "Plagioclase",
+       0.033
+      ],
+      [
+       "Olivine",
+       0.01
+      ]
+     ],
+     "2": [
+      [
+       "Apatite",
+       0.066
+      ],
+      [
+       "Olivine",
+       0.029
+      ],
+      [
+       "Chlorite",
+       0.025
+      ]
+     ]
+    },
+    "n_px": {
+     "0": 1024060,
+     "1": 708828,
+     "2": 39315
+    }
+   }
+  },
+  "gmm_noTrace": {
+   "e0/ratio/all12": {
+    "accuracy": 0.271,
+    "purity": 0.916,
+    "names": {
+     "0": "Chlorite",
+     "1": "Amphibole",
+     "2": "Garnet"
+    },
+    "top3": {
+     "0": [
+      [
+       "Chlorite",
+       0.884
+      ],
+      [
+       "Garnet",
+       0.834
+      ],
+      [
+       "Olivine",
+       0.721
+      ]
+     ],
+     "1": [
+      [
+       "Amphibole",
+       0.89
+      ],
+      [
+       "Biotite",
+       0.856
+      ],
+      [
+       "Clinopyroxene",
+       0.785
+      ]
+     ],
+     "2": [
+      [
+       "Garnet",
+       0.837
+      ],
+      [
+       "Chlorite",
+       0.798
+      ],
+      [
+       "Olivine",
+       0.788
+      ]
+     ]
+    },
+    "n_px": {
+     "0": 1574326,
+     "1": 1233568,
+     "2": 148888
+    }
+   },
+   "e0/ratio/noTrace": {
+    "accuracy": 0.271,
+    "purity": 0.916,
+    "names": {
+     "0": "Chlorite",
+     "1": "Amphibole",
+     "2": "Garnet"
+    },
+    "top3": {
+     "0": [
+      [
+       "Chlorite",
+       0.936
+      ],
+      [
+       "Garnet",
+       0.841
+      ],
+      [
+       "Olivine",
+       0.729
+      ]
+     ],
+     "1": [
+      [
+       "Amphibole",
+       0.927
+      ],
+      [
+       "Biotite",
+       0.884
+      ],
+      [
+       "Clinopyroxene",
+       0.79
+      ]
+     ],
+     "2": [
+      [
+       "Garnet",
+       0.867
+      ],
+      [
+       "Chlorite",
+       0.84
+      ],
+      [
+       "Olivine",
+       0.812
+      ]
+     ]
+    },
+    "n_px": {
+     "0": 1574326,
+     "1": 1233568,
+     "2": 148888
+    }
+   },
+   "e0/ratio/majors": {
+    "accuracy": 0.2793,
+    "purity": 0.916,
+    "names": {
+     "0": "Chlorite",
+     "1": "Amphibole",
+     "2": "Chlorite"
+    },
+    "top3": {
+     "0": [
+      [
+       "Chlorite",
+       0.945
+      ],
+      [
+       "Garnet",
+       0.831
+      ],
+      [
+       "Olivine",
+       0.733
+      ]
+     ],
+     "1": [
+      [
+       "Amphibole",
+       0.928
+      ],
+      [
+       "Biotite",
+       0.881
+      ],
+      [
+       "Clinopyroxene",
+       0.793
+      ]
+     ],
+     "2": [
+      [
+       "Chlorite",
+       0.891
+      ],
+      [
+       "Garnet",
+       0.89
+      ],
+      [
+       "Olivine",
+       0.852
+      ]
+     ]
+    },
+    "n_px": {
+     "0": 1574326,
+     "1": 1233568,
+     "2": 148888
+    }
+   },
+   "e0/structural/all12": {
+    "accuracy": 0.2793,
+    "purity": 0.916,
+    "names": {
+     "0": "Chlorite",
+     "1": "Amphibole",
+     "2": "Chlorite"
+    },
+    "top3": {
+     "0": [
+      [
+       "Chlorite",
+       0.605
+      ],
+      [
+       "Garnet",
+       0.264
+      ],
+      [
+       "Orthopyroxene",
+       0.114
+      ]
+     ],
+     "1": [
+      [
+       "Amphibole",
+       0.045
+      ],
+      [
+       "Clinopyroxene",
+       0.039
+      ],
+      [
+       "Plagioclase",
+       0.03
+      ]
+     ],
+     "2": [
+      [
+       "Chlorite",
+       0.401
+      ],
+      [
+       "Olivine",
+       0.225
+      ],
+      [
+       "Garnet",
+       0.155
+      ]
+     ]
+    },
+    "n_px": {
+     "0": 1574326,
+     "1": 1233568,
+     "2": 148888
+    }
+   },
+   "e0/structural/noTrace": {
+    "accuracy": 0.2793,
+    "purity": 0.916,
+    "names": {
+     "0": "Chlorite",
+     "1": "Amphibole",
+     "2": "Chlorite"
+    },
+    "top3": {
+     "0": [
+      [
+       "Chlorite",
+       0.748
+      ],
+      [
+       "Garnet",
+       0.219
+      ],
+      [
+       "Orthopyroxene",
+       0.149
+      ]
+     ],
+     "1": [
+      [
+       "Amphibole",
+       0.09
+      ],
+      [
+       "Biotite",
+       0.083
+      ],
+      [
+       "Plagioclase",
+       0.038
+      ]
+     ],
+     "2": [
+      [
+       "Chlorite",
+       0.503
+      ],
+      [
+       "Olivine",
+       0.268
+      ],
+      [
+       "Garnet",
+       0.169
+      ]
+     ]
+    },
+    "n_px": {
+     "0": 1574326,
+     "1": 1233568,
+     "2": 148888
+    }
+   },
+   "e0/structural/majors": {
+    "accuracy": 0.2793,
+    "purity": 0.916,
+    "names": {
+     "0": "Chlorite",
+     "1": "Amphibole",
+     "2": "Chlorite"
+    },
+    "top3": {
+     "0": [
+      [
+       "Chlorite",
+       0.795
+      ],
+      [
+       "Garnet",
+       0.184
+      ],
+      [
+       "Orthopyroxene",
+       0.159
+      ]
+     ],
+     "1": [
+      [
+       "Amphibole",
+       0.08
+      ],
+      [
+       "Biotite",
+       0.072
+      ],
+      [
+       "Plagioclase",
+       0.042
+      ]
+     ],
+     "2": [
+      [
+       "Chlorite",
+       0.79
+      ],
+      [
+       "Olivine",
+       0.458
+      ],
+      [
+       "Garnet",
+       0.196
+      ]
+     ]
+    },
+    "n_px": {
+     "0": 1574326,
+     "1": 1233568,
+     "2": 148888
+    }
+   },
+   "e1/ratio/all12": {
+    "accuracy": 0.2793,
+    "purity": 0.916,
+    "names": {
+     "0": "Chlorite",
+     "1": "Amphibole",
+     "2": "Chlorite"
+    },
+    "top3": {
+     "0": [
+      [
+       "Chlorite",
+       0.889
+      ],
+      [
+       "Garnet",
+       0.838
+      ],
+      [
+       "Olivine",
+       0.722
+      ]
+     ],
+     "1": [
+      [
+       "Amphibole",
+       0.868
+      ],
+      [
+       "Clinopyroxene",
+       0.838
+      ],
+      [
+       "Biotite",
+       0.815
+      ]
+     ],
+     "2": [
+      [
+       "Chlorite",
+       0.777
+      ],
+      [
+       "Olivine",
+       0.733
+      ],
+      [
+       "Garnet",
+       0.71
+      ]
+     ]
+    },
+    "n_px": {
+     "0": 1283290,
+     "1": 955698,
+     "2": 75062
+    }
+   },
+   "e1/ratio/noTrace": {
+    "accuracy": 0.2793,
+    "purity": 0.916,
+    "names": {
+     "0": "Chlorite",
+     "1": "Amphibole",
+     "2": "Chlorite"
+    },
+    "top3": {
+     "0": [
+      [
+       "Chlorite",
+       0.941
+      ],
+      [
+       "Garnet",
+       0.844
+      ],
+      [
+       "Olivine",
+       0.73
+      ]
+     ],
+     "1": [
+      [
+       "Amphibole",
+       0.895
+      ],
+      [
+       "Clinopyroxene",
+       0.844
+      ],
+      [
+       "Biotite",
+       0.841
+      ]
+     ],
+     "2": [
+      [
+       "Chlorite",
+       0.825
+      ],
+      [
+       "Olivine",
+       0.769
+      ],
+      [
+       "Garnet",
+       0.734
+      ]
+     ]
+    },
+    "n_px": {
+     "0": 1283290,
+     "1": 955698,
+     "2": 75062
+    }
+   },
+   "e1/ratio/majors": {
+    "accuracy": 0.2793,
+    "purity": 0.916,
+    "names": {
+     "0": "Chlorite",
+     "1": "Amphibole",
+     "2": "Chlorite"
+    },
+    "top3": {
+     "0": [
+      [
+       "Chlorite",
+       0.95
+      ],
+      [
+       "Garnet",
+       0.835
+      ],
+      [
+       "Olivine",
+       0.734
+      ]
+     ],
+     "1": [
+      [
+       "Amphibole",
+       0.889
+      ],
+      [
+       "Clinopyroxene",
+       0.848
+      ],
+      [
+       "Biotite",
+       0.838
+      ]
+     ],
+     "2": [
+      [
+       "Chlorite",
+       0.877
+      ],
+      [
+       "Olivine",
+       0.829
+      ],
+      [
+       "Garnet",
+       0.761
+      ]
+     ]
+    },
+    "n_px": {
+     "0": 1283290,
+     "1": 955698,
+     "2": 75062
+    }
+   },
+   "e1/structural/all12": {
+    "accuracy": 0.8993,
+    "purity": 0.916,
+    "names": {
+     "0": "Chlorite",
+     "1": "Clinopyroxene",
+     "2": "Chlorite"
+    },
+    "top3": {
+     "0": [
+      [
+       "Chlorite",
+       0.633
+      ],
+      [
+       "Garnet",
+       0.271
+      ],
+      [
+       "Orthopyroxene",
+       0.107
+      ]
+     ],
+     "1": [
+      [
+       "Clinopyroxene",
+       0.167
+      ],
+      [
+       "Plagioclase",
+       0.025
+      ],
+      [
+       "Olivine",
+       0.016
+      ]
+     ],
+     "2": [
+      [
+       "Chlorite",
+       0.354
+      ],
+      [
+       "Olivine",
+       0.099
+      ],
+      [
+       "Apatite",
+       0.013
+      ]
+     ]
+    },
+    "n_px": {
+     "0": 1283290,
+     "1": 955698,
+     "2": 75062
+    }
+   },
+   "e1/structural/noTrace": {
+    "accuracy": 0.8993,
+    "purity": 0.916,
+    "names": {
+     "0": "Chlorite",
+     "1": "Clinopyroxene",
+     "2": "Chlorite"
+    },
+    "top3": {
+     "0": [
+      [
+       "Chlorite",
+       0.775
+      ],
+      [
+       "Garnet",
+       0.228
+      ],
+      [
+       "Orthopyroxene",
+       0.14
+      ]
+     ],
+     "1": [
+      [
+       "Clinopyroxene",
+       0.147
+      ],
+      [
+       "Plagioclase",
+       0.037
+      ],
+      [
+       "Orthopyroxene",
+       0.013
+      ]
+     ],
+     "2": [
+      [
+       "Chlorite",
+       0.477
+      ],
+      [
+       "Olivine",
+       0.15
+      ],
+      [
+       "Apatite",
+       0.014
+      ]
+     ]
+    },
+    "n_px": {
+     "0": 1283290,
+     "1": 955698,
+     "2": 75062
+    }
+   },
+   "e1/structural/majors": {
+    "accuracy": 0.8993,
+    "purity": 0.916,
+    "names": {
+     "0": "Chlorite",
+     "1": "Clinopyroxene",
+     "2": "Chlorite"
+    },
+    "top3": {
+     "0": [
+      [
+       "Chlorite",
+       0.82
+      ],
+      [
+       "Garnet",
+       0.193
+      ],
+      [
+       "Orthopyroxene",
+       0.15
+      ]
+     ],
+     "1": [
+      [
+       "Clinopyroxene",
+       0.151
+      ],
+      [
+       "Plagioclase",
+       0.039
+      ],
+      [
+       "Olivine",
+       0.011
+      ]
+     ],
+     "2": [
+      [
+       "Chlorite",
+       0.597
+      ],
+      [
+       "Olivine",
+       0.352
+      ],
+      [
+       "Apatite",
+       0.059
+      ]
+     ]
+    },
+    "n_px": {
+     "0": 1283290,
+     "1": 955698,
+     "2": 75062
+    }
+   },
+   "e2/ratio/all12": {
+    "accuracy": 0.8993,
+    "purity": 0.916,
+    "names": {
+     "0": "Chlorite",
+     "1": "Clinopyroxene",
+     "2": "Chlorite"
+    },
+    "top3": {
+     "0": [
+      [
+       "Chlorite",
+       0.893
+      ],
+      [
+       "Garnet",
+       0.841
+      ],
+      [
+       "Olivine",
+       0.722
+      ]
+     ],
+     "1": [
+      [
+       "Clinopyroxene",
+       0.857
+      ],
+      [
+       "Amphibole",
+       0.852
+      ],
+      [
+       "Biotite",
+       0.801
+      ]
+     ],
+     "2": [
+      [
+       "Chlorite",
+       0.668
+      ],
+      [
+       "Olivine",
+       0.652
+      ],
+      [
+       "Garnet",
+       0.596
+      ]
+     ]
+    },
+    "n_px": {
+     "0": 1035485,
+     "1": 715654,
+     "2": 36655
+    }
+   },
+   "e2/ratio/noTrace": {
+    "accuracy": 0.2793,
+    "purity": 0.916,
+    "names": {
+     "0": "Chlorite",
+     "1": "Amphibole",
+     "2": "Chlorite"
+    },
+    "top3": {
+     "0": [
+      [
+       "Chlorite",
+       0.945
+      ],
+      [
+       "Garnet",
+       0.848
+      ],
+      [
+       "Olivine",
+       0.731
+      ]
+     ],
+     "1": [
+      [
+       "Amphibole",
+       0.879
+      ],
+      [
+       "Clinopyroxene",
+       0.864
+      ],
+      [
+       "Biotite",
+       0.826
+      ]
+     ],
+     "2": [
+      [
+       "Chlorite",
+       0.692
+      ],
+      [
+       "Olivine",
+       0.673
+      ],
+      [
+       "Garnet",
+       0.614
+      ]
+     ]
+    },
+    "n_px": {
+     "0": 1035485,
+     "1": 715654,
+     "2": 36655
+    }
+   },
+   "e2/ratio/majors": {
+    "accuracy": 0.2793,
+    "purity": 0.916,
+    "names": {
+     "0": "Chlorite",
+     "1": "Amphibole",
+     "2": "Chlorite"
+    },
+    "top3": {
+     "0": [
+      [
+       "Chlorite",
+       0.954
+      ],
+      [
+       "Garnet",
+       0.838
+      ],
+      [
+       "Olivine",
+       0.735
+      ]
+     ],
+     "1": [
+      [
+       "Amphibole",
+       0.872
+      ],
+      [
+       "Clinopyroxene",
+       0.867
+      ],
+      [
+       "Biotite",
+       0.823
+      ]
+     ],
+     "2": [
+      [
+       "Chlorite",
+       0.711
+      ],
+      [
+       "Olivine",
+       0.688
+      ],
+      [
+       "Calcite",
+       0.643
+      ]
+     ]
+    },
+    "n_px": {
+     "0": 1035485,
+     "1": 715654,
+     "2": 36655
+    }
+   },
+   "e2/structural/all12": {
+    "accuracy": 0.891,
+    "purity": 0.916,
+    "names": {
+     "0": "Chlorite",
+     "1": "Clinopyroxene",
+     "2": "Rutile"
+    },
+    "top3": {
+     "0": [
+      [
+       "Chlorite",
+       0.652
+      ],
+      [
+       "Garnet",
+       0.277
+      ],
+      [
+       "Orthopyroxene",
+       0.102
+      ]
+     ],
+     "1": [
+      [
+       "Clinopyroxene",
+       0.252
+      ],
+      [
+       "Plagioclase",
+       0.021
+      ],
+      [
+       "Olivine",
+       0.015
+      ]
+     ],
+     "2": [
+      [
+       "Rutile",
+       0.034
+      ],
+      [
+       "Chlorite",
+       0.011
+      ],
+      [
+       "Apatite",
+       0.01
+      ]
+     ]
+    },
+    "n_px": {
+     "0": 1035485,
+     "1": 715654,
+     "2": 36655
+    }
+   },
+   "e2/structural/noTrace": {
+    "accuracy": 0.891,
+    "purity": 0.916,
+    "names": {
+     "0": "Chlorite",
+     "1": "Clinopyroxene",
+     "2": "Rutile"
+    },
+    "top3": {
+     "0": [
+      [
+       "Chlorite",
+       0.793
+      ],
+      [
+       "Garnet",
+       0.234
+      ],
+      [
+       "Orthopyroxene",
+       0.134
+      ]
+     ],
+     "1": [
+      [
+       "Clinopyroxene",
+       0.229
+      ],
+      [
+       "Plagioclase",
+       0.032
+      ],
+      [
+       "Olivine",
+       0.01
+      ]
+     ],
+     "2": [
+      [
+       "Rutile",
+       0.072
+      ],
+      [
+       "Apatite",
+       0.017
+      ],
+      [
+       "Chlorite",
+       0.012
+      ]
+     ]
+    },
+    "n_px": {
+     "0": 1035485,
+     "1": 715654,
+     "2": 36655
+    }
+   },
+   "e2/structural/majors": {
+    "accuracy": 0.891,
+    "purity": 0.916,
+    "names": {
+     "0": "Chlorite",
+     "1": "Clinopyroxene",
+     "2": "Rutile"
+    },
+    "top3": {
+     "0": [
+      [
+       "Chlorite",
+       0.838
+      ],
+      [
+       "Garnet",
+       0.2
+      ],
+      [
+       "Orthopyroxene",
+       0.144
+      ]
+     ],
+     "1": [
+      [
+       "Clinopyroxene",
+       0.236
+      ],
+      [
+       "Plagioclase",
+       0.033
+      ],
+      [
+       "Olivine",
+       0.01
+      ]
+     ],
+     "2": [
+      [
+       "Rutile",
+       0.054
+      ],
+      [
+       "Apatite",
+       0.032
+      ],
+      [
+       "Calcite",
+       0.018
+      ]
+     ]
+    },
+    "n_px": {
+     "0": 1035485,
+     "1": 715654,
+     "2": 36655
+    }
+   }
+  }
+ }
+}

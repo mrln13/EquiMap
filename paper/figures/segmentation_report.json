@@ -1,0 +1,702 @@
+{
+ "sparsity": [
+  {
+   "element": "Al",
+   "zero_frac_pct": 23.863708311196696,
+   "pooled_counts": 129.0761317938458,
+   "excluded": false
+  },
+  {
+   "element": "C",
+   "zero_frac_pct": 99.93062201983538,
+   "pooled_counts": -103.82344120706378,
+   "excluded": true
+  },
+  {
+   "element": "Ca",
+   "zero_frac_pct": 95.59941430545268,
+   "pooled_counts": 6.297879301094842,
+   "excluded": false
+  },
+  {
+   "element": "Fe",
+   "zero_frac_pct": 88.450518040571,
+   "pooled_counts": 12.499369855782929,
+   "excluded": false
+  },
+  {
+   "element": "K",
+   "zero_frac_pct": 62.049042187879834,
+   "pooled_counts": 31.511393526881303,
+   "excluded": false
+  },
+  {
+   "element": "Mg",
+   "zero_frac_pct": 68.03056199589356,
+   "pooled_counts": 28.378150694740803,
+   "excluded": false
+  },
+  {
+   "element": "Na",
+   "zero_frac_pct": 87.65163046722839,
+   "pooled_counts": 11.500915393003995,
+   "excluded": false
+  },
+  {
+   "element": "O",
+   "zero_frac_pct": 0.5725876010396119,
+   "pooled_counts": 169.61101235318142,
+   "excluded": false
+  },
+  {
+   "element": "P",
+   "zero_frac_pct": 97.03211420162849,
+   "pooled_counts": -1.2313843755304732,
+   "excluded": true
+  },
+  {
+   "element": "Si",
+   "zero_frac_pct": 0.4603880755246185,
+   "pooled_counts": 310.29733015787673,
+   "excluded": false
+  },
+  {
+   "element": "Ti",
+   "zero_frac_pct": 98.84796642453573,
+   "pooled_counts": 1.9230889089435839,
+   "excluded": true
+  }
+ ],
+ "bic": {
+  "2": 427004.7451005522,
+  "3": 403755.7096271587,
+  "4": 397005.42415376514,
+  "5": 391234.7636803716,
+  "6": 387951.540706978,
+  "7": 385500.00523358444,
+  "8": 381164.37601019087,
+  "9": 378048.05928679736,
+  "10": 376787.0238134038,
+  "11": 375213.2070900102,
+  "12": 373986.82786661666,
+  "13": 373248.3861432231,
+  "14": 371604.7569198296,
+  "15": 370590.596446436
+ },
+ "icl": {
+  "2": 434829.42429977097,
+  "3": 414315.8043537212,
+  "4": 411256.11067720264,
+  "5": 405597.2324303716,
+  "6": 405309.253597603,
+  "7": 405812.92515545944,
+  "8": 402784.11429144087,
+  "9": 401973.61397429736,
+  "10": 403007.7816259038,
+  "11": 402635.9883400102,
+  "12": 402902.57396036666,
+  "13": 402317.1498150981,
+  "14": 398545.8389510796,
+  "15": 398796.235118311
+ },
+ "k_chosen": 14,
+ "dominant": {
+  "0": "Na+Si+Ca",
+  "1": "Si+O+Fe",
+  "2": "Si+O+Na",
+  "3": "Si+Mg+Fe",
+  "4": "O+Mg+Fe",
+  "5": "Al+K+Na",
+  "6": "Si+O+Na",
+  "7": "O+Mg+Fe",
+  "8": "Na+Ca+Mg",
+  "9": "Ca+Al+Na",
+  "10": "Na+O+Ca",
+  "11": "Na+Ca+Si",
+  "12": "O+Mg+Fe",
+  "13": "O+Si+Mg"
+ },
+ "pixels": {
+  "0": 5734024,
+  "2": 8854575,
+  "3": 9176712,
+  "4": 14668063,
+  "5": 8680317,
+  "9": 591793,
+  "11": 5147449,
+  "12": 363505
+ },
+ "n_unclassified": 0,
+ "contingency_vs_previous": {
+  "0": {
+   "Biotite": 0.011465944335077775,
+   "Quartz-mica matrix": 0.9249502618056709,
+   "Muscovite": 1.9358133136519834e-05,
+   "Quartz": 0.01665549359402751,
+   "Plagioclase": 0.046562588506779884,
+   "Epidote": 0.00034635362530746296
+  },
+  "2": {
+   "Biotite": 1.129359681294698e-07,
+   "Quartz-mica matrix": 0.15451921746667682,
+   "Quartz": 0.845480669597355
+  },
+  "3": {
+   "Biotite": 0.10996356865073242,
+   "Quartz-mica matrix": 0.7264290303542271,
+   "Muscovite": 0.04738952252179212,
+   "Quartz": 0.005616935564720785,
+   "Plagioclase": 0.09574104537660112,
+   "Epidote": 0.014859897531926469
+  },
+  "4": {
+   "Biotite": 0.9186846279566702,
+   "Quartz-mica matrix": 0.02832903022028198,
+   "Muscovite": 0.047748022353053705,
+   "Quartz": 0.004877399285781633,
+   "Plagioclase": 0.00013614612917874704,
+   "Epidote": 0.0002247740550337151
+  },
+  "5": {
+   "Biotite": 0.0162769401163575,
+   "Quartz-mica matrix": 0.03104748363452625,
+   "Muscovite": 0.9368594487966281,
+   "Quartz": 0.0054177744891114,
+   "Plagioclase": 9.746187840835767e-05,
+   "Epidote": 0.010300891084968442
+  },
+  "9": {
+   "Biotite": 0.00020446338500117438,
+   "Quartz-mica matrix": 0.049370303467597625,
+   "Muscovite": 0.0005491785134329064,
+   "Quartz": 0.00023487942574515076,
+   "Epidote": 0.9496411752082231
+  },
+  "11": {
+   "Biotite": 6.022400610477151e-06,
+   "Quartz-mica matrix": 0.036878461544737985,
+   "Quartz": 0.009463328339921386,
+   "Plagioclase": 0.9536521877147301
+  },
+  "12": {
+   "Biotite": 0.6247534421809878,
+   "Quartz-mica matrix": 0.3643691283476156,
+   "Muscovite": 0.00015405565260450337,
+   "Quartz": 0.005045322622797486,
+   "Plagioclase": 1.1003975186035955e-05,
+   "Epidote": 0.005667047220808517
+  }
+ },
+ "pixel_agreement_majority": 0.8787100331668196,
+ "names": {
+  "0": "Quartz-rich matrix",
+  "2": "Quartz",
+  "3": "Mica-rich matrix",
+  "4": "Biotite",
+  "5": "Muscovite",
+  "9": "Sillimanite",
+  "11": "Plagioclase",
+  "12": "Chlorite"
+ },
+ "assignments": {
+  "0": {
+   "abbrev": "Qz",
+   "name": "Quartz",
+   "group": "quartz",
+   "score": 0.1644,
+   "method": "structural",
+   "confidence": "low",
+   "confidence_pct": 16.4,
+   "indices": {},
+   "flags": [
+    "polymorph_ambiguous",
+    "merged_from_0_1_13"
+   ],
+   "thermo_abbrev": "q",
+   "candidates": [
+    {
+     "name": "Quartz",
+     "abbrev": "Qz",
+     "confidence_pct": 16.4,
+     "confidence": "low"
+    },
+    {
+     "name": "Calcite",
+     "abbrev": "Cal",
+     "confidence_pct": 1.5,
+     "confidence": "low"
+    },
+    {
+     "name": "Dolomite",
+     "abbrev": "Dol",
+     "confidence_pct": 1.5,
+     "confidence": "low"
+    },
+    {
+     "name": "Muscovite",
+     "abbrev": "Ms",
+     "confidence_pct": 0.0,
+     "confidence": "low"
+    },
+    {
+     "name": "Plagioclase",
+     "abbrev": "Pl",
+     "confidence_pct": 0.0,
+     "confidence": "low"
+    }
+   ]
+  },
+  "2": {
+   "abbrev": "Qz",
+   "name": "Quartz",
+   "group": "quartz",
+   "score": 0.9602,
+   "method": "structural",
+   "confidence": "high",
+   "confidence_pct": 96.0,
+   "indices": {},
+   "flags": [
+    "polymorph_ambiguous",
+    "merged_from_2_6"
+   ],
+   "thermo_abbrev": "q",
+   "candidates": [
+    {
+     "name": "Quartz",
+     "abbrev": "Qz",
+     "confidence_pct": 96.0,
+     "confidence": "high"
+    },
+    {
+     "name": "Calcite",
+     "abbrev": "Cal",
+     "confidence_pct": 0.1,
+     "confidence": "low"
+    },
+    {
+     "name": "Dolomite",
+     "abbrev": "Dol",
+     "confidence_pct": 0.1,
+     "confidence": "low"
+    },
+    {
+     "name": "Alkali feldspar",
+     "abbrev": "Kfs",
+     "confidence_pct": 0.0,
+     "confidence": "low"
+    },
+    {
+     "name": "Plagioclase",
+     "abbrev": "Pl",
+     "confidence_pct": 0.0,
+     "confidence": "low"
+    }
+   ]
+  },
+  "3": {
+   "abbrev": "Crd",
+   "name": "Cordierite",
+   "group": "cordierite",
+   "score": 0.7027,
+   "method": "structural",
+   "confidence": "moderate",
+   "confidence_pct": 70.3,
+   "indices": {
+    "Mg#": 0.4771
+   },
+   "flags": [
+    "merged_from_3_8_10"
+   ],
+   "thermo_abbrev": "cd",
+   "candidates": [
+    {
+     "name": "Cordierite",
+     "abbrev": "Crd",
+     "confidence_pct": 70.3,
+     "confidence": "moderate"
+    },
+    {
+     "name": "Biotite",
+     "abbrev": "Bt",
+     "confidence_pct": 21.7,
+     "confidence": "low"
+    },
+    {
+     "name": "Calcite",
+     "abbrev": "Cal",
+     "confidence_pct": 8.4,
+     "confidence": "low"
+    },
+    {
+     "name": "Dolomite",
+     "abbrev": "Dol",
+     "confidence_pct": 7.3,
+     "confidence": "low"
+    },
+    {
+     "name": "Chlorite",
+     "abbrev": "Chl",
+     "confidence_pct": 3.3,
+     "confidence": "low"
+    }
+   ]
+  },
+  "4": {
+   "abbrev": "Bt",
+   "name": "Biotite",
+   "group": "biotite",
+   "score": 0.6774,
+   "method": "structural",
+   "confidence": "moderate",
+   "confidence_pct": 67.7,
+   "indices": {
+    "Mg#": 0.47
+   },
+   "flags": [
+    "hydrous_unmeasured_h2o",
+    "merged_from_4_7"
+   ],
+   "thermo_abbrev": "bi",
+   "candidates": [
+    {
+     "name": "Biotite",
+     "abbrev": "Bt",
+     "confidence_pct": 67.7,
+     "confidence": "moderate"
+    },
+    {
+     "name": "Garnet",
+     "abbrev": "Grt",
+     "confidence_pct": 49.5,
+     "confidence": "low"
+    },
+    {
+     "name": "Chlorite",
+     "abbrev": "Chl",
+     "confidence_pct": 19.3,
+     "confidence": "low"
+    },
+    {
+     "name": "Calcite",
+     "abbrev": "Cal",
+     "confidence_pct": 16.8,
+     "confidence": "low"
+    },
+    {
+     "name": "Dolomite",
+     "abbrev": "Dol",
+     "confidence_pct": 13.0,
+     "confidence": "low"
+    }
+   ]
+  },
+  "5": {
+   "abbrev": "Ms",
+   "name": "Muscovite",
+   "group": "muscovite",
+   "score": 0.6418,
+   "method": "structural",
+   "confidence": "moderate",
+   "confidence_pct": 64.2,
+   "indices": {},
+   "flags": [
+    "hydrous_unmeasured_h2o"
+   ],
+   "thermo_abbrev": "mu",
+   "candidates": [
+    {
+     "name": "Muscovite",
+     "abbrev": "Ms",
+     "confidence_pct": 64.2,
+     "confidence": "moderate"
+    },
+    {
+     "name": "Biotite",
+     "abbrev": "Bt",
+     "confidence_pct": 21.1,
+     "confidence": "low"
+    },
+    {
+     "name": "Alkali feldspar",
+     "abbrev": "Kfs",
+     "confidence_pct": 6.8,
+     "confidence": "low"
+    },
+    {
+     "name": "Calcite",
+     "abbrev": "Cal",
+     "confidence_pct": 2.5,
+     "confidence": "low"
+    },
+    {
+     "name": "Dolomite",
+     "abbrev": "Dol",
+     "confidence_pct": 2.4,
+     "confidence": "low"
+    }
+   ]
+  },
+  "9": {
+   "abbrev": "Als",
+   "name": "Al2SiO5 (kyanite/sillimanite/andalusite)",
+   "group": "Al2SiO5",
+   "score": 0.4381,
+   "method": "structural",
+   "confidence": "low",
+   "confidence_pct": 43.8,
+   "indices": {},
+   "flags": [
+    "polymorph_ambiguous"
+   ],
+   "thermo_abbrev": "als",
+   "candidates": [
+    {
+     "name": "Al2SiO5 (kyanite/sillimanite/andalusite)",
+     "abbrev": "Als",
+     "confidence_pct": 43.8,
+     "confidence": "low"
+    },
+    {
+     "name": "Muscovite",
+     "abbrev": "Ms",
+     "confidence_pct": 30.4,
+     "confidence": "low"
+    },
+    {
+     "name": "Biotite",
+     "abbrev": "Bt",
+     "confidence_pct": 7.6,
+     "confidence": "low"
+    },
+    {
+     "name": "Amphibole",
+     "abbrev": "Amph",
+     "confidence_pct": 6.2,
+     "confidence": "low"
+    },
+    {
+     "name": "Calcite",
+     "abbrev": "Cal",
+     "confidence_pct": 3.3,
+     "confidence": "low"
+    }
+   ]
+  },
+  "11": {
+   "abbrev": "Pl",
+   "name": "Plagioclase",
+   "group": "plagioclase",
+   "score": 1.0,
+   "method": "manual",
+   "confidence": "high",
+   "confidence_pct": 100.0,
+   "indices": {},
+   "flags": [
+    "manual_override"
+   ],
+   "thermo_abbrev": "pl",
+   "candidates": [
+    {
+     "name": "Muscovite",
+     "abbrev": "Ms",
+     "confidence_pct": 34.8,
+     "confidence": "low"
+    },
+    {
+     "name": "Amphibole",
+     "abbrev": "Amph",
+     "confidence_pct": 34.3,
+     "confidence": "low"
+    },
+    {
+     "name": "Plagioclase",
+     "abbrev": "Pl",
+     "confidence_pct": 24.7,
+     "confidence": "low"
+    },
+    {
+     "name": "Alkali feldspar",
+     "abbrev": "Kfs",
+     "confidence_pct": 5.7,
+     "confidence": "low"
+    },
+    {
+     "name": "Clinopyroxene",
+     "abbrev": "Cpx",
+     "confidence_pct": 3.3,
+     "confidence": "low"
+    }
+   ]
+  },
+  "12": {
+   "abbrev": "Chl",
+   "name": "Chlorite",
+   "group": "chlorite",
+   "score": 0.8017,
+   "method": "structural",
+   "confidence": "moderate",
+   "confidence_pct": 80.2,
+   "indices": {
+    "Mg#": 0.4912
+   },
+   "flags": [
+    "hydrous_unmeasured_h2o"
+   ],
+   "thermo_abbrev": "chl",
+   "candidates": [
+    {
+     "name": "Chlorite",
+     "abbrev": "Chl",
+     "confidence_pct": 80.2,
+     "confidence": "moderate"
+    },
+    {
+     "name": "Calcite",
+     "abbrev": "Cal",
+     "confidence_pct": 26.1,
+     "confidence": "low"
+    },
+    {
+     "name": "Garnet",
+     "abbrev": "Grt",
+     "confidence_pct": 19.5,
+     "confidence": "low"
+    },
+    {
+     "name": "Dolomite",
+     "abbrev": "Dol",
+     "confidence_pct": 18.3,
+     "confidence": "low"
+    },
+    {
+     "name": "Orthopyroxene",
+     "abbrev": "Opx",
+     "confidence_pct": 1.1,
+     "confidence": "low"
+    }
+   ]
+  }
+ },
+ "composition_wt": {
+  "0": {
+   "Al": 9.506415210087665,
+   "Ca": 0.9259164558880194,
+   "Fe": 5.805825457038946,
+   "K": 2.7491010013752835,
+   "Mg": 2.2508880837959873,
+   "Na": 2.3805850446247128,
+   "Si": 76.01064342990573,
+   "Ti": 0.3706253172836618
+  },
+  "2": {
+   "Al": 0.3733186438091593,
+   "Ca": 0.1124083512254013,
+   "Fe": 0.3870171355707308,
+   "K": 0.7724242657780395,
+   "Na": 0.9684964916496033,
+   "Si": 97.36481210552216,
+   "Ti": 0.021523006444907723
+  },
+  "3": {
+   "Al": 23.151706186461535,
+   "Ca": 1.110956674841559,
+   "Fe": 16.045956614743275,
+   "K": 10.362859970858086,
+   "Mg": 6.359091801622655,
+   "Na": 1.9395269842384733,
+   "P": 0.2621394225487191,
+   "Si": 39.508193377641106,
+   "Ti": 1.2595689670445807
+  },
+  "4": {
+   "Al": 19.595725995473007,
+   "Ca": 0.6679721836012299,
+   "Fe": 26.796151398344424,
+   "K": 12.133848173316531,
+   "Mg": 10.341992181251836,
+   "Na": 0.2938849087950005,
+   "P": 0.2370751332539097,
+   "Si": 28.10079130045512,
+   "Ti": 1.832558725508935
+  },
+  "5": {
+   "Al": 37.320999978712315,
+   "Ca": 0.7867076647254211,
+   "Fe": 4.530666862200037,
+   "K": 15.100946240651744,
+   "Mg": 2.1879183262383557,
+   "Na": 1.4862932822697619,
+   "P": 0.5728406738131617,
+   "Si": 37.32831676190646,
+   "Ti": 0.6853102094827449
+  },
+  "9": {
+   "Al": 51.33509985793006,
+   "Ca": 6.069559061298844,
+   "Fe": 2.6300168879693104,
+   "K": 3.4105391901305353,
+   "Mg": 1.455185967019677,
+   "Na": 3.2999031548227884,
+   "P": 2.4747201359269817,
+   "Si": 29.302811434199253,
+   "Ti": 0.02216431070255636
+  },
+  "11": {
+   "Al": 27.602176180033492,
+   "Ca": 4.025178364286509,
+   "Fe": 1.3916607605188134,
+   "K": 1.0457811492458229,
+   "Mg": 0.9212762633031246,
+   "Na": 10.690125362554655,
+   "P": 0.07623708321261374,
+   "Si": 54.21920471271641,
+   "Ti": 0.028360124128556232
+  },
+  "12": {
+   "Al": 20.196862016250478,
+   "Ca": 0.2580011296710358,
+   "Fe": 36.73816447713997,
+   "K": 1.2804590197042311,
+   "Mg": 15.438777775414177,
+   "Na": 0.1838411897441746,
+   "P": 0.3455288490797159,
+   "Si": 24.492176002869908,
+   "Ti": 1.0661895401263186
+  }
+ },
+ "composition_n_px": {
+  "0": 5734024,
+  "2": 8854575,
+  "3": 9176712,
+  "4": 14668063,
+  "5": 8680317,
+  "9": 591793,
+  "11": 5147449,
+  "12": 363505
+ },
+ "unmix": {
+  "0": {
+   "fractions": {
+    "2": 0.6351724618235985,
+    "4": 0.12050872586898845,
+    "5": 0.020125827081746803,
+    "9": 0.013099730666441501,
+    "11": 0.15835248867079416,
+    "12": 0.04928346558221358
+   },
+   "residual": 0.0022566744698070433
+  },
+  "3": {
+   "fractions": {
+    "2": 0.09231124016724088,
+    "4": 0.5214192548529522,
+    "5": 0.23559513109641478,
+    "9": 0.0049209757221851955,
+    "11": 0.13532823368960242,
+    "12": 0.009226173819293287
+   },
+   "residual": 0.002807735350954318
+  }
+ },
+ "elapsed_s": 219
+}

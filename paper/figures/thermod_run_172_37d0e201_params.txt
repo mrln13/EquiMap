@@ -1,0 +1,48 @@
+Run ID:       37d0e201
+Created:      2026-06-24T15:43:07
+Mode:         grid
+Backend:      magemin
+Backend kwargs:
+  db: mpe
+  fe3_fraction: 0.2
+P range:      0.1 … 1.0 GPa  (20 pts)
+T range:      300.0 … 800.0 °C  (20 pts)
+Workflow:     both
+Observed modes: Biotite 26%, Alkali feldspar 24%, Plagioclase 21%, Muscovite 17%, Quartz 12%
+Fe3+ frac:    0.2
+H2O extra:    4.0 wt%
+CO2 extra:    0.0 wt%
+
+ROI label:    ROI #172 [y=0:26784, x=0:49670]
+ROI bbox:     y=[0, 26784]  x=[0, 49670]   (26784 × 49670 px)
+Manifest:     C:\Users\4029771\OneDrive - Universiteit Utrecht\Dev\Data\C23S1A_Quant\stitch_manifest.csv
+
+Composition (ROI, element wt%):
+  Ag          0.011
+  Al         10.489
+  As          0.001
+  Ca          0.371
+  Cd          0.000
+  Ce          0.006
+  Cl          0.001
+  Cr          0.000
+  Cu          0.000
+  Fe          6.324
+  Hg          0.007
+  In          0.018
+  K           4.266
+  Mg          2.551
+  Mn          0.001
+  Na          1.010
+  Nb          0.010
+  Nd          0.000
+  O          45.118
+  P           0.381
+  Si         26.610
+  Sn          1.633
+  Sr          0.001
+  Ti          0.482
+  Tl          0.442
+  U           0.011
+  Y           0.012
+  Zr          0.245

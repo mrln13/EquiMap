@@ -1,0 +1,23 @@
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+.idea/
+.vscode/
+
+# Build of the Windows distribution
+/EquiMap_dist/
+
+# Analysis outputs and local datasets (never commit data)
+*.msa
+/stitch_cache/
+/stitch_debug/
+/eds_cache/
+/perplex_runs/
+/viewer_session.json
+/viewer_session.npz
+/*.csv
+
+# Large regenerable archives of the paper figures (over GitHub's file limit)
+/paper/figures/pt_windows_grids.json.gz
+/paper/figures/ebsd_quantified/serpdi_*_wt_maps_bin2.npz

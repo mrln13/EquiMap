@@ -1,0 +1,85 @@
+{
+  "source": "fullres_roi",
+  "seg_ds": 5,
+  "roi": [
+    0,
+    26784,
+    0,
+    49670
+  ],
+  "element_filter": null,
+  "n_clusters": "auto",
+  "k_max": 15,
+  "min_k": 2,
+  "pca_variance": 0.92,
+  "smooth_sigma": 2.5,
+  "min_region_size": 30,
+  "norm_method": "row",
+  "min_count_pct": 5.0,
+  "min_count_ratio": 0.1,
+  "max_zero_pct": 97.0,
+  "exclude_overlap": true,
+  "elements_used": [
+    "Al",
+    "Ca",
+    "Fe",
+    "K",
+    "Mg",
+    "Na",
+    "O",
+    "Si"
+  ],
+  "k_chosen": 14,
+  "smooth_floor": "noise",
+  "fit_balance": "density",
+  "seed_mask": null,
+  "seed_erode": 3,
+  "merge_same_name": true,
+  "auto_method": "icl_min",
+  "background": "line-aware",
+  "calibration": {
+    "source": "eds_calibration.json",
+    "background": "line-aware",
+    "n_tiles": 2014,
+    "k_factors": {
+      "Al": 8.05677662391796e-06,
+      "Ca": 8.737262493168404e-06,
+      "Fe": 5.1630857134022645e-05,
+      "K": 1.3756964895893205e-05,
+      "Mg": 8.978748563264474e-06,
+      "Na": 9.345545739578693e-06,
+      "P": 1.1220836963815663e-05,
+      "Si": 8.35442864514204e-06,
+      "Ti": 2.479265521876316e-05
+    }
+  },
+  "fe3_fraction": 0.1,
+  "coating_elements": [
+    "C"
+  ],
+  "provenance": "segment_worked_example.py (headless replay of the viewer pipeline, 2026-09-16)",
+  "unmix": {
+    "0": {
+      "fractions": {
+        "2": 0.635172,
+        "4": 0.120509,
+        "5": 0.020126,
+        "9": 0.0131,
+        "11": 0.158352,
+        "12": 0.049283
+      },
+      "residual": 0.002257
+    },
+    "3": {
+      "fractions": {
+        "2": 0.092311,
+        "4": 0.521419,
+        "5": 0.235595,
+        "9": 0.004921,
+        "11": 0.135328,
+        "12": 0.009226
+      },
+      "residual": 0.002808
+    }
+  }
+}

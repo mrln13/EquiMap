@@ -1,0 +1,28 @@
+Run ID:       4dac755e
+Created:      2026-06-17T17:17:27
+Mode:         grid
+Backend:      magemin
+Backend kwargs:
+  db: mpe
+  fe3_fraction: 0.1
+P range:      0.1 … 1.0 GPa  (15 pts)
+T range:      300.0 … 700.0 °C  (15 pts)
+Workflow:     both
+Fe3+ frac:    0.1
+H2O extra:    3.0 wt%
+CO2 extra:    0.0 wt%
+
+ROI label:    ROI #1 [y=0:26784, x=0:49670]  [sweep L0 mean (eds)]
+ROI bbox:     y=[0, 26784]  x=[0, 49670]   (26784 × 49670 px)
+Manifest:     C:\Users\4029771\OneDrive - Universiteit Utrecht\Dev\Data\C23S1A_Quant\stitch_manifest.csv
+
+Composition (sweep L0 mean (eds), element wt%):
+  Al         17.206
+  Ca          1.177
+  Fe         12.983
+  K           9.125
+  Mg          5.223
+  Na          1.854
+  P           0.209
+  Si         51.116
+  Ti          1.107

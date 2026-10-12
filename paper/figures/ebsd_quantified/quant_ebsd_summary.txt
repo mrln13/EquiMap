@@ -1,0 +1,41 @@
+map  segmentation                       naming                  acc  purity
+  1  published counts, 6 um             ratio/all17           0.319   0.898
+  1  published domains, bin2            ratio/all17           0.319   0.898
+  1  published domains re-ID wt%        ratio/all12           0.319   0.898
+  1  published domains re-ID wt%        ratio/noTrace         0.319   0.898
+  1  published domains re-ID wt%        ratio/majors          0.319   0.898
+  1  published domains re-ID wt%        structural/all12      0.319   0.898
+  1  published domains re-ID wt%        structural/noTrace    0.319   0.898
+  1  published domains re-ID wt%        structural/majors     0.319   0.898
+  1  GMM on wt% [all12] k=4             ratio/all12           0.324   0.902
+  1  GMM on wt% [all12] k=4             ratio/noTrace         0.324   0.902
+  1  GMM on wt% [all12] k=4             ratio/majors          0.324   0.902
+  1  GMM on wt% [all12] k=4             structural/all12      0.324   0.902
+  1  GMM on wt% [all12] k=4             structural/noTrace    0.324   0.902
+  1  GMM on wt% [all12] k=4             structural/majors     0.324   0.902
+  1  GMM on wt% [noTrace] k=3           ratio/all12           0.315   0.894
+  1  GMM on wt% [noTrace] k=3           ratio/noTrace         0.315   0.894
+  1  GMM on wt% [noTrace] k=3           ratio/majors          0.315   0.894
+  1  GMM on wt% [noTrace] k=3           structural/all12      0.315   0.894
+  1  GMM on wt% [noTrace] k=3           structural/noTrace    0.315   0.894
+  1  GMM on wt% [noTrace] k=3           structural/majors     0.315   0.894
+  2  published counts, 6 um             ratio/all17           0.270   0.910
+  2  published domains, bin2            ratio/all17           0.270   0.910
+  2  published domains re-ID wt%        ratio/all12           0.270   0.910
+  2  published domains re-ID wt%        ratio/noTrace         0.270   0.910
+  2  published domains re-ID wt%        ratio/majors          0.270   0.910
+  2  published domains re-ID wt%        structural/all12      0.279   0.910
+  2  published domains re-ID wt%        structural/noTrace    0.279   0.910
+  2  published domains re-ID wt%        structural/majors     0.279   0.910
+  2  GMM on wt% [all12] k=3             ratio/all12           0.270   0.915
+  2  GMM on wt% [all12] k=3             ratio/noTrace         0.270   0.915
+  2  GMM on wt% [all12] k=3             ratio/majors          0.270   0.915
+  2  GMM on wt% [all12] k=3             structural/all12      0.279   0.915
+  2  GMM on wt% [all12] k=3             structural/noTrace    0.279   0.915
+  2  GMM on wt% [all12] k=3             structural/majors     0.279   0.915
+  2  GMM on wt% [noTrace] k=3           ratio/all12           0.271   0.916
+  2  GMM on wt% [noTrace] k=3           ratio/noTrace         0.271   0.916
+  2  GMM on wt% [noTrace] k=3           ratio/majors          0.279   0.916
+  2  GMM on wt% [noTrace] k=3           structural/all12      0.279   0.916
+  2  GMM on wt% [noTrace] k=3           structural/noTrace    0.279   0.916
+  2  GMM on wt% [noTrace] k=3           structural/majors     0.279   0.916

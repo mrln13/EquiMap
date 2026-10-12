@@ -1,0 +1,19 @@
+EBSD \ EDS,Garnet,Chlorite,Biotite,Amphibole,row total
+Diopside,124527,48384,110289,2845794,3128994
+Chlorite,79630,1700055,18773,305324,2103782
+Ilmenite,45917,4197,382,1957,52453
+Magnetite,36430,2067,172,1055,39724
+col total,286504,1754703,129616,3154130,5324953
+
+pixels both valid,5324953
+EBSD indexed only,0
+EDS domain only,4278043
+alias-matched accuracy,0.3193
+recall,Diopside,,matched: (none)
+recall,Chlorite,0.8081,matched: Chlorite
+recall,Ilmenite,,matched: (none)
+recall,Magnetite,,matched: (none)
+precision,Garnet,,matched: (none)
+precision,Chlorite,0.9689,matched: Chlorite
+precision,Biotite,,matched: (none)
+precision,Amphibole,,matched: (none)

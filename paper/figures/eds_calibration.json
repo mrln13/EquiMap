@@ -1,0 +1,178 @@
+{
+ "dataset": "D:\\Actief\\C23S1A_Quant",
+ "background": "line-aware",
+ "n_manifest_tiles": 2014,
+ "n_spx_tiles": 2014,
+ "n_dropped_by_filter": 0,
+ "n_fitted": 2014,
+ "samples_per_tile": 2000,
+ "coating": "C",
+ "calibration": {
+  "k_factors": {
+   "Al": {
+    "k": 8.05677662391796e-06,
+    "n_tiles": 2014,
+    "r2": 0.8553981424906314,
+    "sum_counts": 2605622071.0546284,
+    "sum_wt": 21308.366955601785
+   },
+   "Ca": {
+    "k": 8.737262493168404e-06,
+    "n_tiles": 1270,
+    "r2": 0.5305561934148314,
+    "sum_counts": 99704725.7083767,
+    "sum_wt": 754.90646447938
+   },
+   "Fe": {
+    "k": 5.1630857134022645e-05,
+    "n_tiles": 2011,
+    "r2": 0.8317386758811333,
+    "sum_counts": 252492302.71653324,
+    "sum_wt": 13009.867203624097
+   },
+   "K": {
+    "k": 1.3756964895893205e-05,
+    "n_tiles": 2014,
+    "r2": 0.7848362450713705,
+    "sum_counts": 636324037.976936,
+    "sum_wt": 8717.236684693511
+   },
+   "Mg": {
+    "k": 8.978748563264474e-06,
+    "n_tiles": 1998,
+    "r2": 0.844683140568873,
+    "sum_counts": 572724182.7318089,
+    "sum_wt": 5218.795495193121
+   },
+   "Na": {
+    "k": 9.345545739578693e-06,
+    "n_tiles": 1983,
+    "r2": 0.8693848739015965,
+    "sum_counts": 231022961.03829128,
+    "sum_wt": 2028.2034166493943
+   },
+   "P": {
+    "k": 1.1220836963815663e-05,
+    "n_tiles": 673,
+    "r2": -0.6217622372282932,
+    "sum_counts": 10377999.449400749,
+    "sum_wt": 179.11157884221006
+   },
+   "Si": {
+    "k": 8.35442864514204e-06,
+    "n_tiles": 2014,
+    "r2": 0.7603991866845801,
+    "sum_counts": 6266753567.446004,
+    "sum_wt": 53070.40565935282
+   },
+   "Ti": {
+    "k": 2.479265521876316e-05,
+    "n_tiles": 1998,
+    "r2": 0.5749696682381599,
+    "sum_counts": 39228856.25348051,
+    "sum_wt": 991.031325030604
+   }
+  },
+  "n_tiles": 2014,
+  "elements": [
+   "Al",
+   "Ca",
+   "Fe",
+   "K",
+   "Mg",
+   "Na",
+   "P",
+   "Si",
+   "Ti"
+  ],
+  "spx_only": [
+   "Ag",
+   "As",
+   "Cd",
+   "Ce",
+   "Cl",
+   "Cr",
+   "Cu",
+   "Hg",
+   "In",
+   "Mn",
+   "Nb",
+   "Nd",
+   "Sn",
+   "Sr",
+   "Tl",
+   "U",
+   "Y",
+   "Zr"
+  ],
+  "eds_only": [],
+  "background": "line-aware"
+ },
+ "holdout": {
+  "method": "holdout",
+  "holdout_frac": 0.2,
+  "n_repeats": 50,
+  "seed": 0,
+  "n_predictions": 20150,
+  "n_folds": 50,
+  "rmse": 1.9206527021371578,
+  "rmse_std": 0.25265731970306426,
+  "per_element": {
+   "Al": {
+    "rmse": 1.906388375593897,
+    "bias": -0.008348926695053457,
+    "rmse_std": 0.26646479575909576,
+    "n": null
+   },
+   "Ca": {
+    "rmse": 0.7225963766721449,
+    "bias": 0.20018516787452229,
+    "rmse_std": 0.05251850601398372,
+    "n": null
+   },
+   "Fe": {
+    "rmse": 2.246424044952909,
+    "bias": 0.2249142838066138,
+    "rmse_std": 0.2474908251099701,
+    "n": null
+   },
+   "K": {
+    "rmse": 1.4072412182933043,
+    "bias": 0.16674912386993604,
+    "rmse_std": 0.08346886713125894,
+    "n": null
+   },
+   "Mg": {
+    "rmse": 0.6998475683810012,
+    "bias": -0.008060903798928386,
+    "rmse_std": 0.08621079784290007,
+    "n": null
+   },
+   "Na": {
+    "rmse": 0.5259393830511144,
+    "bias": 0.15094067099810157,
+    "rmse_std": 0.03272179581166099,
+    "n": null
+   },
+   "P": {
+    "rmse": 0.4022585913183499,
+    "bias": -0.1695073380878872,
+    "rmse_std": 0.0164404454279109,
+    "n": null
+   },
+   "Si": {
+    "rmse": 4.169739982713487,
+    "bias": -0.5907505543712803,
+    "rmse_std": 0.6982752427919936,
+    "n": null
+   },
+   "Ti": {
+    "rmse": 0.31663727043243695,
+    "bias": -0.002878437003523861,
+    "rmse_std": 0.012566081134165179,
+    "n": null
+   }
+  }
+ },
+ "plan": "background (line-aware):\n  C  0.277 keV: legacy sideband mean (APPROXIMATE: no clean window brackets the line)  [sb_hi holds C+C, O, Ti La]\n  K  3.312 keV: lower sideband only  [sb_hi holds K Kb, Si+Si]\n  O  0.525 keV: legacy sideband mean (APPROXIMATE: no clean window brackets the line)  [sb_lo holds C; sb_hi holds Fe La]\n  P  2.013 keV: upper sideband only  [sb_lo holds Si, Si Kb]\n  Al 1.486 keV: interpolated between Na sb_lo (0.82 keV) and P sb_hi (2.24 keV)  [sb_lo holds Mg; sb_hi holds Si]\n  Ca 3.691 keV: upper sideband only  [sb_lo holds Si+Si]\n  Fe 6.404 keV: mean of both sidebands\n  Mg 1.254 keV: interpolated between Na sb_lo (0.82 keV) and P sb_hi (2.24 keV)  [sb_lo holds O+O, Na; sb_hi holds Al]\n  Na 1.041 keV: lower sideband only  [sb_hi holds Mg]\n  Si 1.740 keV: interpolated between Na sb_lo (0.82 keV) and P sb_hi (2.24 keV)  [sb_lo holds Al; sb_hi holds P]\n  Ti 4.511 keV: mean of both sidebands"
+}
