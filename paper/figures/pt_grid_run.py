@@ -2,7 +2,7 @@
 
 The section's SPX bulk (the composition of session run #3, the whole-section
 SPX quantification) is turned into the modelled bulk by ``model_bulk`` and
-run through MAGEMin's metapelite database on the 20 x 20 grid of Fig 5.
+run through MAGEMin's metapelite database on the grid of pt_grid_spec.py (Fig 5).
 
 Writes
   pt_grid.csv         one row per cell (``ThermoResult.to_dict``): what
@@ -26,7 +26,7 @@ sys.path.insert(0, str(REPO)); sys.path.insert(0, str(HERE))
 import model_bulk                                                  # noqa: E402
 from thermo import ThermoCalc                                      # noqa: E402
 
-P_RANGE, T_RANGE, NP, NT = (0.1, 1.5), (300.0, 800.0), 20, 20
+from pt_grid_spec import P_RANGE, T_RANGE, NP, NT                  # noqa: E402
 
 
 def main():

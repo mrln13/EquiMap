@@ -37,7 +37,7 @@ from thermo import Composition, ThermoCalc                                 # noq
 from thermo.cache import GridCache                                         # noqa: E402
 
 SESSION = Path(r"D:/Actief/C23S1A_Quant/viewer_session_22_07_26.json")
-P_RANGE, T_RANGE, NP, NT = (0.1, 1.5), (300.0, 800.0), 20, 20   # the Fig 5 grid (pt_grid.csv)
+from pt_grid_spec import P_RANGE, T_RANGE, NP, NT                 # the Fig 5 grid (pt_grid.csv)
 FE3, H2O = 0.1, 4.0
 N, SIGMA, SEED = 16, 0.10, 0
 BK = {"db": "mpe", "fe3_fraction": FE3}

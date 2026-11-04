@@ -6,14 +6,16 @@ K-feldspar), each scored by re-using the SAME computed grid — no additional
 thermodynamic computation, only re-scoring of the modal misfit:
 
   (a) assemblage exactly as observed;
-  (b) partial reconstruction: the nodule-hosted muscovite and the epidote
-      cores reassigned to their K-feldspar precursor, matrix muscovite
-      retained (illustrated with half the muscovite mode attributed to the
-      nodules);
-  (c) full conversion: the entire muscovite mode plus epidote converted to
-      K-feldspar (an over-correction, shown deliberately).
+  (b) partial reconstruction: the nodule-hosted muscovite reassigned to its
+      K-feldspar precursor, matrix muscovite retained; the nodule share of
+      the muscovite mode is MEASURED on the phase map by nodule_fraction.py
+      (nodule_fraction.json "adopted"; 0.35 on 2026-10-28, replacing the
+      illustrative 0.5 used until then);
+  (c) full conversion: the entire muscovite mode converted to K-feldspar,
+      the sillimanite-K-feldspar-zone peak assemblage of the petrography.
 
-Inputs as fig_pt.py: pt_grid.csv + phase_legend.csv + phase_minerals.csv.
+Inputs as fig_pt.py: pt_grid.csv + phase_legend.csv + phase_minerals.csv,
+plus nodule_fraction.json.
 
 Usage:  python fig_reconstruction.py [--repo <path>] [--out ...]
 """
@@ -32,7 +34,8 @@ NAME_TO_KEY = {"Biotite": "bi", "Quartz": "q", "Muscovite": "mu",
                "Plagioclase": "fsp", "Epidote": "ep"}
 PRESENCE = ["sill"]
 REGION_DELTA = 0.02   # accepted region = cells within this of each panel's minimum
-NODULE_MS_FRACTION = 0.5   # illustrative share of the Ms mode in the nodules
+NODULE_MS_FRACTION = __import__("json").loads(
+    (HERE / "nodule_fraction.json").read_text())["adopted"]["frac_of_mode"]   # measured, nodule_fraction.py
 
 
 def main():
@@ -140,9 +143,8 @@ def main():
                                                     stars):
         im = ax.pcolormesh(t_ax, p_ax, arr, cmap="RdYlGn_r", vmin=0.0,
                            vmax=vmax, shading="nearest")
-        ax.plot(st, sp, marker="*", ms=13, mec="black", mfc="white", lw=0)
         # Accepted region (misfit <= min + delta): the width of the valley
-        # is the constraint quality, which the star alone does not show.
+        # is the constraint quality.
         ax.contour(t_ax, p_ax, arr, levels=[sm + REGION_DELTA],
                    colors="white", linestyles="--", linewidths=1.0)
         ax.set_title(tag, fontsize=9.5)

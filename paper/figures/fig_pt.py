@@ -1,6 +1,6 @@
 """Figure: assemblage-to-P-T inversion for the worked example (fig:pt).
 
-(a) modal-misfit map over the computed P-T grid with the best-fit star;
+(a) modal-misfit map over the computed P-T grid with the accepted region;
 (b) Monte Carlo probability that the observed assemblage is stable.
 
 Inputs (this directory; exported from the viewer):
@@ -181,8 +181,6 @@ def main():
     im_a = ax_a.pcolormesh(t_ax, p_ax, mis, cmap="RdYlGn_r",
                            vmin=0.0, vmax=min(1.0, np.nanmax(mis)),
                            shading="nearest")
-    ax_a.plot(t_ax[it], p_ax[ip], marker="*", ms=14, mec="black",
-              mfc="white", lw=0)
     # Accepted region: the cells the data accept (misfit <= min + delta) —
     # the estimate the text reports, as opposed to the single best cell.
     ax_a.contour(t_ax, p_ax, mis, levels=[float(np.nanmin(mis)) + REGION_DELTA],
@@ -210,8 +208,6 @@ def main():
         # crimson, not black: black vanished against the dark cells it ran through
         ax_b.contour(Ts, Ps, prob, levels=[0.5], colors="crimson",
                      linewidths=1.4, linestyles="--")
-    ax_b.plot(t_ax[it], p_ax[ip], marker="*", ms=14, mec="black",
-              mfc="white", lw=0)
     if np.nanmax(melt) > 0:
         ax_b.contour(t_ax, p_ax, (melt > 0).astype(float), levels=[0.5],
                      colors="black", linewidths=0.9, linestyles=":")

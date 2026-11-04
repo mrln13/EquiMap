@@ -1,0 +1,15 @@
+# Seed robustness of the Fig 4b nodule segmentation (window 1290/39530, sigma 1, 2026-10-27)
+# produced by the scratchpad precursor of inset_seed_sweep.py; re-run that script to regenerate
+seed 42 k=6: sillimanite recovered=yes (1 local cluster(s), 8.11 % of window); IDs: {0: 'Muscovite 80% (moderate)', 1: 'Muscovite 36% (low)', 2: 'Quartz 96% (high)', 3: 'Chlorite 14% (low)', 4: 'Al2SiO5 (kyanite/sillimanite/andalusite) 68% (moderate)', 5: 'Biotite 90% (moderate)'}
+seed  1 k=6: sillimanite recovered=yes (1 local cluster(s), 8.04 % of window); IDs: {0: 'Quartz 96% (high)', 1: 'Biotite 90% (moderate)', 2: 'Al2SiO5 (kyanite/sillimanite/andalusite) 68% (moderate)', 3: 'Chlorite 15% (low)', 4: 'Muscovite 80% (moderate)', 5: 'Muscovite 36% (low)'}
+seed  2 k=6: sillimanite recovered=yes (1 local cluster(s), 7.97 % of window); IDs: {0: 'Chlorite 14% (low)', 1: 'Biotite 89% (moderate)', 2: 'Muscovite 80% (moderate)', 3: 'Quartz 96% (high)', 4: 'Muscovite 36% (low)', 5: 'Al2SiO5 (kyanite/sillimanite/andalusite) 68% (moderate)'}
+seed  3 k=6: sillimanite recovered=yes (1 local cluster(s), 8.04 % of window); IDs: {0: 'Biotite 90% (moderate)', 1: 'Quartz 96% (high)', 2: 'Muscovite 80% (moderate)', 3: 'Muscovite 36% (low)', 4: 'Al2SiO5 (kyanite/sillimanite/andalusite) 68% (moderate)', 5: 'Chlorite 20% (low)'}
+seed  4 k=6: sillimanite recovered=yes (1 local cluster(s), 8.07 % of window); IDs: {0: 'Al2SiO5 (kyanite/sillimanite/andalusite) 68% (moderate)', 1: 'Quartz 96% (high)', 2: 'Biotite 90% (moderate)', 3: 'Muscovite 36% (low)', 4: 'Muscovite 80% (moderate)', 5: 'Chlorite 16% (low)'}
+seed  5 k=6: sillimanite recovered=no  (0 local cluster(s), 0.00 % of window); IDs: {0: 'Quartz 9% (low)', 1: 'Muscovite 80% (moderate)', 2: 'Quartz 97% (high)', 3: 'Chlorite 69% (moderate)', 4: 'Muscovite 85% (moderate)', 5: 'Biotite 92% (moderate)'}
+seed  5 k=7: Al2SiO5 cluster yes; local -> global (composition): {0: 'Muscovite', 1: 'Quartz', 2: 'Sillimanite', 3: 'Chlorite', 4: 'Quartz-rich matrix', 5: 'Biotite', 6: 'Plagioclase'}
+seed  5 k=8: Al2SiO5 cluster yes; local -> global (composition): {0: 'Muscovite', 1: 'Quartz', 2: 'Quartz-rich matrix', 3: 'Plagioclase', 4: 'Chlorite', 5: 'Sillimanite', 6: 'Muscovite', 7: 'Bio
+seed 42 k=7: rc=0 Al2SiO5 cluster yes; local -> global (composition): {0: 'Biotite', 1: 'Muscovite', 2: 'Quartz', 3: 'Biotite', 4: 'Sillimanite', 5: 'Plagioclase', 6: 'Biotite'}
+seed 1 k=7: rc=0 Al2SiO5 cluster yes; local -> global (composition): {0: 'Chlorite', 1: 'Quartz', 2: 'Muscovite', 3: 'Biotite', 4: 'Plagioclase', 5: 'Sillimanite', 6: 'Quartz-rich matrix'}
+seed 2 k=7: rc=0 Al2SiO5 cluster yes; local -> global (composition): {0: 'Plagioclase', 1: 'Muscovite', 2: 'Quartz', 3: 'Biotite', 4: 'Sillimanite', 5: 'Quartz-rich matrix', 6: 'Chlorite'}
+seed 3 k=7: rc=0 Al2SiO5 cluster yes; local -> global (composition): {0: 'Biotite', 1: 'Plagioclase', 2: 'Quartz', 3: 'Muscovite', 4: 'Sillimanite', 5: 'Muscovite', 6: 'Biotite'}
+seed 4 k=7: rc=0 Al2SiO5 cluster yes; local -> global (composition): {0: 'Muscovite', 1: 'Biotite', 2: 'Quartz', 3: 'Plagioclase', 4: 'Sillimanite', 5: 'Muscovite', 6: 'Biotite'}

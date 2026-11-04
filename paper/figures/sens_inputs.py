@@ -21,7 +21,7 @@ def main():
     from thermo.result import result_from_portable_dict
     from viewer_thermo_helpers import _modal_misfit_grid, _phase_matches, _is_fluid_phase
 
-    P_RANGE, T_RANGE, NP, NT = (0.1, 1.5), (300.0, 800.0), 20, 20
+    from pt_grid_spec import P_RANGE, T_RANGE, NP, NT
     el = json.load(open(FIG / "pt_grid_bulk.json"))["spx_bulk_el"]
     cases = [("Fe3+ 0.0, H2O 4", 0.0, 4.0), ("Fe3+ 0.1, H2O 4 (adopted)", 0.1, 4.0), ("Fe3+ 0.2, H2O 4", 0.2, 4.0),
              ("Fe3+ 0.3, H2O 4", 0.3, 4.0), ("Fe3+ 0.1, H2O 2", 0.1, 2.0), ("Fe3+ 0.1, H2O 8", 0.1, 8.0)]
@@ -60,7 +60,7 @@ def main():
             rows.append(row)
             print(f"{tag:28s} best {row['best_T']:.0f}/{row['best_P']:.2f} ({row['misfit']:.3f}); region {row['T_lo']:.0f}-{row['T_hi']:.0f} / "
                   f"{row['P_lo']:.2f}-{row['P_hi']:.2f} ({row['n_acc']} cells, {row['acc_with_fluid']} with fluid, {row['acc_with_melt']} with melt); "
-                  f"stability field {row['n_stab']} cells {row['stab_T']} {row['stab_P']}; fluid in {row['fluid_cells']}/400", flush=True)
+                  f"stability field {row['n_stab']} cells {row['stab_T']} {row['stab_P']}; fluid in {row['fluid_cells']}/{NP * NT}", flush=True)
     json.dump(rows, open(OUT / "sens_inputs.json", "w"), indent=1)
 
 

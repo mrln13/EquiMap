@@ -21,7 +21,7 @@ Moved out of viewer.py as part of the tier-B refactor.
 from __future__ import annotations
 
 from pathlib import Path
-from typing import List, Tuple, Optional, Dict, Iterable
+from typing import List, Tuple, Optional, Dict, Iterable, Union
 
 import numpy as np
 from qtpy import QtWidgets, QtCore
@@ -1027,20 +1027,29 @@ def _eligible_variogram_levels(records: List[dict], min_windows: int = 4
 
 def _semivariogram(records: List[dict], level: int, elements: List[str],
                    n_bins: int = 12, max_lag_frac: float = 0.6,
-                   max_points: int = 3000, seed: int = 0) -> dict:
-    """Empirical isotropic semivariogram at one quadtree level.
+                   max_points: int = 3000, seed: int = 0,
+                   direction_deg: Optional[float] = None,
+                   tol_deg: float = 22.5) -> dict:
+    """Empirical semivariogram at one quadtree level, omnidirectional or directional.
 
     ``γ(h) = ½ · mean over window pairs separated by ≈h of (z_i − z_j)²``.
     Computed per element, plus a ``total`` curve that uses the squared
     Euclidean distance summed over ``elements`` (a compositional dissimilarity)
     so its rise summarises the whole composition. Lag ``h`` is in mosaic pixels.
 
+    ``direction_deg`` restricts the pairs to those whose separation vector lies
+    within ``±tol_deg`` of that direction (degrees from the +x mosaic axis
+    towards +y, modulo 180: 0 = along x, 90 = along y). A layered rock
+    decorrelates faster across the layering than along it, so the directional
+    curves give the correlation length per direction; ``None`` uses every pair.
+
     Pairs farther apart than ``max_lag_frac × max_pair_distance`` are dropped
     (the far tail is sparse and noisy). Returns ``{}`` if fewer than 4 usable
-    windows. Otherwise::
+    windows (or no pair in the chosen sector). Otherwise::
 
         {"level", "n_windows", "n_used", "bin_centers"[K], "counts"[K],
-         "gamma": {el: ndarray[K]}, "gamma_total": ndarray[K], "max_lag"}
+         "gamma": {el: ndarray[K]}, "gamma_total": ndarray[K], "max_lag",
+         "direction_deg", "tol_deg"}
 
     Bins containing no pairs hold ``NaN`` γ and ``0`` count.
 
@@ -1068,10 +1077,21 @@ def _semivariogram(records: List[dict], level: int, elements: List[str],
     if hh.size == 0 or not np.isfinite(hh).any() or hh.max() <= 0:
         return {}
 
+    # Directional sector: angle of the separation vector modulo 180° (a pair
+    # has no orientation), kept when within tol_deg of the requested direction.
+    sector = np.ones(hh.shape, dtype=bool)
+    if direction_deg is not None:
+        ang = np.degrees(np.arctan2(dy, dx)) % 180.0
+        dev = np.abs(ang - (float(direction_deg) % 180.0))
+        dev = np.minimum(dev, 180.0 - dev)
+        sector = dev <= float(tol_deg)
+        if not sector.any():
+            return {}
+
     max_lag = float(max_lag_frac) * float(hh.max())
     if max_lag <= 0:
         max_lag = float(hh.max())
-    keep = hh <= max_lag
+    keep = (hh <= max_lag) & sector
     hh = hh[keep]
     bins = np.linspace(0.0, max_lag, int(n_bins) + 1)
     idx = np.clip(np.digitize(hh, bins) - 1, 0, int(n_bins) - 1)
@@ -1106,7 +1126,81 @@ def _semivariogram(records: List[dict], level: int, elements: List[str],
         "gamma": gamma,
         "gamma_total": gamma_total,
         "max_lag": float(max_lag),
+        "direction_deg": (None if direction_deg is None else float(direction_deg)),
+        "tol_deg": float(tol_deg),
     }
+
+
+def _spread_by_level(records: List[dict], elements: List[str],
+                     ddof: int = 1) -> Dict[int, Dict[str, float]]:
+    """Between-window standard deviation of each element at every quadtree level.
+
+    ``{level: {el: std}}`` over the usable (non-skipped) windows; levels with
+    fewer than two usable windows are omitted. ``ddof=1`` (sample std) is the
+    convention the manuscript quotes; the worker's ``summary`` uses ddof=0.
+    """
+    out: Dict[int, Dict[str, float]] = {}
+    for lv in sorted({r.get("level") for r in records if r.get("wt_pct")}):
+        _c, comps = _usable_windows_at_level(records, lv)
+        if len(comps) < 2:
+            continue
+        out[int(lv)] = {}
+        for el in elements:
+            vals = np.array([c.get(el, 0.0) for c in comps], dtype=float)
+            out[int(lv)][el] = float(vals.std(ddof=ddof)) if vals.size > ddof else float("nan")
+    return out
+
+
+def _representative_level(spread: Dict[int, Dict[str, float]],
+                          tolerance: Union[float, Dict[str, float]],
+                          means: Optional[Dict[int, Dict[str, float]]] = None,
+                          elements: Optional[List[str]] = None
+                          ) -> Tuple[Optional[int], Dict[int, Dict[str, float]]]:
+    """The representative averaging scale as a quadtree level.
+
+    A window size is representative when the between-window spread of EVERY
+    element is at or below its tolerance; the representative level is the
+    deepest (smallest-window) level that passes together with every coarser
+    level, so one noisy dip at a fine level does not qualify. The spread never
+    plateaus on a heterogeneous sample (it keeps falling as the window grows),
+    which is why a tolerance is needed to define the scale at all.
+
+    ``tolerance`` is either a per-element absolute dict (wt%; the natural
+    choice is the calibration's hold-out RMSE: a window whose placement moves
+    the bulk by less than the maps resolve is representative) or a single
+    relative fraction of each element's mean at that level (``means`` required
+    then; e.g. 0.10 = 10 %). Elements absent from an absolute dict are not
+    tested. Returns ``(level or None, {level: {el: spread / tolerance}})``.
+    """
+    ratios: Dict[int, Dict[str, float]] = {}
+    levels = sorted(spread)
+    for lv in levels:
+        ratios[lv] = {}
+        for el, sd in spread[lv].items():
+            if elements is not None and el not in elements:
+                continue
+            if isinstance(tolerance, dict):
+                tol = tolerance.get(el)
+                if tol is None:
+                    continue
+            else:
+                mu = (means or {}).get(lv, {}).get(el)
+                if mu is None:
+                    continue
+                tol = float(tolerance) * float(mu)
+            if tol is None or not np.isfinite(tol) or tol <= 0:
+                continue
+            ratios[lv][el] = float(sd) / float(tol)
+    best: Optional[int] = None
+    for lv in levels:
+        r = ratios[lv]
+        if not r:
+            break
+        if all(np.isfinite(v) and v <= 1.0 for v in r.values()):
+            best = lv
+        else:
+            break
+    return best, ratios
 
 
 def _morans_i(records: List[dict], level: int, elements: List[str],

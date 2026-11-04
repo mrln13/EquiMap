@@ -12,7 +12,10 @@ Writes:  phase_map_inset.npz   (int16 labels, GLOBAL cluster ids, -1 invalid;
          phase_map_inset.json  (window coords, pixel pitch, recipe)
 
 Usage:   python fig_segmentation_inset.py --dataset <stitched_dir>
-         [--window Y0 X0] [--size 4500] [--sigma 1.0] [--k 6]
+         [--window Y0 X0] [--size 4500] [--sigma 1.0] [--k 6] [--seed 42]
+         [--out-dir DIR]
+--seed / --out-dir serve the seed-robustness sweep (inset_seed_sweep.py);
+the defaults reproduce the staged figure input.
 The default window is the densest-epidote region of the global label map
 (the same auto-pick as fig_segmentation.py).
 """
@@ -38,6 +41,10 @@ def main():
                     help="window edge in mosaic px")
     ap.add_argument("--sigma", type=float, default=1.0)
     ap.add_argument("--k", type=int, default=6)
+    ap.add_argument("--seed", type=int, default=42,
+                    help="random seed of the mixture fit (default: the toolkit's 42)")
+    ap.add_argument("--out-dir", default=None,
+                    help="write phase_map_inset.* here instead of beside this script")
     ap.add_argument("--als-name", default="Sillimanite",
                     help="name for a local cluster the mineral ID calls Al2SiO5 (the polymorph is "
                          "resolved petrographically, not by EDS); '' disables")
@@ -59,7 +66,7 @@ def main():
 
     if args.window is None:
         ep_cid = next(int(r["cluster_id"]) for r in legend
-                      if r["name"].strip() == "Epidote")
+                      if r["name"].strip() == (args.als_name or "Epidote"))
         from scipy.ndimage import uniform_filter
         win_g = max(3, args.size // seg_ds // 4)
         m = (glob_labels == ep_cid)[::4, ::4].astype(np.float32)
@@ -108,7 +115,7 @@ def main():
     X_norm = _normalize_features(X, norm_method=seg_json.get("norm_method", "row"))
     labels_flat, k_chosen, *_ = _run_clustering(
         X_norm, n_clusters=args.k, k_max=15, min_k=2,
-        pca_variance=seg_json.get("pca_variance", 0.92))
+        pca_variance=seg_json.get("pca_variance", 0.92), random_state=args.seed)
     local = np.full(shape, -1, dtype=np.int16)
     local[valid] = labels_flat.astype(np.int16)
     local = _clean_label_map(local,
@@ -223,8 +230,11 @@ def main():
     print("local -> global (spatial majority, for reference):",
           {c: names.get(g, g) for c, g in majority.items()})
 
-    np.savez_compressed(HERE / "phase_map_inset.npz", labels=out)
-    (HERE / "phase_map_inset.json").write_text(json.dumps({
+    out_dir = Path(args.out_dir) if args.out_dir else HERE
+    out_dir.mkdir(parents=True, exist_ok=True)
+    np.savez_compressed(out_dir / "phase_map_inset.npz", labels=out)
+    (out_dir / "phase_map_inset.json").write_text(json.dumps({
+        "seed": args.seed,
         "window_mosaic_px": [y0, y1, x0, x1],
         "sigma": args.sigma, "k": args.k, "elements": el_names,
         "seg_ds": 1, "extra_names": {int(i): nm for i, nm in extra_names.items()},

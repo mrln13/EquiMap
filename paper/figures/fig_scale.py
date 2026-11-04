@@ -9,12 +9,18 @@ Reads the per-window CSV exported by EquiMap's *Composition vs scale …* dialog
 where the trailing columns are each window's composition (wt% for quantified /
 SPX-calibrated data). Produces a three-panel publication figure:
 
-  (a) bulk composition of the main elements vs. window size, with the spread
-      between windows (mean +/- 1 s.d.) widening as the averaging area shrinks;
-  (b) empirical semivariogram gamma(h) at the finest well-populated level, with
-      the correlation length of compositional heterogeneity marked;
-  (c) relative spread (coefficient of variation) per element vs. window size --
-      a compact summary of how heterogeneity grows as the window shrinks.
+  (a) between-window spread (sample s.d.) of the main elements vs. window size,
+      divided by each element's calibration hold-out error (the tolerance,
+      eds_calibration.json; dashed line at 1): the representative averaging
+      scale is the window size at which every curve is at or below the line.
+      The spread never plateaus, which is why a tolerance is needed
+      (co-author comment, 2026-10-28). Raw wt% when no calibration JSON;
+  (b) empirical semivariogram gamma(h) at the finest well-populated level,
+      elements standardised and averaged (sill 1 by construction), over all
+      window pairs and within +-22.5 deg of the banding (--banding-deg) and of
+      its normal; dotted lines where each reaches 95 % of the sill;
+  (c) per-window P-T inversions: overlap of each window's accepted region with
+      the section's, vs. window size (pt_windows.csv).
 
 If the CSV is absent the script generates a synthetic spatially-correlated
 dataset (so the semivariogram is meaningful) and watermarks the figure
@@ -35,7 +41,8 @@ import matplotlib
 
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
-from matplotlib.ticker import ScalarFormatter, NullFormatter, NullLocator, FuncFormatter
+from matplotlib.ticker import (ScalarFormatter, NullFormatter, NullLocator,
+                               FuncFormatter, FormatStrFormatter)
 
 import sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -129,17 +136,21 @@ def _window_side(df: pd.DataFrame, pixel_um: float | None) -> pd.Series:
 
 
 def _semivariogram(cx, cy, z, n_bins=10, max_lag_frac=0.55, max_points=1500,
-                   seed=0):
-    """Classic empirical semivariogram.
+                   seed=0, direction_deg=None, tol_deg=22.5, max_lag=None,
+                   min_pairs=30):
+    """Classic empirical semivariogram, omnidirectional or within a sector.
 
-    Only lags up to ``max_lag_frac`` of the maximum separation are reported:
-    beyond about half the domain the pair count collapses and gamma(h) is
-    unreliable (the standard rule of thumb).
+    Only lags up to ``max_lag`` (same units as cx/cy) or, when that is None,
+    ``max_lag_frac`` of the maximum separation are reported: beyond about half
+    the domain the pair count collapses and gamma(h) is unreliable (the
+    standard rule of thumb). ``direction_deg`` keeps only the pairs whose
+    separation lies within ``tol_deg`` of that direction (degrees from +x
+    towards +y, modulo 180), e.g. along and across a banding. Bins with fewer
+    than ``min_pairs`` pairs are NaN.
 
     The pairwise computation is O(N^2) in windows, so when a level has more than
     ``max_points`` windows they are seeded-subsampled first — otherwise a deep
-    quadtree (thousands of windows) would build billions of pairs and hang. A
-    subsample of ~1500 points estimates gamma(h) to well within its own scatter.
+    quadtree (thousands of windows) would build billions of pairs and hang.
     """
     cx, cy = np.asarray(cx, dtype=float), np.asarray(cy, dtype=float)
     Z = np.asarray(z, dtype=float)
@@ -153,10 +164,15 @@ def _semivariogram(cx, cy, z, n_bins=10, max_lag_frac=0.55, max_points=1500,
                                                  replace=False)
         cx, cy, Z = cx[idx], cy[idx], Z[idx]
     i, j = np.triu_indices(Z.shape[0], k=1)
-    h = np.sqrt((cx[i] - cx[j]) ** 2 + (cy[i] - cy[j]) ** 2)
+    dx, dy = cx[i] - cx[j], cy[i] - cy[j]
+    h = np.sqrt(dx ** 2 + dy ** 2)
     d = 0.5 * np.mean((Z[i] - Z[j]) ** 2, axis=1)  # mean over elements; sill ~ 1
-    h_max = h.max() * max_lag_frac
+    h_max = float(max_lag) if max_lag else h.max() * max_lag_frac
     keep = h <= h_max
+    if direction_deg is not None:
+        ang = np.degrees(np.arctan2(dy, dx)) % 180.0
+        dev = np.abs(ang - (float(direction_deg) % 180.0))
+        keep &= np.minimum(dev, 180.0 - dev) <= float(tol_deg)
     h, d = h[keep], d[keep]
     if h.size < 6:
         return None, None
@@ -165,16 +181,9 @@ def _semivariogram(cx, cy, z, n_bins=10, max_lag_frac=0.55, max_points=1500,
     gamma = np.full(n_bins, np.nan)
     for b in range(n_bins):
         m = (h >= edges[b]) & (h < edges[b + 1])
-        if m.any():
+        if m.sum() >= min_pairs:
             gamma[b] = d[m].mean()
     return centres, gamma
-
-
-# Extent of the P-T inversion grid used for the per-window inversions
-# (window_pt_run.py, the Fig 5 grid: 300-800 °C, 0.1-1.5 GPa). Panel (c)
-# scales its T- and P-spread axes to the same fraction of this extent.
-GRID_T_RANGE_C = 500.0
-GRID_P_RANGE_GPA = 1.4
 
 
 def _phase_domain_band(path: str):
@@ -194,11 +203,14 @@ def _phase_domain_band(path: str):
 
 
 def make_figure(df: pd.DataFrame, out: str, dpi: int, pixel_um: float | None,
-                top: int, synthetic: bool, vario_elements: int = 2,
-                pt_df: pd.DataFrame | None = None, vario_bins: int = 10,
+                top: int, synthetic: bool, vario_elements: int = 0,
+                pt_df: pd.DataFrame | None = None, vario_bins: int = 24,
                 pt_df2: pd.DataFrame | None = None,
                 pt_win: pd.DataFrame | None = None,
-                domain_band: tuple | None = None) -> None:
+                domain_band: tuple | None = None,
+                tolerance: dict | None = None,
+                banding_deg: float = 0.0,
+                vario_max_lag: float | None = None) -> None:
     plt.rcParams.update({
         "font.family": "serif", "font.size": 9,
         "axes.titlesize": 9, "axes.labelsize": 9,
@@ -222,37 +234,62 @@ def make_figure(df: pd.DataFrame, out: str, dpi: int, pixel_um: float | None,
     unit = "um" if pixel_um else "px"
     colours = {el: element_colour(el) for el in top_els}
 
-    four = pt_win is not None and len(pt_win) > 0
-    if four:
-        # per-window inversions: (c) the overlap curve and (d) the scatter of
-        # the windows' best-fit P-T in physical units, each on its own panel
-        fig, ((axA, axB), (axC, axD)) = plt.subplots(2, 2, figsize=(7.4, 5.2))
-    else:
-        fig, (axA, axB, axC) = plt.subplots(1, 3, figsize=(7.4, 2.7))
-        axD = None
+    # Three panels: (a) and (b) side by side, (c) full width below them. A
+    # fourth panel, the 10-90 % spread of the windows' best-fit cells, was
+    # dropped on 2026-10-27 (co-author comment: a best cell on a flat misfit
+    # valley is grid quantisation; a width-of-region version added nothing that
+    # panel (c) does not show). A 1 x 3 row was tried and rejected: at the
+    # 5.4-inch text width each panel came out under two inches wide.
+    fig = plt.figure(figsize=(7.4, 5.4))
+    gs = fig.add_gridspec(2, 2, height_ratios=[1.0, 0.95])
+    axA = fig.add_subplot(gs[0, 0])
+    axB = fig.add_subplot(gs[0, 1])
+    axC = fig.add_subplot(gs[1, :])
 
     # ── (a) composition vs window size (mean +/- s.d. band) ─────────────────
+    # The spread keeps falling as the window grows and never plateaus, so the
+    # representative averaging scale needs a tolerance (co-author comment,
+    # 2026-10-28). With `tolerance` (per-element wt%, the calibration's hold-out
+    # RMSE from eds_calibration.json) each curve is spread / tolerance and one
+    # dashed line at 1 marks it: the representative scale is where every curve
+    # is at or below the line. Without a tolerance the raw wt% spread is drawn.
+    # Sample s.d. (ddof=1), the convention the text quotes.
     levels = sorted(df["level"].unique())
     side_by_level = {lv: float(df[df["level"] == lv]["_side"].mean()) for lv in levels}
     if pt_df is None and synthetic:          # placeholder P-T-vs-scale for panel (c)
         pt_df = _synthetic_pt(side_by_level)
+    use_tol = bool(tolerance)
     for el in top_els:
         std_l, side_l = [], []
+        tol = (tolerance or {}).get(el)
+        if use_tol and not (tol and tol > 0):
+            continue                         # no error estimate: not testable
         for lv in levels:
             sub = df[df["level"] == lv][el].dropna()
             if sub.size < 2:                 # need >=2 windows for a spread
                 continue
-            std_l.append(sub.std(ddof=0))
+            sd = float(sub.std(ddof=1))
+            std_l.append(sd / tol if use_tol else sd)
             side_l.append(side_by_level[lv])
         if side_l:
             axA.plot(side_l, std_l, "-o", ms=3, color=colours[el], label=el, lw=1.0)
+            if use_tol:
+                print(f"(a) {el}: spread / error per level "
+                      + " ".join(f"{s:.2f}" for s in std_l))
+    if use_tol:
+        axA.axhline(1.0, color="0.4", ls="--", lw=0.9)
+        axA.set_yscale("log")
+        axA.set_yticks([0.25, 0.5, 1, 2, 4, 8])
+        axA.yaxis.set_major_formatter(FormatStrFormatter("%g"))
+        axA.yaxis.set_minor_formatter(NullFormatter())
     # (A 1/L reference for uncorrelated pixels was tried on a log y-axis and
     # dropped, 2026-10-07: the observed spread falls about half as fast, a point
     # the paper does not use.)
     axA.set_xscale("log")
     axA.invert_xaxis()                       # large windows left -> small right
     axA.set_xlabel(f"window size ({unit})")
-    axA.set_ylabel("between-window s.d. (wt%)")
+    axA.set_ylabel("spread / calibration error" if use_tol
+                   else "between-window s.d. (wt%)")
     axA.set_title("(a) compositional spread vs. scale")
     axA.legend(loc="upper left", frameon=False, ncol=2, handletextpad=0.3,
                columnspacing=0.8)
@@ -279,41 +316,61 @@ def make_figure(df: pd.DataFrame, out: str, dpi: int, pixel_um: float | None,
                 cols.append((v - np.nanmean(v)) / sd)
                 std_elems.append(el)
         if cols:
-            centres, gamma = _semivariogram(cx, cy, np.column_stack(cols),
-                                            n_bins=vario_bins)
-            if centres is not None:
-                # Optional individual element curves (faint, coloured). They share
-                # the standardised scale (sill ~ 1), so they are now comparable —
-                # an element-specific correlation length may differ from the bulk.
-                for el, zc in list(zip(std_elems, cols))[:max(0, int(vario_elements))]:
-                    ce, ge = _semivariogram(cx, cy, zc, n_bins=vario_bins)
-                    if ce is not None:
-                        axB.plot(ce, ge, "-", lw=0.8, alpha=0.7,
-                                 color=colours.get(el, "0.6"), label=el)
-                # Combined "all elements" curve on top (bold).
-                axB.plot(centres, gamma, "-o", ms=3.5, color="0.1", lw=1.3,
-                         label="all", zorder=5)
+            Z = np.column_stack(cols)
+            # The variables are standardised, so the sill is 1 by construction.
+            # (Until 2026-10-28 the sill was taken as the maximum of the binned
+            # curve, a noise peak of about 1.06 with 0.76 mm bins and a 1500-
+            # window subsample; the 95 % rule then found where the curve reached
+            # its noise ceiling, 2.7 mm, instead of 95 % of the variance.)
+            SILL = 1.0
+
+            def _crossing(ce, ge, frac=0.95):
+                ok = np.isfinite(ge)
+                hit = np.where(ok & (ge >= frac * SILL))[0]
+                return float(ce[hit[0]]) if len(hit) else None
+
+            def _fmt_len(a):
+                return (f"{a / 1000:.1f} mm" if unit == "um" and a >= 100
+                        else f"{a:.0f} {unit}")
+
+            # Omnidirectional plus the two directions of a layered sample:
+            # along the banding (banding_deg from +x) and across it.
+            sectors = [("all directions", None, "0.1", "-o"),
+                       ("along banding", float(banding_deg), "C3", "-s"),
+                       ("across banding", float(banding_deg) + 90.0, "C0", "-^")]
+            drew_any = False
+            for lab, sec, col, style in sectors:
+                ce, ge = _semivariogram(cx, cy, Z, n_bins=vario_bins,
+                                        direction_deg=sec, max_lag=vario_max_lag,
+                                        max_points=20000)
+                if ce is None:
+                    continue
+                a = _crossing(ce, ge)
+                axB.plot(ce, ge, style, ms=2.8, lw=1.1, color=col,
+                         label=(f"{lab}, $a$ = {_fmt_len(a)}" if a else lab),
+                         zorder=5 if sec is None else 4)
+                if a:
+                    axB.axvline(a, color=col, ls=":", lw=0.8)
+                    print(f"(b) {lab}: 95 % of the sill at {_fmt_len(a)}")
+                drew_any = True
+            # Optional individual element curves (faint, omnidirectional).
+            for el, zc in list(zip(std_elems, cols))[:max(0, int(vario_elements))]:
+                ce, ge = _semivariogram(cx, cy, zc, n_bins=vario_bins,
+                                        max_lag=vario_max_lag, max_points=20000)
+                if ce is not None:
+                    axB.plot(ce, ge, "-", lw=0.8, alpha=0.7,
+                             color=colours.get(el, "0.6"), label=el)
+            if drew_any:
+                axB.axhline(0.95 * SILL, color="0.6", ls="--", lw=0.7)
                 axB.margins(y=0.12)   # autoscale to the data range (no forced 0)
-                sill = np.nanmax(gamma)
-                reached = (centres[np.where(gamma >= 0.95 * sill)[0]]
-                           if (sill and sill > 0) else [])
-                if len(reached):
-                    a = float(reached[0])
-                    axB.axvline(a, color="0.5", ls="--", lw=0.8)
-                    ylo, yhi = axB.get_ylim()
-                    axB.text(a, ylo + 0.30 * (yhi - ylo),
-                             (f" $a\\approx${a / 1000:.1f} mm" if unit == "um" and a >= 1000
-                              else f" $a\\approx${a:.0f} {unit}"), fontsize=7,
-                             va="bottom", ha="left", color="0.3")
                 axB.set_xlabel(f"lag distance $h$ ({unit})")
                 axB.set_ylabel(r"standardised $\gamma(h)$")
                 sz = side_by_level[fine]
                 sz_txt = (f"{sz / 1000:.2f} mm" if unit == "um" and sz >= 1000
                           else f"{sz:.0f} µm" if unit == "um" else f"{sz:.0f} px")
                 axB.set_title(f"(b) semivariogram at {sz_txt} windows")
-                if int(vario_elements) > 0:
-                    axB.legend(loc="lower right", frameon=False, fontsize=6.5,
-                               ncol=2, handletextpad=0.4, columnspacing=0.8)
+                axB.legend(loc="lower right", frameon=False, fontsize=6.5,
+                           handletextpad=0.4)
                 drew_variogram = True
     if not drew_variogram:
         axB.text(0.5, 0.5, "too few windows\nfor a semivariogram",
@@ -347,12 +404,6 @@ def make_figure(df: pd.DataFrame, out: str, dpi: int, pixel_um: float | None,
         # shrink through it. (An onset derived from the curve itself moved
         # by a factor of two between 12 and 36 windows per size, on a
         # knife-edge between discrete overlap values, and was dropped.)
-        # Panel (d) shows the same scatter in physical units:
-        # the 10-90 % spread of the windows' best-fit T (left axis) and P
-        # (right axis). The two axes are scaled to the SAME fraction of the
-        # inversion grid's extent, so equal heights mean equal fractions of
-        # the grid: the windows drift along the oblique misfit valley, so
-        # the two lines rise together.
         w = pt_win[pt_win["skipped"].isna() | (pt_win["skipped"] == "")].copy()
         # same size convention as panel (a): sqrt(window area), not the height
         # (the windows keep the ROI's aspect ratio, 1.85:1 on the worked example)
@@ -364,8 +415,6 @@ def make_figure(df: pd.DataFrame, out: str, dpi: int, pixel_um: float | None,
         q25 = g["overlap_with_section"].quantile(0.25).reindex(sizes.index).to_numpy(float)
         q50 = g["overlap_with_section"].median().reindex(sizes.index).to_numpy(float)
         q75 = g["overlap_with_section"].quantile(0.75).reindex(sizes.index).to_numpy(float)
-        t_spread = (g["best_T_C"].quantile(0.9) - g["best_T_C"].quantile(0.1)).reindex(sizes.index).to_numpy(float)
-        p_spread = (g["best_P_GPa"].quantile(0.9) - g["best_P_GPa"].quantile(0.1)).reindex(sizes.index).to_numpy(float)
         n_win = g.size().reindex(sizes.index).to_numpy(int)
         axC.set_xscale("log")
         axC.invert_xaxis()
@@ -374,11 +423,39 @@ def make_figure(df: pd.DataFrame, out: str, dpi: int, pixel_um: float | None,
         # every window as a faint dot, so the distribution behind the median
         # and the band is visible (a small seeded jitter in x separates ties)
         jit = np.exp(np.random.default_rng(0).normal(0.0, 0.045, size=len(w)))
-        axC.scatter(w["level"].map(sizes).to_numpy(float) * jit,
-                    w["overlap_with_section"].to_numpy(float),
-                    s=7, color="0.25", alpha=0.35, lw=0, zorder=2)
-        axC.plot(pos, q50, "-o", color="0.1", ms=3.5, lw=1.3, zorder=3,
-                 label="region overlap (median, IQR)")
+        xs = w["level"].map(sizes).to_numpy(float) * jit
+        if "overlap_own" in w.columns:
+            ocol = "#d95f02"
+            hs = w["has_sill"].to_numpy(int) == 1
+            yo = w["overlap_own"].to_numpy(float)
+            dot_s = axC.scatter(xs[hs], yo[hs], s=9, color=ocol, alpha=0.55, lw=0, zorder=2,
+                                label="window containing sillimanite")
+            dot_n = axC.scatter(xs[~hs], yo[~hs], s=9, facecolors="none", edgecolors=ocol,
+                                alpha=0.7, lw=0.6, zorder=2, label="window without sillimanite")
+        else:
+            axC.scatter(xs, w["overlap_with_section"].to_numpy(float),
+                        s=7, color="0.25", alpha=0.35, lw=0, zorder=2)
+        line_sec, = axC.plot(pos, q50, "-o", color="0.1", ms=3.5, lw=1.3, zorder=3,
+                             label="section's constraint in every window")
+        handles = [line_sec]
+        if "overlap_own" in w.columns:
+            # second scoring (window_pt_run.py): the window's OWN assemblage,
+            # sillimanite required only where the window contains it
+            ocol = "#d95f02"
+            o25 = g["overlap_own"].quantile(0.25).reindex(sizes.index).to_numpy(float)
+            o50 = g["overlap_own"].median().reindex(sizes.index).to_numpy(float)
+            o75 = g["overlap_own"].quantile(0.75).reindex(sizes.index).to_numpy(float)
+            axC.fill_between(pos, o25, o75, color=ocol, alpha=0.18, lw=0, zorder=1)
+            line_own, = axC.plot(pos, o50, "-s", color=ocol, ms=3.2, lw=1.3, zorder=3,
+                                 label="window's own assemblage")
+            handles += [line_own, dot_s, dot_n]
+        # legend in the empty lower-left corner of the wide panel (direct text
+        # labels were tried and read as unattached once the panel was widened);
+        # the lines are the per-size medians, the bands their interquartile
+        # ranges (caption), the dots the individual windows of the own scoring
+        axC.legend(handles=handles, loc="lower left", frameon=False, fontsize=6.5,
+                   handlelength=2.4, borderaxespad=0.5, labelspacing=0.5)
+
         if domain_band is not None:
             lo, hi = domain_band       # smallest / largest phase-domain size (um)
             axC.axvspan(lo, hi, color="0.5", alpha=0.13, lw=0, zorder=0)
@@ -386,28 +463,7 @@ def make_figure(df: pd.DataFrame, out: str, dpi: int, pixel_um: float | None,
                      ha="right", va="bottom", fontsize=6.5, color="0.3", linespacing=1.1)
             print(f"[fig_scale] phase-domain sizes of the scored phases: {lo:.0f} to {hi:.0f} um")
         axC.set_ylim(0, 1.05)
-        axC.set_ylabel("median overlap of window's P-T\nregion with the section's")
-        # ── (d) the windows' best-fit P-T scatter in physical units ───────
-        # inversion grid extent (window_pt_run.py / Fig 5: 300-800 °C, 0.1-1.5 GPa)
-        t_range, p_range = GRID_T_RANGE_C, GRID_P_RANGE_GPA
-        frac = max(0.1, float(np.nanmax(t_spread)) / t_range, float(np.nanmax(p_spread)) / p_range) * 1.15
-        axD.set_xscale("log")
-        axD.invert_xaxis()
-        axD.plot(pos, t_spread, "-o", color=pcol, ms=3.5, lw=1.3, zorder=3)
-        axD.set_ylabel("spread of best-fit T (°C, 10-90 %)", color=pcol)
-        axD.tick_params(axis="y", colors=pcol)
-        axD.spines["left"].set_edgecolor(pcol)
-        axD.set_ylim(0, frac * t_range)
-        axD2 = axD.twinx()
-        axD2.plot(pos, p_spread, "--s", color=p2col, ms=3, lw=1.2, zorder=2)
-        axD2.set_ylabel("spread of best-fit P (GPa, 10-90 %)", color=p2col)
-        axD2.tick_params(axis="y", colors=p2col)
-        axD2.spines["right"].set_edgecolor(p2col)
-        axD2.spines["left"].set_edgecolor(pcol)
-        axD2.set_ylim(0, frac * p_range)
-        if domain_band is not None:
-            axD.axvspan(domain_band[0], domain_band[1], color="0.5", alpha=0.13, lw=0, zorder=0)
-        axD.set_title("(d) scatter of the windows' best-fit P-T")
+        axC.set_ylabel("overlap of window's accepted\nP-T region with the section's")
     elif pt_df is not None and len(pt_df):
         s = pt_df.sort_values("window_px", ascending=False)
         wpx = s["window_px"].to_numpy(dtype=float) * scale
@@ -491,7 +547,7 @@ def make_figure(df: pd.DataFrame, out: str, dpi: int, pixel_um: float | None,
         v = v / 1000.0
         return f"{v:.0f}" if v >= 10 else (f"{v:.1f}" if v >= 1 else f"{v:.2f}")
 
-    for ax in (a for a in (axA, axC, axD) if a is not None):
+    for ax in (axA, axC):
         ax.set_xticks(ticks)
         ax.xaxis.set_major_formatter(ScalarFormatter())
         ax.xaxis.set_minor_locator(NullLocator())   # no unlabeled minor tick marks
@@ -522,11 +578,24 @@ def main() -> None:
     ap.add_argument("--pixel-um", type=float, default=None,
                     help="px size in microns; if given, axes are in um not px")
     ap.add_argument("--top", type=int, default=4    , help="elements to plot")
-    ap.add_argument("--variogram-elements", type=int, default=2,
+    ap.add_argument("--variogram-elements", type=int, default=0,
                     help="individual element curves to overlay in panel (b) "
-                         "alongside the combined 'all' curve (0 = combined only)")
-    ap.add_argument("--variogram-bins", type=int, default=20,
+                         "alongside the combined curves (0 = combined only)")
+    ap.add_argument("--variogram-bins", type=int, default=24,
                     help="number of lag bins in the semivariogram panel (b)")
+    ap.add_argument("--variogram-max-lag", type=float, default=6000.0,
+                    help="largest lag drawn in panel (b), in the length unit of "
+                         "the axes (um when --pixel-um is given, else px); 24 "
+                         "bins to 6000 um = 0.25 mm bins (0 = 0.55 of the "
+                         "largest separation, the old rule)")
+    ap.add_argument("--banding-deg", type=float, default=0.0,
+                    help="direction of the banding/foliation trace in degrees "
+                         "from the +x (long-side) axis towards +y; panel (b) "
+                         "draws the semivariogram along and across it (+-22.5 deg)")
+    ap.add_argument("--calibration-json", default=os.path.join(here, "eds_calibration.json"),
+                    help="calibrate_mosaic.py output; its hold-out per-element "
+                         "RMSE is the tolerance of panel (a) (spread / error, "
+                         "line at 1); '' or a missing file draws the raw wt% spread")
     ap.add_argument("--pt-csv", default=os.path.join(here, "pt_scale.csv"),
                     help="P-T-vs-scale CSV for panel (c) "
                          f"(columns {PT_COLUMNS}; optional *_mean_* and "
@@ -538,7 +607,7 @@ def main() -> None:
                          "skipped when absent")
     ap.add_argument("--domain-sizes", default=os.path.join(here, "phase_domain_sizes.csv"),
                     help="phase-domain sizes (phase_domain_sizes.py); the range over the "
-                         "scored phases is shaded in panels (c) and (d) ('' to disable)")
+                         "scored phases is shaded in panel (c) ('' to disable)")
     ap.add_argument("--pt-windows", default=os.path.join(here, "pt_windows.csv"),
                     help="per-window inversions (window_pt_run.py); when present "
                          "panel (c) shows their per-level distributions instead of "
@@ -564,10 +633,25 @@ def main() -> None:
 
     pt_win = (pd.read_csv(args.pt_windows)
               if args.pt_windows and os.path.exists(args.pt_windows) else None)
+    tolerance = None
+    if args.calibration_json and os.path.exists(args.calibration_json):
+        import json
+        with open(args.calibration_json) as fh:
+            cal = json.load(fh)
+        per_el = ((cal.get("holdout") or {}).get("per_element") or {})
+        tolerance = {el: float(v["rmse"]) for el, v in per_el.items()
+                     if v.get("rmse") is not None and float(v["rmse"]) > 0}
+        if tolerance:
+            print("(a) tolerance = hold-out RMSE (wt%): "
+                  + ", ".join(f"{k} {v:.2f}" for k, v in sorted(tolerance.items())))
+    elif not synthetic:
+        print(f"note: {args.calibration_json} not found — panel (a) shows the raw spread.")
     make_figure(df, args.out, args.dpi, args.pixel_um, args.top, synthetic,
                 vario_elements=args.variogram_elements, pt_df=pt_df,
                 vario_bins=args.variogram_bins, pt_df2=pt_df2, pt_win=pt_win,
-                domain_band=(_phase_domain_band(args.domain_sizes) if args.pixel_um else None))
+                domain_band=(_phase_domain_band(args.domain_sizes) if args.pixel_um else None),
+                tolerance=tolerance, banding_deg=args.banding_deg,
+                vario_max_lag=(args.variogram_max_lag or None))
 
 
 if __name__ == "__main__":

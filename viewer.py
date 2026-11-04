@@ -109,6 +109,7 @@ from viewer_thermo_helpers import (
     _net_count_fractions, _net_count_sums, _max_useful_quadtree_depth, _quadtree_windows,
     _quadtree_sampled_windows, _quadtree_level_dims,
     _semivariogram, _morans_i, _eligible_variogram_levels,
+    _spread_by_level, _representative_level,
     _serialize_phase_result, _deserialize_phase_result,
     _serialize_thermod_result, _deserialize_thermod_result,
     _format_composition_lines, _thermod_parameters_text,
@@ -5197,6 +5198,111 @@ class EDSControlPanel(QtWidgets.QWidget):
             note.setStyleSheet("color: gray; font-size: 8pt;")
             summ_layout.addWidget(note)
 
+            # ── Representative averaging scale (needs a tolerance) ────────
+            # The between-window spread keeps falling as the window grows and
+            # never plateaus on a heterogeneous sample, so "where it stops
+            # growing" never triggers. A window is called representative when
+            # every element's spread is at or below a tolerance: by default the
+            # calibration's hold-out error (a placement that moves the bulk by
+            # less than the maps resolve cannot be told apart), else a relative
+            # fraction of the mean. Plotted as spread / tolerance with a line
+            # at 1; the readout names the level and the limiting element.
+            spread_lv = _spread_by_level(records, all_els, ddof=1)
+            means_lv = {lv: dict(summary[lv]["mean"]) for lv in levels}
+            cv = getattr(self, "eds_calibration_cv", None)
+            cv_tol = {}
+            if cv is not None and getattr(cv, "per_element", None):
+                cv_tol = {el: float(st.rmse) for el, st in cv.per_element.items()
+                          if el in all_els and np.isfinite(st.rmse) and st.rmse > 0}
+            tol_row = QtWidgets.QHBoxLayout()
+            tol_row.addWidget(QtWidgets.QLabel("Tolerance:"))
+            cmb_tol = QtWidgets.QComboBox()
+            if cv_tol:
+                cmb_tol.addItem("calibration hold-out error (per element)", "cv")
+            cmb_tol.addItem("relative % of the mean", "rel")
+            cmb_tol.setToolTip(
+                "A window size is representative when the spread between windows "
+                "of EVERY element is at or below this tolerance. The calibration's "
+                "hold-out RMSE (Calibrate EDS) is the natural choice: heterogeneity "
+                "smaller than the maps' own error cannot be resolved. Without a "
+                "calibration, a relative fraction of each element's mean.")
+            tol_row.addWidget(cmb_tol)
+            spin_tol = QtWidgets.QDoubleSpinBox()
+            spin_tol.setRange(0.1, 100.0)
+            spin_tol.setDecimals(1)
+            spin_tol.setSuffix(" %")
+            spin_tol.setValue(10.0)
+            spin_tol.setEnabled(not cv_tol)
+            tol_row.addWidget(spin_tol)
+            tol_row.addStretch()
+            summ_layout.addLayout(tol_row)
+            rep_lbl = QtWidgets.QLabel()
+            rep_lbl.setWordWrap(True)
+            summ_layout.addWidget(rep_lbl)
+            rfig = plt.figure(figsize=(6.0, 2.6))
+            rcanvas = FigureCanvas(rfig)
+            summ_layout.addWidget(rcanvas)
+
+            def _draw_representative():
+                use_cv = cmb_tol.currentData() == "cv"
+                spin_tol.setEnabled(not use_cv)
+                tol = cv_tol if use_cv else float(spin_tol.value()) / 100.0
+                best, ratios = _representative_level(spread_lv, tol, means=means_lv)
+                rfig.clear()
+                ax = rfig.add_subplot(1, 1, 1)
+                f_len, ulab = _len_conv()
+                if f_len is None:
+                    f_len, ulab = 1.0, "px"
+                lvs = [lv for lv in sorted(ratios) if ratios[lv]]
+                for el in all_els:
+                    xs = [level_win_px[lv] * f_len for lv in lvs if el in ratios[lv]]
+                    ys = [ratios[lv][el] for lv in lvs if el in ratios[lv]]
+                    if xs:
+                        ax.plot(xs, ys, marker="o", ms=3, lw=1.0, label=el)
+                ax.axhline(1.0, color="0.4", ls="--", lw=0.9)
+                if lvs:
+                    ax.set_xscale("log")
+                    ax.set_yscale("log")
+                    ax.invert_xaxis()
+                ax.set_xlabel(f"window size ({ulab})")
+                ax.set_ylabel("spread / tolerance")
+                ax.grid(True, alpha=0.3)
+                ax.legend(fontsize=7, ncol=3)
+                rfig.tight_layout()
+                rcanvas.draw()
+                tol_txt = ("the calibration hold-out error" if use_cv
+                           else f"{spin_tol.value():.1f} % of the mean")
+                if best is None:
+                    first = lvs[0] if lvs else None
+                    if first is not None and ratios[first]:
+                        el_max = max(ratios[first], key=ratios[first].get)
+                        rep_lbl.setText(
+                            f"<b>Representative averaging scale: not reached.</b> "
+                            f"Even at L{first} ({_fmt_size(level_win_px[first])}) "
+                            f"{el_max} spreads {ratios[first][el_max]:.1f}× {tol_txt}; "
+                            "the bulk of this region depends on where the window is placed.")
+                    else:
+                        rep_lbl.setText("Representative averaging scale: no tolerance "
+                                        "could be applied (no calibrated elements).")
+                else:
+                    nxt = [lv for lv in lvs if lv > best]
+                    lim = ""
+                    if nxt and ratios[nxt[0]]:
+                        el_max = max(ratios[nxt[0]], key=ratios[nxt[0]].get)
+                        lim = (f" At L{nxt[0]} ({_fmt_size(level_win_px[nxt[0]])}) "
+                               f"{el_max} exceeds it ({ratios[nxt[0]][el_max]:.1f}×).")
+                    rep_lbl.setText(
+                        f"<b>Representative averaging scale: L{best} "
+                        f"({_fmt_size(level_win_px[best])}).</b> Down to this window "
+                        f"size every element's spread between windows is within "
+                        f"{tol_txt}, so a window's bulk no longer depends on its "
+                        f"placement.{lim}")
+
+            cmb_tol.currentIndexChanged.connect(lambda _i: _draw_representative())
+            spin_tol.valueChanged.connect(lambda _v: _draw_representative())
+            _unit_listeners.append(_draw_representative)
+            _draw_representative()
+
             def _relabel_summary():
                 for i, lv in enumerate(levels):
                     it = stbl.item(i, 1)
@@ -5234,7 +5340,10 @@ class EDSControlPanel(QtWidgets.QWidget):
                 "they sit (lag, in the chosen length unit). It usually climbs, "
                 "then flattens — the lag where it levels off is the scale beyond "
                 "which composition stops being spatially correlated. The "
-                "<i>total</i> curve combines all elements into one overall measure."
+                "<i>total</i> curve combines all elements into one overall measure. "
+                "A layered sample decorrelates faster across the layering than "
+                "along it: pick a <i>direction</i> to see the curve for window "
+                "pairs lying along that direction only (±22.5°)."
             ))
 
             row = QtWidgets.QHBoxLayout()
@@ -5254,6 +5363,20 @@ class EDSControlPanel(QtWidgets.QWidget):
                 "= finer lag resolution but fewer window pairs per bin (noisier "
                 "γ); fewer bins = smoother but coarser. Default 12.")
             row.addWidget(spin_bins)
+            row.addSpacing(12)
+            row.addWidget(QtWidgets.QLabel("Direction:"))
+            cmb_dir = QtWidgets.QComboBox()
+            for _txt, _deg in (("all directions", None), ("along x (0°)", 0.0),
+                               ("45°", 45.0), ("along y (90°)", 90.0),
+                               ("135°", 135.0)):
+                cmb_dir.addItem(_txt, _deg)
+            cmb_dir.setToolTip(
+                "Restrict the window pairs to those whose separation lies within "
+                "±22.5° of this direction (0° = the mosaic x axis, 90° = the y "
+                "axis). Compare along and across a foliation or banding: the "
+                "correlation length is usually much shorter across it. The grey "
+                "curve in the right panel is the all-directions curve for reference.")
+            row.addWidget(cmb_dir)
             row.addStretch()
             struct_layout.addLayout(row)
 
@@ -5265,10 +5388,16 @@ class EDSControlPanel(QtWidgets.QWidget):
 
             def _draw_vario(lv: int):
                 vfig.clear()
-                # Recompute on demand so the lag-bin count is live-adjustable
-                # (cheap: each level is subsampled to max_points before pairing).
+                # Recompute on demand so the lag-bin count and the direction are
+                # live-adjustable (cheap: each level is subsampled to max_points
+                # before pairing).
+                deg = cmb_dir.currentData()
                 v = _semivariogram(records, lv, all_els,
-                                   n_bins=int(spin_bins.value())) or {}
+                                   n_bins=int(spin_bins.value()),
+                                   direction_deg=deg) or {}
+                v_all = (_semivariogram(records, lv, all_els,
+                                        n_bins=int(spin_bins.value())) or {}
+                         if deg is not None else {})
                 ax1 = vfig.add_subplot(1, 2, 1)
                 ax2 = vfig.add_subplot(1, 2, 2)
                 bc = v.get("bin_centers")
@@ -5284,17 +5413,28 @@ class EDSControlPanel(QtWidgets.QWidget):
                     ax1.set_ylabel("γ(h)  [wt%²]")
                     if vario_curve_els:
                         ax1.legend(fontsize=7, ncol=2)
+                    if v_all.get("bin_centers") is not None:
+                        ax2.plot(np.asarray(v_all["bin_centers"], dtype=float) * f_len,
+                                 v_all["gamma_total"], color="0.6", lw=1.2,
+                                 marker="s", ms=3, label="all directions")
                     ax2.plot(bcx, v["gamma_total"], color="k", lw=2.0,
-                             marker="s", ms=4)
+                             marker="s", ms=4,
+                             label=(cmb_dir.currentText() if deg is not None else None))
                     ax2.set_title("total (all elements)", fontsize=10)
+                    if deg is not None:
+                        ax2.legend(fontsize=7)
                     for ax in (ax1, ax2):
                         ax.set_xlabel(f"lag distance ({ulab})")
                         ax.grid(True, alpha=0.3)
+                elif deg is not None:
+                    ax2.text(0.5, 0.5, "no window pairs in this direction",
+                             ha="center", va="center", transform=ax2.transAxes)
                 _nw = v.get("n_windows", 0)
                 _nu = v.get("n_used", _nw)
                 _suf = f", sampled {_nu}" if _nu < _nw else ""
+                _dir = f", {cmb_dir.currentText()}" if deg is not None else ""
                 vfig.suptitle(f"Semivariogram — L{lv}  "
-                              f"({_nw} windows{_suf})", fontsize=10)
+                              f"({_nw} windows{_suf}{_dir})", fontsize=10)
                 vfig.tight_layout()
                 vcanvas.draw()
 
@@ -5303,6 +5443,9 @@ class EDSControlPanel(QtWidgets.QWidget):
             )
             spin_bins.valueChanged.connect(
                 lambda _v: _draw_vario(cmb_lv.currentData())
+            )
+            cmb_dir.currentIndexChanged.connect(
+                lambda _i: _draw_vario(cmb_lv.currentData())
             )
             _unit_listeners.append(lambda: _draw_vario(cmb_lv.currentData()))
             _draw_vario(cmb_lv.currentData())

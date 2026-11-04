@@ -36,7 +36,8 @@ from viewer_thermo_helpers import (_mc_sample_compositions, _mc_aggregate,
 from thermo import Composition, ThermoCalc
 from thermo.cache import GridCache
 
-P_RANGE, T_RANGE, NP, NT = (0.1, 1.5), (300.0, 800.0), 20, 20
+sys.path.insert(0, str(FIG))
+from pt_grid_spec import P_RANGE, T_RANGE, NP, NT   # the Fig 5 grid
 FE3, H2O = 0.1, 4.0
 N, SEED = 16, 0
 BK = {"db": "mpe", "fe3_fraction": FE3}
@@ -146,7 +147,7 @@ base = calc.run_grid(build(cal_el), P_RANGE, T_RANGE, n_p=NP, n_t=NT)
 log(f"  done in {time.time() - t1:.0f} s ({len(base)} cells)")
 mis0 = np.asarray(_modal_misfit_grid(base, modes, NP, NT, **MK)[0], dtype=float)
 r0 = region(mis0)
-log("calibrated bulk, 0.1-1.5 grid:", r0)
+log("calibrated bulk, Fig-5 grid:", r0)
 # what is stable at the SPX best cell and along the 0.395/0.468 rows
 by_pt = {(round(r.p_gpa, 3), round(r.t_c, 1)): r for r in base}
 
