@@ -13,8 +13,10 @@ This guide helps setting up a working program with **two double-clicks**.
 
 ## Install (do this once)
 
-1. Download/copy the **EquiMap folder** to your computer (e.g. your Desktop or
-   Documents). Keep all the files together (do not move pieces out of it).
+1. Download EquiMap: on https://github.com/mrln13/EquiMap open **Releases**,
+   pick the latest release and download its **Source code (zip)** (or the zip
+   from the release's Zenodo record). Unzip it to a folder of your own, e.g.
+   in Documents. Keep all the files together (do not move pieces out of it).
 2. Open the **`installer`** subfolder and double-click **`install.bat`**.
 3. A black window opens and shows progress. Leave it running until it says
    **“Done.”** then press a key to close it.
@@ -22,9 +24,15 @@ This guide helps setting up a working program with **two double-clicks**.
 Done. The installer:
 
 - sets up a private copy of conda in your user folder,
-- builds the EquiMap environment,
-- downloads the Julia + MAGEMin modelling engine, and
+- builds the EquiMap environment, with the exact package versions this
+  release was tested with,
+- downloads the Julia + MAGEMin modelling engine and checks it with one
+  calculation, and
 - puts an **EquiMap** shortcut on your Desktop.
+
+If the MAGEMin check fails, the installer says so at the end: viewing and
+segmenting work, modelling with MAGEMin does not yet. Re-run `install.bat`,
+and if it still fails send the log (below).
 
 > If something goes wrong, the window tells you what and nothing is changed
 > system-wide. Just fix the issue and run `install.bat` again.

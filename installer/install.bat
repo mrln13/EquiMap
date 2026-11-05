@@ -125,18 +125,51 @@ if errorlevel 1 (
   echo [WARN] The MAGEMin/Julia setup did not finish cleanly. EquiMap will still
   echo        start and you can view/segment data; the MAGEMin backend may need
   echo        a retry ^(re-run this installer^) before modelling works.
+  set "_MAGEMIN_WARN=1"
 )
+
+REM Both Julia environments that meet in a MAGEMin run must load the same
+REM Parsers version, or MAGEMin fails to precompile (see align_julia_env.py).
+echo       Aligning the Julia environments...
+"%CONDA_EXE%" run --no-capture-output -n %ENV_NAME% python "%INSTALLER_DIR%align_julia_env.py"
+if errorlevel 1 (
+  echo [WARN] Could not align the Julia environments; MAGEMin may fail to start.
+  set "_MAGEMIN_WARN=1"
+)
+
+REM One MAGEMin point as a check, run from the program folder.
+echo       Checking MAGEMin with one calculation ^(starting Julia takes a minute^)...
+pushd "%INSTALLER_DIR%.."
+"%CONDA_EXE%" run --no-capture-output -n %ENV_NAME% python -m thermo run --backend magemin --database ig --p 1.0 --t 700 --composition "SiO2:50.0,Al2O3:15.0,FeO:9.0,MgO:8.0,CaO:11.0,Na2O:2.5,TiO2:1.0,H2O:1.5"
+if errorlevel 1 (
+  echo [WARN] The MAGEMin check failed. Viewing and segmentation work; modelling
+  echo        with MAGEMin does not yet. Please send install_log.txt.
+  set "_MAGEMIN_WARN=1"
+) else (
+  echo       MAGEMin check passed.
+)
+popd
 
 REM --- Step 4: desktop shortcut ----------------------------------------------
 REM Target the launcher in this installer folder; working dir = repo root (parent).
-echo [4/4] Creating the Desktop shortcut...
-powershell -NoProfile -ExecutionPolicy Bypass -Command ^
-  "$s=(New-Object -ComObject WScript.Shell).CreateShortcut([Environment]::GetFolderPath('Desktop')+'\EquiMap.lnk'); $s.TargetPath='%INSTALLER_DIR%EquiMap.bat'; $s.WorkingDirectory=(Resolve-Path '%INSTALLER_DIR%..').Path; $s.IconLocation='%SystemRoot%\System32\shell32.dll,13'; $s.Description='Launch EquiMap'; $s.Save()"
+REM EQUIMAP_NO_SHORTCUT=1 skips it (test installs that must not replace the
+REM real shortcut).
+if defined EQUIMAP_NO_SHORTCUT (
+  echo [4/4] Skipping the Desktop shortcut ^(EQUIMAP_NO_SHORTCUT is set^).
+) else (
+  echo [4/4] Creating the Desktop shortcut...
+  powershell -NoProfile -ExecutionPolicy Bypass -Command ^
+    "$s=(New-Object -ComObject WScript.Shell).CreateShortcut([Environment]::GetFolderPath('Desktop')+'\EquiMap.lnk'); $s.TargetPath='%INSTALLER_DIR%EquiMap.bat'; $s.WorkingDirectory=(Resolve-Path '%INSTALLER_DIR%..').Path; $s.IconLocation='%SystemRoot%\System32\shell32.dll,13'; $s.Description='Launch EquiMap'; $s.Save()"
+)
 
 echo(
 echo ===========================================================
 echo   Done. Double-click "EquiMap" on your Desktop to start.
 echo   It will ask you to pick a dataset folder.
+if defined _MAGEMIN_WARN (
+  echo   NOTE: the MAGEMin modelling engine reported a problem above;
+  echo   everything else works. Re-run this installer or send the log.
+)
 echo ===========================================================
 echo(
 exit /b 0
