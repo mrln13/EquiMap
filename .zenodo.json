@@ -1,0 +1,31 @@
+{
+    "title": "EquiMap: from SEM/EDS map tiles to phase maps, mineral identification and P-T estimates",
+    "upload_type": "software",
+    "access_right": "open",
+    "license": "gpl-3.0-only",
+    "language": "eng",
+    "description": "<p>EquiMap is an open Python toolkit that takes raw SEM/EDS map tiles to a pressure-temperature estimate. It stitches Bruker tiles, or imports Oxford AZtec exports, into a large-area EDS mosaic that keeps its spectra; calibrates the count maps against the instrument's own per-tile quantification; segments the mosaic into phase domains; suggests mineral names from a curated library; measures the length scale over which a bulk composition is representative; and inverts the observed assemblage and its modal proportions for P-T through pluggable thermodynamic backends (MAGEMin, Perple_X, pycalphad). The repository also holds the scripts and staged data that regenerate the figures of the accompanying methods paper (folder paper/figures).</p>",
+    "creators": [
+        {
+            "name": "van Melick, Hans",
+            "affiliation": "Department of Earth Sciences, Utrecht University"
+        },
+        {
+            "name": "Plümper, Oliver",
+            "affiliation": "Faculty of Geosciences and MARUM, University of Bremen"
+        }
+    ],
+    "keywords": [
+        "SEM",
+        "EDS",
+        "mosaic stitching",
+        "phase segmentation",
+        "mineral identification",
+        "phase-equilibria modelling",
+        "pseudosection",
+        "effective bulk composition",
+        "MAGEMin",
+        "Perple_X",
+        "petrology"
+    ]
+}

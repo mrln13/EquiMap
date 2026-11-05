@@ -399,3 +399,56 @@ def test_json_library_override(tmp_path):
     assert "Per" in lib and "Ol" in lib            # merged over the default
     m = mid.identify(cw({"Mg": 1}), quantified=True, library=lib)
     assert m[0].abbrev == "Per"
+
+
+# --- Fe-Ti oxides and carbonates at the default Fe3+ setting (2026-11-05) ---
+# The analyst's single Fe3+/total-Fe knob (default 0) overfilled magnetite and
+# hematite, so pure Fe oxides were named calcite at the ratio-only ceiling.
+
+def test_charge_balance_fe3_for_iron_oxides():
+    comp = mid.Composition.from_element_wt(cw({"Fe": 3}))
+    assert abs(mid.charge_balance_fe3(comp, mid.DEFAULT_LIBRARY["Mag"]) - 2 / 3) < 1e-6
+    assert abs(mid.charge_balance_fe3(comp, mid.DEFAULT_LIBRARY["Hem"]) - 1.0) < 1e-6
+
+
+def test_magnetite_found_without_setting_fe3():
+    m = mid.identify(cw({"Fe": 3}), quantified=True)       # fe3_fraction = 0
+    assert m[0].group in ("spinel", "hematite")              # Fe valence unseen
+    assert {x.abbrev for x in m[:2]} == {"Mag", "Hem"}
+    assert all(x.group != "carbonate" for x in m[:2])
+    mag = next(x for x in m if x.abbrev == "Mag")
+    assert abs(mag.indices["Fe3+/Fe"] - 2 / 3) < 1e-6
+    assert mag.confidence == "moderate"                     # closure fitted, never "high"
+
+
+def test_ilmenite_does_not_tie_with_hematite():
+    m = mid.identify(cw({"Fe": 1, "Ti": 1}), quantified=True)
+    assert m[0].abbrev == "Ilm"
+    hem = next((x for x in m if x.abbrev == "Hem"), None)
+    assert hem is None or hem.score < 0.5
+
+
+def test_dolomite_composition_is_not_calcite():
+    m = mid.identify(cw({"Ca": 1, "Mg": 1}), quantified=True)
+    assert m[0].abbrev == "Dol"
+    cal = next((x for x in m if x.abbrev == "Cal"), None)
+    assert cal is None or cal.score < 0.1
+
+
+def test_mg_calcite_stays_calcite():
+    m = mid.identify(cw({"Ca": 0.9, "Mg": 0.1}), quantified=True)
+    assert m[0].abbrev == "Cal"
+
+
+def test_dominance_from_json_library(tmp_path):
+    lib_json = {"Sd": {"name": "Siderite", "group": "carbonate", "formula": "FeCO3",
+                       "cations": {"Fe": 1}, "oxygen": 3.0,
+                       "sites": {"M": {"cations": ["Fe", "Mg", "Ca", "Mn"], "ideal": 1.0}},
+                       "flags": ["carbonate", "no_c_measured"], "indices": [],
+                       "dominant": {"M": ["Fe", 0.5]}}}
+    p = tmp_path / "lib.json"
+    p.write_text(json.dumps(lib_json), encoding="utf-8")
+    lib = mid.load_library(p)
+    assert lib["Sd"].dominant == {"M": ("Fe", 0.5)}
+    assert mid.dominance_factor(mid.Composition.from_element_wt(cw({"Ca": 1})),
+                                lib["Sd"]) < 1e-3

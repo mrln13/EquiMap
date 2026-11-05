@@ -3582,6 +3582,7 @@ class EDSControlPanel(QtWidgets.QWidget):
             scale=(float(seg_ds), float(seg_ds)),
             coating_elements=self._coating_elements(),
             seg_params=seg_params,
+            pixel_um=self._pixel_um(),
         )
         # Pre-fill the editable Name column (EBSD crystallographic names).
         for row, cid in enumerate(cls_dlg._clusters):
@@ -3705,6 +3706,7 @@ class EDSControlPanel(QtWidgets.QWidget):
             scale=(float(seg_ds), float(seg_ds)),
             coating_elements=self._coating_elements(),
             seg_params=self.last_phase_seg_params,
+            pixel_um=self._pixel_um(),
         )
         if self.last_phase_fe3 is not None:
             try:

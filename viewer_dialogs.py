@@ -1663,8 +1663,12 @@ class _PhaseClassDialog(QtWidgets.QDialog):
         scale: Tuple[float, float] = (1.0, 1.0),
         coating_elements: frozenset = frozenset({"C"}),
         seg_params: Optional[dict] = None,
+        pixel_um: Optional[float] = None,
     ):
         super().__init__(parent)
+        # Mosaic pixel pitch (µm); with ``scale`` it turns the interior-only
+        # erosion (phase-map pixels) into a distance. None = unknown.
+        self._pixel_um = float(pixel_um) if pixel_um else None
         # Replication recipe of the segmentation behind this phase map (None
         # for the EBSD path / pre-recipe sessions). Written out on export.
         self._seg_params = dict(seg_params) if seg_params else None
@@ -1899,6 +1903,13 @@ class _PhaseClassDialog(QtWidgets.QDialog):
         self._erode_spin.setEnabled(False)
         self._erode_spin.setToolTip(self._chk_interior.toolTip())
         id_row.addWidget(self._erode_spin)
+        # The same pixel count means a different distance on every dataset
+        # (pixel pitch x decimation), so show it in µm when the pitch is known.
+        self._erode_um_label = QtWidgets.QLabel("")
+        self._erode_um_label.setToolTip(
+            "Erosion distance: phase-map pixels x decimation x mosaic pixel size.")
+        id_row.addWidget(self._erode_um_label)
+        self._update_erode_um_label()
         self._chk_interior.toggled.connect(self._on_erosion_changed)
         self._erode_spin.valueChanged.connect(self._on_erosion_changed)
         id_row.addStretch()
@@ -2559,7 +2570,26 @@ class _PhaseClassDialog(QtWidgets.QDialog):
         column goes stale until Identify is re-run (spinbox enabled state
         doubles as the visual cue)."""
         self._erode_spin.setEnabled(self._chk_interior.isChecked())
+        self._update_erode_um_label()
         self._domain_comps.clear()
+
+    def erosion_um(self) -> Optional[float]:
+        """Interior-only erosion as a distance in µm (None if the pixel size
+        is unknown; 0 when off)."""
+        if not self._pixel_um:
+            return None
+        return self.erosion_value() * float(self._scale[0]) * self._pixel_um
+
+    def _update_erode_um_label(self) -> None:
+        lbl = getattr(self, "_erode_um_label", None)
+        if lbl is None:
+            return
+        if not self._pixel_um:
+            lbl.setText("")
+            return
+        um = int(self._erode_spin.value()) * float(self._scale[0]) * self._pixel_um
+        lbl.setText(f"≈ {um:.3g} µm")
+        lbl.setEnabled(self._chk_interior.isChecked())
 
     def _merge_selected_domains(self):
         """Merge the selected table rows into one domain.
@@ -3027,6 +3057,9 @@ class _PhaseClassDialog(QtWidgets.QDialog):
             recipe = dict(self._seg_params or {})
             if erosion:
                 recipe["comp_erosion_px"] = int(erosion)
+                um = self.erosion_um()
+                if um is not None:
+                    recipe["comp_erosion_um"] = round(um, 3)
             if self._unmix:
                 # Mixture decomposition applied to the modal proportions
                 # (source cid -> endmember cid -> areal fraction + residual).

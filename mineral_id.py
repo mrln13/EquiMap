@@ -108,6 +108,14 @@ SITE_CLOSURE_SIGMA = 0.10
 # hosts, with the site-closure tolerance (see identify()).
 RATIO_ONLY_CEILING = 0.84
 
+# Minimum share of a named cation on a site for entries that declare one
+# (MineralEntry.dominant). A permissive solid-solution site otherwise matches
+# end-members that carry a different mineral name: calcite's (Ca,Mg,Fe,Mn) site
+# scored a pure Fe composition (siderite / an Fe oxide) and a dolomite
+# composition as calcite at the full ceiling (2026-11-05). Below the required
+# share the score falls off with the site-closure tolerance.
+#   (see identify(); entries without ``dominant`` are unaffected)
+
 # Order in which cations are placed into structural sites (tetrahedral fillers
 # first, then octahedral, then large cations). Fe is kept as *total* Fe.
 CATION_FILL_ORDER: Tuple[str, ...] = (
@@ -150,6 +158,9 @@ class MineralEntry:
     sites: Dict[str, SiteSpec]      # ordered: fill priority follows insertion order
     flags: Tuple[str, ...] = ()     # "anhydrous"/"hydrous"/"carbonate"/"polymorph_ambiguous"...
     indices: Tuple[str, ...] = ()   # derived indices to report: "Mg#","An","Or"
+    # site -> (cation, minimum share of that site's hosted cations) that the
+    # mineral NAME requires, e.g. calcite {"M": ("Ca", 0.8)}; see identify().
+    dominant: Dict[str, Tuple[str, float]] = field(default_factory=dict)
 
 
 @dataclass(frozen=True)
@@ -340,16 +351,21 @@ DEFAULT_LIBRARY: Dict[str, MineralEntry] = {
     "Rt": MineralEntry(
         "Rutile", "Rt", "rutile", "TiO2",
         {"Ti": 1}, 2.0, {"M": _S(["Ti", "Fe", "Nb", "Ta", "V"], 1.0)},
-        flags=("anhydrous", "polymorph_ambiguous")),
+        flags=("anhydrous", "polymorph_ambiguous"),
+        dominant={"M": ("Ti", 0.8)}),
     "Hem": MineralEntry(
         "Hematite", "Hem", "hematite", "Fe2O3",
-        {"Fe": 2}, 3.0, {"M": _S(["Fe", "Ti", "Al"], 2.0)},
+        # No Ti on the site: with it, an ilmenite composition (Fe + Ti on two
+        # cations per 3 O) closed hematite perfectly and tied with ilmenite.
+        # A titanohematite still matches, paying only for its Ti share.
+        {"Fe": 2}, 3.0, {"M": _S(["Fe", "Al"], 2.0)},
         flags=("anhydrous", "fe_redox_sensitive")),
     # --- carbonates (C / CO2 not seen by EDS) -------------------------------
     "Cal": MineralEntry(
         "Calcite", "Cal", "carbonate", "CaCO3",
         {"Ca": 1}, 3.0, {"M": _S(["Ca", "Mg", "Fe", "Mn"], 1.0)},
-        flags=("carbonate", "no_c_measured", "solid_solution")),
+        flags=("carbonate", "no_c_measured", "solid_solution"),
+        dominant={"M": ("Ca", 0.8)}),
     "Dol": MineralEntry(
         "Dolomite", "Dol", "carbonate", "CaMg(CO3)2",
         {"Ca": 1, "Mg": 1}, 6.0,
@@ -537,14 +553,49 @@ def _apfu(comp: Composition, entry: MineralEntry, fe3_fraction: float) -> Dict[s
     return {c: m * scale for c, m in cat_moles.items()}
 
 
+def charge_balance_fe3(comp: Composition, entry: MineralEntry) -> float:
+    """Fe3+/total Fe that closes ``entry``'s ideal cation total on its O basis.
+
+    The stoichiometric estimate of Droop (1987, Mineral. Mag. 51, 431-435):
+    converting Fe2+ to Fe3+ adds oxygen, so the cation total per formula unit
+    falls as the ferric fraction rises; the fraction at which it equals the
+    ideal total is the charge-balanced one. Clamped to [0, 1] when no fraction
+    closes it (too few cations even as all FeO, or too many even as Fe2O3).
+    Used for the minerals whose Fe valence defines them (magnetite, hematite),
+    where a single analyst-set Fe3+ fraction for the whole map cannot be right.
+    """
+    target = sum(spec.ideal for spec in entry.sites.values())
+    total = lambda f: sum(_apfu(comp, entry, f).values())
+    if not _apfu(comp, entry, 0.0) or "Fe" not in _apfu(comp, entry, 0.0):
+        return 0.0
+    if total(0.0) <= target:
+        return 0.0
+    if total(1.0) >= target:
+        return 1.0
+    lo, hi = 0.0, 1.0
+    for _ in range(50):
+        mid = 0.5 * (lo + hi)
+        if total(mid) > target:
+            lo = mid
+        else:
+            hi = mid
+    return 0.5 * (lo + hi)
+
+
 def structural_formula(comp: Composition, entry: MineralEntry,
                        fe3_fraction: float = 0.0
                        ) -> Tuple[Dict[str, float], Dict[str, float], Dict[str, float]]:
     """Return ``(apfu, site_closure, indices)`` for ``comp`` on ``entry``'s basis.
 
     ``site_closure[site] = assigned_atoms / ideal_total`` (1.0 = perfect). Only
-    meaningful for quantified data; the caller gates on that.
+    meaningful for quantified data; the caller gates on that. For entries
+    flagged ``fe_redox_sensitive`` the Fe3+ fraction is estimated by charge
+    balance (:func:`charge_balance_fe3`) instead of taking ``fe3_fraction``,
+    and reported as the index ``"Fe3+/Fe"``.
     """
+    redox = "fe_redox_sensitive" in entry.flags
+    if redox:
+        fe3_fraction = charge_balance_fe3(comp, entry)
     apfu = _apfu(comp, entry, fe3_fraction)
     if not apfu:
         return {}, {}, {}
@@ -552,7 +603,32 @@ def structural_formula(comp: Composition, entry: MineralEntry,
     site_closure = {s: site_actual[s] / entry.sites[s].ideal
                     for s in entry.sites if entry.sites[s].ideal > 0}
     indices = _compute_indices(apfu, entry)
+    if redox and "Fe" in apfu:
+        indices["Fe3+/Fe"] = fe3_fraction
     return apfu, site_closure, indices
+
+
+def dominance_factor(comp: Composition, entry: MineralEntry,
+                     fe3_fraction: float = 0.0) -> float:
+    """Penalty (0..1) for an entry whose name requires a dominant cation.
+
+    For each ``site -> (cation, min_share)`` in ``entry.dominant``: the share
+    of that cation among the cations present that the site can host; a share
+    below ``min_share`` is penalised with the site-closure tolerance. 1.0 for
+    entries without ``dominant``.
+    """
+    if not entry.dominant:
+        return 1.0
+    cat = _cation_fracs_total_fe(comp, fe3_fraction)
+    deficits = []
+    for site, (cation, min_share) in entry.dominant.items():
+        spec = entry.sites.get(site)
+        if spec is None:
+            continue
+        hosted = sum(cat.get(c, 0.0) for c in spec.cations)
+        share = cat.get(cation, 0.0) / hosted if hosted > 0 else 0.0
+        deficits.append(max(0.0, min_share - share))
+    return _closure_score(deficits) if deficits else 1.0
 
 
 def _compute_indices(amounts: Dict[str, float], entry: MineralEntry) -> Dict[str, float]:
@@ -604,6 +680,11 @@ def grade_confidence(score: float, site_closure: Optional[Dict[str, float]],
         band = "low"
     # EDS can't see structural OH: never claim "high" for hydrous phases.
     if band == "high" and any(f in entry.flags for f in ("hydrous", "no_h_measured")):
+        band = "moderate"
+    # Nor Fe valence: for the Fe-redox minerals the Fe3+ fraction is fitted by
+    # charge balance, which closes the cation total by construction (pure Fe
+    # closes magnetite AND hematite), so closure alone cannot earn "high".
+    if band == "high" and "fe_redox_sensitive" in entry.flags:
         band = "moderate"
     if maxdev > 0.25 and band == "low":
         caveats = caveats + ("mixed_pixel_suspect",)
@@ -685,6 +766,7 @@ def identify(composition_wt: Dict[str, float], quantified: bool,
             else:
                 score = ratio
             method = "ratio"
+        score *= dominance_factor(comp, entry, fe3_fraction)
         band, flags = grade_confidence(score, closure, entry, quantified)
         if carbonate and quantified and unassigned > 0.25:
             flags = flags + ("mixed_pixel_suspect",)
@@ -719,7 +801,9 @@ def load_library(path) -> Dict[str, MineralEntry]:
             group=d.get("group", abbrev), formula=d.get("formula", ""),
             cations={k: float(v) for k, v in d["cations"].items()},
             oxygen=float(d["oxygen"]), sites=sites,
-            flags=tuple(d.get("flags", ())), indices=tuple(d.get("indices", ())))
+            flags=tuple(d.get("flags", ())), indices=tuple(d.get("indices", ())),
+            dominant={s: (v[0], float(v[1]))
+                      for s, v in d.get("dominant", {}).items()})
     return lib
 
 

@@ -11,8 +11,8 @@ authors:
     affiliation: "Faculty of Geosciences and MARUM, University of Bremen, Germany"
 repository-code: "https://github.com/mrln13/EquiMap"
 license: GPL-3.0
-version: 0.1.0
-date-released: 2026-10-12
+version: 1.0.0
+date-released: 2026-11-05
 keywords:
   - SEM
   - EDS
