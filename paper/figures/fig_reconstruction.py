@@ -134,8 +134,12 @@ def main():
         ip, it = divmod(i, n_t)
         grids.append(arr)
         stars.append((t_ax[it], p_ax[ip], arr.flat[i]))
+        acc = np.argwhere(arr <= arr.flat[i] + REGION_DELTA)   # (ip, it) cells
+        tr = t_ax[acc[:, 1]]
+        pr = p_ax[acc[:, 0]]
         print(f"{tag:<28s} min={arr.flat[i]:.3f} at "
-              f"T={t_ax[it]:.1f} P={p_ax[ip]:.3f}")
+              f"T={t_ax[it]:.1f} P={p_ax[ip]:.3f}; accepted region {len(acc)} cells, "
+              f"{tr.min():.0f}-{tr.max():.0f} C, {pr.min():.2f}-{pr.max():.2f} GPa")
 
     vmax = min(1.0, max(np.nanmax(a) for a in grids))
     fig, axes = plt.subplots(1, 3, figsize=(7.2, 2.75), sharey=True)

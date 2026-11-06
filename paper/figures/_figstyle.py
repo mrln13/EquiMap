@@ -6,6 +6,17 @@ in a particular panel. Import from the sibling figure scripts.
 """
 import matplotlib.pyplot as plt
 
+# Mosaic pixel pitch of the C23-S1-A worked example (um per mosaic pixel), and
+# the mosaic width in pixels. Measured 2026-11-06 from the stage: tiles step
+# 512 um across / 384 um down within each mapping job; the median of
+# step / stitched offset over all 1301 adjacent intra-job tile pairs is
+# 0.5475 um/px (x 0.548, y 0.547; BCF header DX 0.549, DY 0.554). The earlier
+# nominal 0.5 um/px made every physical length 9.5 % too small (and could not
+# give the tiles their ~9 % overlap: 1024 px x 0.5 um = the 512 um step).
+MOSAIC_PIXEL_UM = 0.5475
+MOSAIC_W_PX = 49669
+MOSAIC_H_PX = 26783
+
 # Canonical element order. The colour of an element is its index here (mod 10)
 # in the tab10 palette, so e.g. Si is always blue and Fe always red, in every
 # figure, even when some elements are absent.

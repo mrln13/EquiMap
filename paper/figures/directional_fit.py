@@ -11,7 +11,10 @@ from scipy.optimize import curve_fit
 FIG = Path(__file__).resolve().parent
 df = pd.read_csv(FIG / "composition_scale.csv")
 els = [c for c in ("Si", "Al", "Fe", "K", "Mg", "Na", "Ca", "Ti", "P") if c in df.columns]
-px_mm = 24.8 / (df.x1.max() - df.x0.min())
+import sys
+sys.path.insert(0, str(FIG))
+from _figstyle import MOSAIC_PIXEL_UM
+px_mm = MOSAIC_PIXEL_UM / 1000.0
 for lvl in (df.level.max(), df.level.max() - 2):
     sub = df[df.level == lvl]
     cx = ((sub.x0 + sub.x1) / 2).to_numpy() * px_mm

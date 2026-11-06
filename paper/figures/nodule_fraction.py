@@ -51,7 +51,9 @@ HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
 
 ap = argparse.ArgumentParser()
-ap.add_argument("--pixel-um", type=float, default=2.5, help="phase-map pitch (0.5 um mosaic x seg_ds 5)")
+ap.add_argument("--pixel-um", type=float, default=2.7375,
+                help="phase-map pitch (measured 0.5475 um mosaic pixel x seg_ds 5; was a nominal 2.5 "
+                     "until 2026-11-06, which gave 0.35 instead of 0.37)")
 ap.add_argument("--r-um", type=float, default=12.5, help="opening radius of the adopted estimate")
 ap.add_argument("--d-mm", type=float, default=0.5, help="minimum nodule equivalent diameter of the adopted estimate")
 ap.add_argument("--sweep", action="store_true", help="also sweep r and D")

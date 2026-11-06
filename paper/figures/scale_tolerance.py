@@ -15,7 +15,9 @@ df = pd.read_csv(FIG / "composition_scale.csv")
 els = [c for c in df.columns if c in ("Si", "Al", "Fe", "K", "Mg", "Na", "Ca", "Ti", "P")]
 W_px = df.x1.max() - df.x0.min()
 H_px = df.y1.max() - df.y0.min()
-px_mm = 24.8 / W_px
+sys.path.insert(0, str(FIG))
+from _figstyle import MOSAIC_PIXEL_UM
+px_mm = MOSAIC_PIXEL_UM / 1000.0
 print(f"section {W_px} x {H_px} px -> {px_mm*1000:.3f} um/px; {W_px*px_mm:.1f} x {H_px*px_mm:.1f} mm")
 rmse = json.loads((FIG / "mc_calibrated_summary.json").read_text())["rmse"]
 

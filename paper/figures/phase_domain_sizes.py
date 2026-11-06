@@ -31,7 +31,8 @@ import fig_pt                                                    # noqa: E402
 
 ap = argparse.ArgumentParser()
 ap.add_argument("--data-dir", default=str(HERE))
-ap.add_argument("--pixel-um", type=float, default=0.5, help="mosaic pixel size; the map pitch is seg_ds times this")
+ap.add_argument("--pixel-um", type=float, default=0.5475,
+                help="mosaic pixel size (measured, see _figstyle.MOSAIC_PIXEL_UM); the map pitch is seg_ds times this")
 ap.add_argument("--out", default=str(HERE / "phase_domain_sizes.csv"))
 args = ap.parse_args()
 DATA = Path(args.data_dir)

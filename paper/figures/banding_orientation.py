@@ -17,7 +17,10 @@ names = {int(r["cluster_id"]): r["name"] for r in csv.DictReader(open(FIG / "pha
 print("labels present:", {int(v): names.get(int(v), "?") for v in np.unique(lab) if v >= 0})
 ds = 8
 sub = lab[::ds, ::ds]
-px_um = 24.8e3 / lab.shape[1]
+import sys
+sys.path.insert(0, str(FIG))
+from _figstyle import MOSAIC_PIXEL_UM, MOSAIC_W_PX
+px_um = MOSAIC_PIXEL_UM * MOSAIC_W_PX / lab.shape[1]
 print(f"map {lab.shape} px, {px_um:.3f} um/px full-res; downsampled x{ds}")
 bt = [c for c, n in names.items() if n == "Biotite"][0]
 I = (sub == bt).astype(float)
