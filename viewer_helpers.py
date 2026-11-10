@@ -263,17 +263,31 @@ def _coords_from_name(name: str) -> Optional[Tuple[int,int,Optional[int]]]:
     i = int(last.group(1)); j = int(last.group(2)); rep = last.group(3)
     return (i, j, int(rep) if rep is not None else None)
 
+def _spx_search_dirs(bcf_path: Path) -> List[Path]:
+    """Folders that may hold the quantified SPX files of ``bcf_path``.
+
+    Bruker writes them below the tile's own folder (``<job>/Quantified/``). A
+    published layout that splits each job into ``<run>/BCF/`` and ``<run>/SPX/``
+    (the Yoda data publication of C23-S1-A) keeps them in the sibling ``SPX``
+    folder instead, which is searched too.
+    """
+    dirs = [bcf_path.parent]
+    if bcf_path.parent.name.lower() == "bcf":
+        try:
+            dirs += [d for d in bcf_path.parent.parent.iterdir()
+                     if d.is_dir() and d.name.lower() == "spx"]
+        except OSError:
+            pass
+    return dirs
+
+
 def _match_spx_for_bcf(bcf_path: Path) -> Optional[Path]:
     key = _coords_from_name(bcf_path.name)
-    fname = f"Spectrum_({key[0]},{key[1]}).spx" if key else None
 
-    # Collect all candidate SPX files, sorting so subdirectory entries come before
-    # same-level ones - this naturally prefers quantified subfolders over raw exports.
-    candidates = sorted(
-        bcf_path.parent.rglob("Spectrum_(*,*).spx"),
-        key=lambda p: (len(p.parts), p.name),  # deeper path first, then name
-    )
-    # Flip: shorter path = same dir (less preferred), deeper = subdir (more preferred)
+    # Collect all candidate SPX files; deeper paths first, which prefers the
+    # quantified subfolder over a raw export in the tile's own folder.
+    candidates = [p for d in _spx_search_dirs(bcf_path)
+                  for p in d.rglob("Spectrum_(*,*).spx")]
     candidates.sort(key=lambda p: (-len(p.parts), p.name))
 
     for spx in candidates:

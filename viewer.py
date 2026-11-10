@@ -65,8 +65,35 @@ warnings.filterwarnings(
     message="Failed to import MELTSdynamic",
     category=UserWarning,
 )
-from qtpy import QtWidgets, QtCore, QtGui
-import napari
+
+
+def _prefer_env_dlls():
+    """Windows: put this environment's ``Library\\bin`` first on PATH.
+
+    ``conda activate`` does this; a viewer started with the environment's
+    python.exe directly (an IDE, a shortcut) does not, and then libraries that
+    search PATH can pick up another program's copy. freetype-py (vispy's text
+    rendering) found the freetype.dll of a Java runtime that lacks
+    FT_Init_FreeType; the exception inside Qt's paintGL made PyQt abort the
+    process. Must run before napari/vispy are imported.
+    """
+    import os
+    import sys
+    if sys.platform != "win32":
+        return
+    lib_bin = Path(sys.prefix) / "Library" / "bin"
+    if not lib_bin.is_dir():
+        return
+    parts = os.environ.get("PATH", "").split(os.pathsep)
+    if parts and os.path.normcase(os.path.normpath(parts[0])) == \
+            os.path.normcase(os.path.normpath(str(lib_bin))):
+        return
+    os.environ["PATH"] = os.pathsep.join([str(lib_bin)] + parts)
+
+
+_prefer_env_dlls()
+from qtpy import QtWidgets, QtCore, QtGui   # noqa: E402
+import napari                                # noqa: E402
 import imageio
 from matplotlib.path import Path as MplPath
 import matplotlib
@@ -1066,9 +1093,38 @@ class EDSControlPanel(QtWidgets.QWidget):
 
         Oxford montages are pre-quantified with no per-tile structure, so SPX-
         anchored features (SPX composition, k-factor calibration) don't apply.
-        Mirrors the ``has_spx`` proxy used by the composition-vs-scale tool.
+        The SPX files must also be present: a dataset opened from its stitched
+        products alone (manifest + mosaic + session, without the tiles) has a
+        tile list but no SPX to read.
         """
-        return bool(self._get_tile_bboxes()) and not self._is_oxford_cache()
+        return (bool(self._get_tile_bboxes()) and not self._is_oxford_cache()
+                and self._spx_files_present())
+
+    def _spx_files_present(self, n_sample: int = 8) -> bool:
+        """True when SPX files are found for a sample of the manifest's tiles.
+
+        Checks up to ``n_sample`` tiles spread over the manifest (BCF present
+        and a matching SPX beside it); cached for the session, since the
+        dataset folder does not change while the viewer runs.
+        """
+        cached = getattr(self, "_spx_present_cache", None)
+        if cached is not None:
+            return cached
+        tiles = self._get_tile_bboxes()
+        found = False
+        if tiles:
+            step = max(1, len(tiles) // n_sample)
+            base_dir = self.manifest.parent.resolve()
+            for _bb, r in tiles[::step][:n_sample]:
+                rel = r.get("file") or r.get("path") or ""
+                bcf = base_dir / rel
+                if not bcf.exists():
+                    bcf = base_dir / Path(rel).name
+                if bcf.exists() and _match_spx_for_bcf(bcf) is not None:
+                    found = True
+                    break
+        self._spx_present_cache = found
+        return found
 
     def _set_widget_enabled(self, widget, enabled: bool, reason: str = ""):
         """Enable/disable a control and, when disabled, append an explanatory
@@ -1168,7 +1224,8 @@ class EDSControlPanel(QtWidgets.QWidget):
             "Oxford montages have no spectrum cube to sum (Bruker only).")
         self._set_widget_enabled(
             self.btn_spx_comp, has_spx,
-            "needs per-tile SPX quantification (Bruker datasets only).")
+            "needs per-tile SPX quantification: Bruker datasets with the SPX "
+            "files present beside the tiles.")
         if is_oxford:
             self._set_widget_enabled(
                 self.btn_calib_eds, False,
@@ -1181,7 +1238,8 @@ class EDSControlPanel(QtWidgets.QWidget):
             # options dialog gates the "current ROI only" choice on computed maps.
             self._set_widget_enabled(
                 self.btn_calib_eds, has_spx,
-                "needs per-tile SPX (Bruker datasets only).")
+                "needs per-tile SPX: Bruker datasets with the SPX files present "
+                "beside the tiles.")
             self._set_widget_enabled(
                 self.btn_compare_comp, has_maps,
                 "compute the ROI's full-resolution EDS maps first.")
@@ -1978,10 +2036,10 @@ class EDSControlPanel(QtWidgets.QWidget):
             and bool(self.last_band_maps)
             and self.last_roi == roi
         )
-        # SPX is available if there are any tile bboxes from the manifest.
-        # Oxford montaged caches have no SPX (no per-tile spectrum files),
-        # so disable the radio outright when the cache is Oxford-tagged.
-        has_spx = bool(self._get_tile_bboxes()) and not self._is_oxford_cache()
+        # SPX is available when the manifest lists tiles whose SPX files are
+        # present. Oxford montaged caches have no SPX (no per-tile spectrum
+        # files), so the radio is disabled outright when the cache is Oxford-tagged.
+        has_spx = self._has_spx_tiles()
 
         if not has_eds and not has_spx:
             QtWidgets.QMessageBox.warning(
@@ -2156,6 +2214,15 @@ class EDSControlPanel(QtWidgets.QWidget):
             print(f"[comp-scale] {usable}/{len(records)} windows produced "
                   f"a composition (source={opts['source']}, "
                   f"depth={opts['max_depth']})", flush=True)
+            if usable == 0:
+                why = ("No SPX quantification was found for the tiles under these "
+                       "windows: the SPX source reads the per-tile SPX files, so they "
+                       "must be present beside the tiles, and a window must hold a "
+                       "whole tile." if opts["source"] == "spx" else
+                       "No window had EDS signal inside the region.")
+                QtWidgets.QMessageBox.warning(
+                    self, "Composition vs scale: no windows", why)
+                return
             # Keep the result so it re-opens without re-running the worker.
             self.last_comp_scale = {
                 "records": records, "summary": summary, "opts": opts,
@@ -6912,9 +6979,14 @@ class EDSControlPanel(QtWidgets.QWidget):
 
         meta = json.loads(session_path.read_text(encoding="utf-8"))
 
-        # Verify manifest matches
+        # Verify manifest matches. A relative path (a published session) is
+        # taken relative to the session file, so it matches wherever the
+        # dataset folder is unpacked.
         saved_manifest = meta.get("manifest", "")
-        if Path(saved_manifest).resolve() != self.manifest.resolve():
+        saved_path = Path(saved_manifest)
+        if saved_manifest and not saved_path.is_absolute():
+            saved_path = session_path.parent / saved_path
+        if saved_path.resolve() != self.manifest.resolve():
             ans = QtWidgets.QMessageBox.question(
                 self, "Different dataset",
                 f"This session was saved for a different manifest:\n"
