@@ -10,6 +10,7 @@ look inside the cores: do Ca, Fe, Na, P co-vary (inclusions) or sit flat?
 import json
 import sys
 from pathlib import Path
+from _dataset import DATASET_DIR   # dataset folder: env EQUIMAP_DATASET
 
 import numpy as np
 from scipy.ndimage import binary_erosion, gaussian_filter
@@ -17,7 +18,7 @@ from scipy.ndimage import binary_erosion, gaussian_filter
 HERE = Path(__file__).resolve().parent
 REPO = HERE.parent.parent
 FIG = HERE
-DATA = Path(r"D:/Actief/C23S1A_Quant")
+DATA = DATASET_DIR
 sys.path.insert(0, str(REPO))
 import eds_cache  # noqa: E402
 import eds_quantify as eq  # noqa: E402

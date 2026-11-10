@@ -20,6 +20,7 @@ import shutil
 import sys
 import time
 from pathlib import Path
+from _dataset import SESSION_NPZ   # dataset folder: env EQUIMAP_DATASET
 
 import numpy as np
 
@@ -34,7 +35,7 @@ from viewer_segment_helpers import (_smooth_element_maps, _build_feature_matrix,
                                     _label_map_to_rgba)
 
 ap = argparse.ArgumentParser()
-ap.add_argument("--session-npz", default=r"D:/Actief/C23S1A_Quant/viewer_session_22_07_26.npz")
+ap.add_argument("--session-npz", default=str(SESSION_NPZ))
 ap.add_argument("--data-dir", default=str(HERE), help="folder with the staged exports to split")
 ap.add_argument("--out-dir", default=str(REPO / "_scratch/background_fix/seg_split"))
 ap.add_argument("--domain", nargs="+", default=["Mica-rich matrix"], help="name(s) of the domain(s) to re-cluster together")

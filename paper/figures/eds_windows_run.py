@@ -15,6 +15,7 @@ import json
 import sys
 import time
 from pathlib import Path
+from _dataset import SESSION_JSON, SESSION_NPZ   # dataset folder: env EQUIMAP_DATASET
 
 import numpy as np
 
@@ -25,8 +26,8 @@ import eds_background as bg                                       # noqa: E402
 import eds_quantify as eq                                         # noqa: E402
 
 ap = argparse.ArgumentParser()
-ap.add_argument("--session-json", default=r"D:/Actief/C23S1A_Quant/viewer_session_22_07_26.json")
-ap.add_argument("--session-npz", default=r"D:/Actief/C23S1A_Quant/viewer_session_22_07_26.npz")
+ap.add_argument("--session-json", default=str(SESSION_JSON))
+ap.add_argument("--session-npz", default=str(SESSION_NPZ))
 ap.add_argument("--calibration", default=str(HERE / "eds_calibration.json"))
 ap.add_argument("--out", default=str(HERE / "composition_scale.csv"))
 ap.add_argument("--background", choices=list(bg.SCHEMES), default=None)

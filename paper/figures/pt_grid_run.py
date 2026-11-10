@@ -17,6 +17,7 @@ import json
 import sys
 import time
 from pathlib import Path
+from _dataset import SESSION_JSON   # dataset folder: env EQUIMAP_DATASET
 
 import pandas as pd
 
@@ -31,7 +32,7 @@ from pt_grid_spec import P_RANGE, T_RANGE, NP, NT                  # noqa: E402
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--session", default=r"D:/Actief/C23S1A_Quant/viewer_session_22_07_26.json")
+    ap.add_argument("--session", default=str(SESSION_JSON))
     ap.add_argument("--run-index", type=int, default=3, help="session run holding the section's SPX bulk")
     args = ap.parse_args()
     t0 = time.time()

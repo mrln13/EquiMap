@@ -23,11 +23,12 @@ import json
 import sys
 import time
 from pathlib import Path
+from _dataset import DATASET_DIR   # dataset folder: env EQUIMAP_DATASET
 
 import numpy as np
 
 REPO = Path(__file__).resolve().parents[2]
-DATA = Path(r"D:/Actief/C23S1A_Quant")
+DATA = DATASET_DIR
 FIG = REPO / "_Manuscript" / "figures"
 SESSION = DATA / "viewer_session_22_07_26.json"
 sys.path.insert(0, str(REPO)); sys.path.insert(0, str(Path(__file__).resolve().parent))

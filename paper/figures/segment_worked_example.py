@@ -35,6 +35,7 @@ import json
 import sys
 import time
 from pathlib import Path
+from _dataset import DATASET_DIR, SESSION_NPZ   # dataset folder: env EQUIMAP_DATASET
 
 import numpy as np
 from scipy.ndimage import binary_erosion
@@ -54,8 +55,8 @@ from viewer_segment_helpers import (                              # noqa: E402
 from viewer_thermo_helpers import _unmix_domain                    # noqa: E402
 
 ap = argparse.ArgumentParser()
-ap.add_argument("--dataset", default=r"D:/Actief/C23S1A_Quant")
-ap.add_argument("--session-npz", default=r"D:/Actief/C23S1A_Quant/viewer_session_22_07_26.npz")
+ap.add_argument("--dataset", default=str(DATASET_DIR))
+ap.add_argument("--session-npz", default=str(SESSION_NPZ))
 ap.add_argument("--recipe", default=str(HERE / "segmentation_params.json"))
 ap.add_argument("--calibration", default=str(HERE / "eds_calibration.json"))
 ap.add_argument("--old-labels", default=str(HERE / "phase_map_labels.npz"))

@@ -19,6 +19,7 @@ import re
 import subprocess
 import sys
 from pathlib import Path
+from _dataset import DATASET_DIR   # dataset folder: env EQUIMAP_DATASET
 
 import numpy as np
 
@@ -29,7 +30,7 @@ RUNS = [(s, k) for k in (6, 7) for s in (42, 1, 2, 3, 4, 5)] + [(5, 8)]
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--dataset", default=r"D:\Actief\C23S1A_Quant")
+    ap.add_argument("--dataset", default=str(DATASET_DIR))
     ap.add_argument("--out-root", default=str(REPO / "_scratch" / "inset_seeds"))
     args = ap.parse_args()
     meta = json.loads((HERE / "phase_map_inset.json").read_text())

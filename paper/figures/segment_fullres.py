@@ -28,6 +28,7 @@ import json
 import sys
 import time
 from pathlib import Path
+from _dataset import DATASET_DIR, EXPORT_DIR   # dataset folder: env EQUIMAP_DATASET
 
 import numpy as np
 from scipy.ndimage import gaussian_filter
@@ -44,8 +45,8 @@ from viewer_segment_helpers import (_noise_floor, _clean_label_map, _fill_unlabe
 from viewer_thermo_helpers import _unmix_domain                    # noqa: E402
 
 ap = argparse.ArgumentParser()
-ap.add_argument("--dataset", default=r"D:/Actief/C23S1A_Quant")
-ap.add_argument("--export-dir", default=r"D:/Actief/C23S1A_Quant/export")
+ap.add_argument("--dataset", default=str(DATASET_DIR))
+ap.add_argument("--export-dir", default=str(EXPORT_DIR))
 ap.add_argument("--out-dir", default=str(HERE))
 ap.add_argument("--calibration", default=str(HERE / "eds_calibration.json"))
 ap.add_argument("--old-labels", default=str(REPO / "_scratch/pre_background_fix_staged/phase_map_labels.npz"))

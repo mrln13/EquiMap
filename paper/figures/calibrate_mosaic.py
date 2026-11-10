@@ -20,6 +20,7 @@ import json
 import sys
 import time
 from pathlib import Path
+from _dataset import DATASET_DIR   # dataset folder: env EQUIMAP_DATASET
 
 import numpy as np
 
@@ -33,7 +34,7 @@ from viewer_helpers import (_row_bbox_on_canvas, _match_spx_for_bcf,   # noqa: E
                             _parse_spx_quant)
 
 ap = argparse.ArgumentParser()
-ap.add_argument("--dataset", default=r"D:/Actief/C23S1A_Quant")
+ap.add_argument("--dataset", default=str(DATASET_DIR))
 ap.add_argument("--out-dir", default=str(HERE))
 ap.add_argument("--background", choices=list(bg.SCHEMES), default=None)
 ap.add_argument("--samples-per-tile", type=int, default=2000)

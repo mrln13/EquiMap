@@ -21,12 +21,13 @@ import csv
 import json
 import sys
 from pathlib import Path
+from _dataset import DATASET_DIR   # dataset folder: env EQUIMAP_DATASET
 
 import numpy as np
 from scipy.ndimage import binary_erosion
 
 REPO = Path(__file__).resolve().parents[2]
-DATA = Path(r"D:/Actief/C23S1A_Quant")
+DATA = DATASET_DIR
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(REPO))
 import eds_quantify as eq          # noqa: E402

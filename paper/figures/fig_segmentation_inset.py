@@ -24,6 +24,7 @@ import csv
 import json
 import sys
 from pathlib import Path
+from _dataset import DATASET_DIR   # dataset folder: env EQUIMAP_DATASET
 
 import numpy as np
 
@@ -32,7 +33,7 @@ HERE = Path(__file__).resolve().parent
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--dataset", default=r"D:\Actief\C23S1A_Quant")
+    ap.add_argument("--dataset", default=str(DATASET_DIR))
     ap.add_argument("--repo", default=str(HERE.parent.parent))
     ap.add_argument("--window", nargs=2, type=int, default=None,
                     metavar=("Y0", "X0"),

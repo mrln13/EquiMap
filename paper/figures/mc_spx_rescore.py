@@ -24,6 +24,7 @@ import json
 import sys
 import time
 from pathlib import Path
+from _dataset import SESSION_JSON   # dataset folder: env EQUIMAP_DATASET
 
 import numpy as np
 
@@ -36,7 +37,7 @@ from viewer_thermo_helpers import _mc_sample_compositions, _mc_aggregate   # noq
 from thermo import Composition, ThermoCalc                                 # noqa: E402
 from thermo.cache import GridCache                                         # noqa: E402
 
-SESSION = Path(r"D:/Actief/C23S1A_Quant/viewer_session_22_07_26.json")
+SESSION = SESSION_JSON
 from pt_grid_spec import P_RANGE, T_RANGE, NP, NT                 # the Fig 5 grid (pt_grid.csv)
 FE3, H2O = 0.1, 4.0
 N, SIGMA, SEED = 16, 0.10, 0

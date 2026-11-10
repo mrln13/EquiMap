@@ -22,12 +22,13 @@ import re
 import sys
 import time
 from pathlib import Path
+from _dataset import DATASET_DIR   # dataset folder: env EQUIMAP_DATASET
 
 import numpy as np
 
 HERE = Path(__file__).resolve().parent
 REPO = HERE.parent.parent
-DATA = Path(r"D:/Actief/C23S1A_Quant")
+DATA = DATASET_DIR
 sys.path.insert(0, str(REPO))
 import eds_background as bg  # noqa: E402
 import eds_cache as edsc  # noqa: E402
