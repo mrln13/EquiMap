@@ -23,82 +23,34 @@ warnings.filterwarnings("ignore", category=RuntimeWarning, module="skimage.regis
 # =========================
 # Tunables
 # =========================
-PRESET = "C"   # "A" | "B" | "C" | "custom"
 #directory = Path("C23S1A_Full")
 
-# Defaults (may be overridden by presets)
-OVERLAP_FRAC      = 0.10    # Expected fractional overlap between adjacent tiles.
-BAND_FRAC         = 0.08    # Fraction of tile width/height used as strip for cross-correlation.
-N_SLICES          = 9       # Number of slices across the overlap to sample for local drift.
-UPSAMPLE          = 20      # Subpixel upsampling factor for phase correlation.
-MAX_STRIP_DRIFT   = 15      # Reject slice-level estimates if shift is higher than this (px).
-MAD_Z             = 2.5     # Z-score cutoff for rejecting outlier strip shifts.
-REFINE_ITERS      = 7       # Number of overlap-refinement phases.
-REFINE_MAX_SHIFT  = 15      # Limit for overlap-based correction in refinement stage (px).
-PYR_LEVELS        = 4       # Pyramid depth for multi-scale correlation.
-TUKEY_ALPHA       = 0.08    # Feather width for Tukey window blending.
-LOW_PCT, HI_PCT   = 0.5, 99.5   # Percentile range used for final intensity scaling.
-MAX_VERT_X_DRIFT  = 5     # Allowed |ΔX| for DOWN neighbors (px).
-MAX_RIGHT_Y_DRIFT = 10    # Allowed |ΔY| for RIGHT neighbors (px).
+# The alignment tunables (OVERLAP_FRAC, BAND_FRAC, N_SLICES, UPSAMPLE,
+# MAX_STRIP_DRIFT, MAD_Z, REFINE_ITERS, REFINE_MAX_SHIFT, PYR_LEVELS,
+# TUKEY_ALPHA, LOW_PCT, HI_PCT, MAX_VERT_X_DRIFT, MAX_RIGHT_Y_DRIFT, SHEAR_CAP,
+# SHEAR_ENABLE, RIGHT_DY_WEIGHT, VSTEP_ANCHOR_W, anchor_sigma) are module
+# globals set by apply_preset() below. Their base values, the presets A/B/C,
+# "default" (C + the C23S1A-class overrides; the paper's mosaic) and what each
+# preset does are in stitch_presets.py: one source for this script and the
+# viewer's stitching window. Choose with --preset or apply_preset().
+from stitch_presets import (BASE_TUNABLES as _BASE_TUNABLES, PRESETS,   # noqa: E402
+                            FINE_GRAINED_OVERRIDES as _FINE_GRAINED_OVERRIDES,
+                            PRESET_CHOICES, PRESET_HELP, resolve_preset)
 
-SHEAR_CAP         = 5e-4    # Max shear per tile allowed from slope fitting. Keeps shears microscopic.
-SHEAR_ENABLE      = True    # Toggle shear correction
 
-RIGHT_DY_WEIGHT   = 0.10    # Weight for softly enforcing RIGHT ΔY≈0. Prevents staircase artifacts
-VSTEP_ANCHOR_W    = 0.50    # Weak vertical step anchor to stop row drift
-anchor_sigma      = 60      # How strongly tiles are pulled towards the stage-derived nominal grid (px). Smaller = stronger anchor
+def apply_preset(name: str) -> None:
+    """Set the alignment tunables of this module to preset ``name``."""
+    globals().update(resolve_preset(name))
+    globals()["PRESET"] = name
 
-# =========================
-# Apply presets
-# =========================
-if PRESET == "A":  # Straighter grid
-    RIGHT_DY_WEIGHT  = 0.00
-    VSTEP_ANCHOR_W   = 0.90
-    MAX_VERT_X_DRIFT = 3.0
-    MAX_RIGHT_Y_DRIFT= 6.0
-    BAND_FRAC        = 0.05
-    N_SLICES         = 9
-    UPSAMPLE         = 15
-    REFINE_ITERS     = 3
-    REFINE_MAX_SHIFT = 12
-    PYR_LEVELS       = 4
-    anchor_sigma     = 40.0
 
-elif PRESET == "B":  # Tighter correlations
-    BAND_FRAC        = 0.08
-    N_SLICES         = 15
-    MAX_STRIP_DRIFT  = 10
-    UPSAMPLE         = 10
-    REFINE_ITERS     = 2
-    REFINE_MAX_SHIFT = 8
-    PYR_LEVELS       = 3
-    RIGHT_DY_WEIGHT  = 0.10
-    VSTEP_ANCHOR_W   = 0.50
-    anchor_sigma     = 60.0
+def current_tunables() -> dict:
+    """The alignment tunables in effect (for the run record)."""
+    return {k: globals()[k] for k in _BASE_TUNABLES}
 
-elif PRESET == "C":  # Large local errors / large grids
-    REFINE_ITERS     = 7
-    REFINE_MAX_SHIFT = 30
-    PYR_LEVELS       = 4
-    N_SLICES         = 13
-    UPSAMPLE         = 20
-    RIGHT_DY_WEIGHT  = 0.05
-    VSTEP_ANCHOR_W   = 0.35
-    anchor_sigma     = 220.0
 
-# (If PRESET == "custom", keep defaults above)
-
-# ---------------------------------------------------------------------------
-# Dataset-specific overrides (C23S1A_Quant-class data: fine-grained BSE,
-# fairly uniform texture, well-calibrated stage). Strong anchor + small refine
-# budget; the tight-start guard below will short-circuit refine entirely when
-# the initial solve is already clean. Delete this block for plain preset C.
-REFINE_ITERS     = 2
-REFINE_MAX_SHIFT = 8
-RIGHT_DY_WEIGHT  = 0.10
-VSTEP_ANCHOR_W   = 0.60
-anchor_sigma     = 25.0
-# ---------------------------------------------------------------------------
+PRESET = "default"
+apply_preset(PRESET)
 
 # Orientation helper:
 #   "none"     -> keep as solved
@@ -582,7 +534,10 @@ def measure_down_band(A_prep, B_prep, bh, bw, th, max_drift=None):
 # =========================
 # Overlap refine (multiscale)
 # =========================
-def phcorr_overlap(A_prep, B_prep, ya, xa, yb, xb, max_shift, levels=PYR_LEVELS):
+def phcorr_overlap(A_prep, B_prep, ya, xa, yb, xb, max_shift, levels=None):
+    # Resolved at call time, so a preset applied after import (--preset) takes effect.
+    if levels is None:
+        levels = PYR_LEVELS
     # Inputs are prep_for_corr'd full tiles; slice the overlap directly.
     th, tw = A_prep.shape
     iay, iax = int(np.floor(ya)), int(np.floor(xa))
@@ -2222,6 +2177,10 @@ if __name__ == "__main__":
     parser.add_argument("--preflight", action="store_true", help="Run preflight analysis only")
     parser.add_argument("--auto", action="store_true", help="Auto-apply tunables and run stitching")
     parser.add_argument("--dir", type=str, default="debug_bcf", help="Directory with .bcf files")
+    parser.add_argument("--preset", choices=PRESET_CHOICES, default="default",
+                        help="Alignment preset (default: 'default', which made the paper's "
+                             "mosaic). What each one sets and when to use it: "
+                             "stitch_presets.py, or the viewer's stitching window.")
     # NEW:
     parser.add_argument("--eds-preview", type=str, default="",
                         help="Build downsampled EDS preview maps during stitch. "
@@ -2294,6 +2253,9 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
 
+    # Alignment preset first: everything below reads the module tunables.
+    apply_preset(args.preset)
+
     # Apply prep-variant selection before stitch/preflight so prep_for_corr's
     # internal dispatch uses the right filter. The 'auto' path is handled
     # inside stitch() (needs access to the built grid for calibration).
@@ -2307,6 +2269,24 @@ if __name__ == "__main__":
     directory = Path(args.dir)
     if not directory.exists():
         raise FileNotFoundError(f"Directory does not exist: {directory}")
+
+    # Record how this mosaic is being made, whether started from the command
+    # line or from the viewer: the exact command, the preset and the alignment
+    # tunables it resolved to. Overwritten by the next run.
+    try:
+        import json as _json
+        import shlex as _shlex
+        import sys as _sys
+        from datetime import datetime as _dt
+        _dbg = directory / "stitch_debug"
+        _dbg.mkdir(parents=True, exist_ok=True)
+        _cmd = " ".join(_shlex.quote(a) for a in ["python", "stitch.py"] + _sys.argv[1:])
+        (_dbg / "stitch_command.txt").write_text(
+            f"# {_dt.now().isoformat(timespec='seconds')}\n{_cmd}\n\n"
+            f"preset: {args.preset}\n"
+            f"tunables: {_json.dumps(current_tunables())}\n", encoding="utf-8")
+    except OSError as _e:
+        print(f"[stitch] could not write stitch_debug/stitch_command.txt: {_e}")
 
     # Recursive, case-insensitive, files only
     bcf_files = [p for p in directory.rglob("*") if p.is_file() and p.suffix.lower() == ".bcf"]

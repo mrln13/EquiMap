@@ -903,16 +903,25 @@ def build_cache(
                 return
             ph = (ty1 - ty0) * ds
             pw = (tx1 - tx0) * ds
+            # The cache grid is the mosaic size floor-divided by ds, but a tile
+            # footprint is rounded UP: a tile touching the right or bottom edge
+            # of a mosaic whose size is not a multiple of ds would reach one
+            # cell past the cache. Keep the cells that exist.
+            ny = min(ty1, weight.shape[0]) - ty0
+            nx = min(tx1, weight.shape[1]) - tx0
+            if ny <= 0 or nx <= 0:
+                return
 
             def _fit(arr):
                 out = np.zeros((ph, pw), dtype=np.float32)
                 h_src, w_src = arr.shape
                 out[:h_src, :w_src] = arr
-                return out.reshape(ty1 - ty0, ds, tx1 - tx0, ds).mean(axis=(1, 3))
+                return out.reshape(ty1 - ty0, ds, tx1 - tx0, ds).mean(axis=(1, 3))[:ny, :nx]
 
             ww_src = ww_eff if result["has_mask"] else ww
             ww_ds = _fit(ww_src)
-            weight[ty0:ty1, tx0:tx1] += ww_ds
+            cy1, cx1 = ty0 + ny, tx0 + nx
+            weight[ty0:cy1, tx0:cx1] += ww_ds
 
             for e in elements:
                 pe = patches.get(e, {})
@@ -920,7 +929,7 @@ def build_cache(
                     patch = pe.get(band)
                     if patch is None:
                         continue
-                    accum[e][band][ty0:ty1, tx0:tx1] += _fit(patch * ww_eff)
+                    accum[e][band][ty0:cy1, tx0:cx1] += _fit(patch * ww_eff)
 
     from concurrent.futures import wait, FIRST_COMPLETED
 

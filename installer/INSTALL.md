@@ -46,10 +46,16 @@ and if it still fails send the log (below).
 1. Double-click the **EquiMap** icon on your Desktop (or `installer\EquiMap.bat`
    in the folder).
 2. A window asks you to **choose your dataset folder**. Pick the folder that
-   holds your stitched mosaic, or an Oxford AZtec / h5oina export. (Have a raw,
-   un-stitched folder of Bruker BCF tiles? Open it anyway and use the **Tools**
-   menu below to stitch it from inside EquiMap.)
-3. EquiMap opens. The first time you point it at an Oxford export it spends a
+   holds your stitched mosaic, a folder of raw Bruker BCF tiles, or an Oxford
+   AZtec / h5oina export.
+3. For raw Bruker tiles EquiMap offers to **stitch** them first. The window
+   shows the settings (whether to build the EDS cache and where, with its
+   estimated size against the free disk space; element previews; the coating
+   element; and, under *Advanced*, the alignment preset and other stitching
+   options) and the exact `stitch.py` command they produce, which is also
+   saved in `stitch_debug/stitch_command.txt`. Stitching runs with a live log
+   and can be cancelled; the viewer opens when it is done.
+4. EquiMap opens. The first time you point it at an Oxford export it spends a
    few minutes building its cache; this is normal and only happens once.
 
 ## Preparing data from inside EquiMap (Tools menu)
@@ -57,8 +63,9 @@ and if it still fails send the log (below).
 You don't need the command line to prepare a dataset. The **Tools** menu at the
 top of the EquiMap window can:
 
-- **Stitch mosaic from BCF folder…** — turn a folder of raw Bruker BCF tiles
-  into a stitched mosaic (optionally building the EDS cache at the same time).
+- **Stitch mosaic from BCF folder…** — the same stitching window as above, for
+  any tile folder; on a folder that already has a mosaic it stitches again
+  (for example with a different alignment preset).
 - **Build / refresh EDS cache…** — (re)build the fast EDS cache for a stitched
   dataset. The status line on the right panel shows whether a cache is ready.
 - **Import Oxford dataset…** — convert an Oxford AZtec CSV or `.h5oina` export.

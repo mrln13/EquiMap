@@ -7495,16 +7495,13 @@ def _build_tools_menu(viewer, panel, directory):
         d = _pick_dir("Select the BCF tile folder to stitch", directory)
         if d is None:
             return
-        build = QtWidgets.QMessageBox.question(
-            win, "Stitch mosaic",
-            "Also build the full EDS cache now (recommended — makes ROI reads "
-            "fast)?\n\nThis adds time and disk but is the usual workflow.",
-            QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.No,
-            QtWidgets.QMessageBox.Yes)
-        argv = [sys.executable, "stitch.py", "--dir", str(d)]
-        if build == QtWidgets.QMessageBox.Yes:
-            argv += ["--eds-preview", "all"]
-        _run("Stitching mosaic", argv, on_success=lambda: _after(d))
+        from viewer_stitch import find_bcf_tiles, offer_stitching
+        if not find_bcf_tiles(d):
+            QtWidgets.QMessageBox.warning(win, "Stitch mosaic",
+                                          f"No Bruker tiles (.bcf) were found in:\n{d}")
+            return
+        if offer_stitching(d, parent=win):
+            _after(d)
 
     def do_build_cache():
         d = _pick_dir("Select the stitched dataset folder", directory)
@@ -7643,11 +7640,22 @@ def main():
                       f"minutes...", flush=True)
                 oxford_loader.load_oxford_dataset(directory)
 
+    # Bruker tiles without a mosaic: offer to stitch them here (settings dialog
+    # + live log, see viewer_stitch) instead of sending the user to the
+    # command line. Declining leaves the viewer closed.
+    if not bse_path.exists():
+        from viewer_stitch import find_bcf_tiles, offer_stitching
+        if find_bcf_tiles(directory):
+            _ensure_qapp()
+            if not offer_stitching(directory):
+                raise SystemExit(0)
+
     if not bse_path.exists():
         _error_box(
             f"No dataset was found in:\n\n{directory}\n\n"
-            f"Expected a stitched mosaic ({args.bse}) or an Oxford AZtec / "
-            f"h5oina export. Please pick the folder that holds your dataset.")
+            f"Expected a stitched mosaic ({args.bse}), a folder of Bruker tiles "
+            f"(.bcf), or an Oxford AZtec / h5oina export. Please pick the folder "
+            f"that holds your dataset.")
         raise SystemExit(1)
     if not manifest_path.exists():
         _error_box(f"Dataset is incomplete — manifest not found:\n\n{manifest_path}")

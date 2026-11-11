@@ -31,6 +31,40 @@ from thermo.backends.base import AbstractBackend
 from thermo.composition import Composition
 from thermo.result import PhaseResult, ThermoResult
 
+
+def _use_env_julia_project(environ=None, prefix=None) -> Optional[str]:
+    """Point juliapkg at this conda environment's Julia project.
+
+    juliapkg keeps its Julia project inside the conda environment
+    (``<env>/julia_env``) only when ``CONDA_PREFIX`` names that environment,
+    i.e. when it was activated, as install.bat and EquiMap.bat do. A Python
+    started directly (an IDE, a shortcut, a script) falls back to a shared
+    project in ``~/.julia/environments/pyjuliapkg``, which the installer never
+    set up: it resolves to the newest Julia, petthermotools then demands
+    ~1.11, and parallel MAGEMin workers each try to reinstall Julia into the
+    same folder at once. When the environment's project exists, use it.
+    Returns the project set, or None when nothing was changed.
+    """
+    import os
+    import sys
+    from pathlib import Path
+    environ = os.environ if environ is None else environ
+    prefix = Path(sys.prefix if prefix is None else prefix)
+    if environ.get("PYTHON_JULIAPKG_PROJECT"):
+        return None
+    conda_prefix = environ.get("CONDA_PREFIX")
+    if conda_prefix and os.path.normcase(os.path.abspath(conda_prefix)) == \
+            os.path.normcase(os.path.abspath(prefix)):
+        return None                          # activated: juliapkg finds it itself
+    project = prefix / "julia_env"
+    if (prefix / "conda-meta").is_dir() and project.is_dir():
+        environ["PYTHON_JULIAPKG_PROJECT"] = str(project)
+        return str(project)
+    return None
+
+
+_use_env_julia_project()     # before anything imports juliacall in this process
+
 # ---------------------------------------------------------------------------
 # Database metadata
 # ---------------------------------------------------------------------------
