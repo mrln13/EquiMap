@@ -2344,6 +2344,9 @@ class _PhaseClassDialog(QtWidgets.QDialog):
         if combo is None:
             return
         idx = combo.findText(str(mineral_name))
+        if idx < 0:   # a session saved before the library followed Warr (2021)
+            import mineral_id as _mid_lib
+            idx = combo.findText(_mid_lib.LEGACY_NAMES.get(str(mineral_name), ""))
         if idx >= 0:
             combo.setCurrentIndex(idx)   # triggers _on_override_changed
 

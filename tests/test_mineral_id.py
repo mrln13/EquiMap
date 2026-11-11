@@ -401,6 +401,46 @@ def test_json_library_override(tmp_path):
     assert m[0].abbrev == "Per"
 
 
+# IMA-CNMNC symbols (Warr 2021, Mineral. Mag. 85, 291-320, Table 1).
+WARR_SYMBOLS = {
+    "Quartz": "Qz", "Plagioclase": "Pl", "K-feldspar": "Kfs", "Nepheline": "Nph",
+    "Olivine": "Ol", "Orthopyroxene": "Opx", "Clinopyroxene": "Cpx",
+    "Garnet": "Grt", "Muscovite": "Ms", "Biotite": "Bt", "Amphibole": "Amp",
+    "Chlorite": "Chl", "Epidote": "Ep", "Cordierite": "Crd", "Magnetite": "Mag",
+    "Spinel": "Spl", "Chromite": "Chr", "Ilmenite": "Ilm", "Rutile": "Rt",
+    "Hematite": "Hem", "Calcite": "Cal", "Dolomite": "Dol", "Apatite": "Ap",
+    "Titanite": "Ttn", "Zircon": "Zrn",
+}
+
+
+def test_library_symbols_are_the_ima_symbols():
+    by_name = {e.name: e.abbrev for e in mid.DEFAULT_LIBRARY.values()}
+    for name, sym in WARR_SYMBOLS.items():
+        assert by_name[name] == sym, name
+    assert mid.DEFAULT_LIBRARY["Als"].abbrev == "Als"   # Warr: aluminosilicate
+    for p in mid.MODELLING_POLYMORPHS:
+        assert p["abbrev"] in ("Ky", "Sil", "And")
+    assert all(key == e.abbrev for key, e in mid.DEFAULT_LIBRARY.items())
+    assert set(mid.THERMO_ABBREV) >= set(mid.DEFAULT_LIBRARY)
+
+
+def test_old_symbols_still_resolve(tmp_path):
+    # thermo keys unchanged by the symbol rename
+    assert mid.THERMO_ABBREV["Amp"] == "amph" and mid.THERMO_ABBREV["Nph"] == "ne"
+    names = {e.name for e in mid.DEFAULT_LIBRARY.values()}
+    assert all(new in names for new in mid.LEGACY_NAMES.values())
+    assert all(new in mid.DEFAULT_LIBRARY for new in mid.LEGACY_SYMBOLS.values())
+    # a JSON override written with the old symbol replaces the current entry
+    entry = {"name": "Amphibole", "group": "amphibole", "formula": "x",
+             "cations": {"Ca": 2, "Mg": 5, "Si": 8}, "oxygen": 23.0,
+             "sites": {"T": {"cations": ["Si"], "ideal": 8.0}}}
+    p = tmp_path / "lib.json"
+    p.write_text(json.dumps({"Amph": entry}), encoding="utf-8")
+    lib = mid.load_library(p)
+    assert "Amph" not in lib and lib["Amp"].formula == "x"
+    assert len(lib) == len(mid.DEFAULT_LIBRARY)
+
+
 # --- Fe-Ti oxides and carbonates at the default Fe3+ setting (2026-11-05) ---
 # The analyst's single Fe3+/total-Fe knob (default 0) overfilled magnetite and
 # hematite, so pure Fe oxides were named calcite at the ratio-only ceiling.

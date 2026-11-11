@@ -30,7 +30,8 @@ HERE = Path(__file__).resolve().parent
 
 # Thermo keys for the observed domain names (mineral_id.THERMO_ABBREV).
 NAME_TO_KEY = {"Biotite": "bi", "Quartz": "q", "Muscovite": "mu",
-               "Plagioclase": "fsp", "Epidote": "ep", "Alkali feldspar": "fsp",
+               "Plagioclase": "fsp", "Epidote": "ep", "K-feldspar": "fsp",
+               "Alkali feldspar": "fsp",
                "Sillimanite": "sill"}
 # Chlorite (retrograde after biotite) has no key: excluded from the peak-assemblage modes.
 # Sillimanite is a presence-only constraint even though the map now resolves

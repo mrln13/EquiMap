@@ -23,11 +23,10 @@ There is no mineral database in the repo or dependencies, so the library is an
 authored table of *ideal end-member stoichiometric formulas* (forsterite Mg2SiO4,
 anorthite CaAl2Si2O8, almandine Fe3Al2Si3O12, ...). These are definitional, not
 measured, so they carry no analytical uncertainty. Formulas / oxygen bases / site
-models follow standard references:
-
-* Deer, Howie & Zussman, *An Introduction to the Rock-Forming Minerals* (3rd ed.)
-* IMA-CNMNC approved mineral list
-* Klein & Hurlbut, *Manual of Mineral Science*
+models are the standard ones given in Deer, Howie & Zussman, *An Introduction to
+the Rock-Forming Minerals* (3rd ed., 2013), which covers every entry. Symbols
+are the IMA-CNMNC approved symbols (Warr 2021, Mineral. Mag. 85, 291-320); the
+pre-2026-11 non-IMA symbols are kept in ``LEGACY_SYMBOLS`` / ``LEGACY_NAMES``.
 
 This is the same basis EPMA recalculation tools (NORM / MINPET / AX) use. The
 table is JSON-overridable via :func:`load_library` so it can be corrected/extended.
@@ -183,13 +182,18 @@ class MineralMatch:
         return f"{self.name} ({self.confidence_pct:.0f}%, {self.confidence})"
 
 
+# Symbols and display names used before the library followed Warr (2021);
+# sessions and JSON overrides written with them still resolve.
+LEGACY_SYMBOLS: Dict[str, str] = {"Amph": "Amp", "Ne": "Nph"}
+LEGACY_NAMES: Dict[str, str] = {"Alkali feldspar": "K-feldspar"}
+
 # Local abbrev -> thermodynamic-model phase abbreviation. Used by the future
 # "find the P-T field where this assemblage is stable" feature, which feeds
 # observed_phases into viewer_thermo_helpers._pt_estimate_from_results.
 THERMO_ABBREV: Dict[str, str] = {
-    "Qz": "q", "Pl": "pl", "Kfs": "kf", "Ne": "ne", "Ol": "ol",
+    "Qz": "q", "Pl": "pl", "Kfs": "kf", "Nph": "ne", "Ol": "ol",
     "Opx": "opx", "Cpx": "cpx", "Grt": "g", "Ms": "mu", "Bt": "bi",
-    "Phl": "bi", "Amph": "amph", "Chl": "chl", "Ep": "ep",
+    "Phl": "bi", "Amp": "amph", "Chl": "chl", "Ep": "ep",
     "Als": "als", "Crd": "cd",
     "Mag": "mt", "Ilm": "ilm", "Rt": "ru", "Hem": "hem", "Spl": "sp",
     "Chr": "sp", "Cal": "cc", "Dol": "do", "Ap": "ap", "Ttn": "sph",
@@ -232,13 +236,13 @@ DEFAULT_LIBRARY: Dict[str, MineralEntry] = {
         {"T": _S(["Si", "Al"], 4.0), "A": _S(["Ca", "Na"], 1.0)},
         flags=("anhydrous", "solid_solution"), indices=("An",)),
     "Kfs": MineralEntry(
-        "Alkali feldspar", "Kfs", "alkali_feldspar", "(K,Na)AlSi3O8",
+        "K-feldspar", "Kfs", "alkali_feldspar", "(K,Na)AlSi3O8",
         {"K": 1, "Al": 1, "Si": 3}, 8.0,
         # Diagnostic cation K (Ca excluded so anorthite doesn't masquerade as Kfs).
         {"T": _S(["Si", "Al"], 4.0), "A": _S(["K", "Na", "Ba"], 1.0)},
         flags=("anhydrous", "solid_solution"), indices=("Or",)),
-    "Ne": MineralEntry(
-        "Nepheline", "Ne", "feldspathoid", "NaAlSiO4",
+    "Nph": MineralEntry(
+        "Nepheline", "Nph", "feldspathoid", "NaAlSiO4",
         {"Na": 1, "Al": 1, "Si": 1}, 4.0,
         {"T": _S(["Si", "Al"], 2.0), "A": _S(["Na", "K", "Ca"], 1.0)},
         flags=("anhydrous",)),
@@ -292,8 +296,8 @@ DEFAULT_LIBRARY: Dict[str, MineralEntry] = {
         {"T": _S(["Si", "Al"], 4.0), "M": _S(["Mg", "Fe", "Mn", "Ti", "Al"], 3.0),
          "A": _S(["K", "Na", "Ca", "Ba"], 1.0)},
         flags=("hydrous", "no_h_measured", "solid_solution"), indices=("Mg#",)),
-    "Amph": MineralEntry(
-        "Amphibole", "Amph", "amphibole", "Ca2(Mg,Fe)5Si8O22(OH)2",
+    "Amp": MineralEntry(
+        "Amphibole", "Amp", "amphibole", "Ca2(Mg,Fe)5Si8O22(OH)2",
         {"Ca": 2, "Mg": 5, "Si": 8}, 23.0,   # framework 22 + OH/2
         # No A-site: it is vacancy-bearing (0-1), so a fixed ideal would wrongly
         # penalise A-empty amphiboles like tremolite. T8 + M5 + B2 define it.
@@ -791,10 +795,13 @@ def load_library(path) -> Dict[str, MineralEntry]:
     JSON schema: ``{abbrev: {name, group, formula, cations, oxygen, sites,
     flags, indices}}`` where ``sites`` is ``{site: {cations: [...], ideal: n}}``.
     Entries with the same abbrev override the default; new abbrevs are added.
+    A pre-Warr symbol (``LEGACY_SYMBOLS``, e.g. "Amph") overrides its current
+    entry ("Amp") rather than adding a duplicate.
     """
     data = json.loads(Path(path).read_text(encoding="utf-8"))
     lib = dict(DEFAULT_LIBRARY)
     for abbrev, d in data.items():
+        abbrev = LEGACY_SYMBOLS.get(abbrev, abbrev)
         sites = {s: _S(spec["cations"], spec["ideal"]) for s, spec in d["sites"].items()}
         lib[abbrev] = MineralEntry(
             name=d.get("name", abbrev), abbrev=abbrev,
