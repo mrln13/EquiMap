@@ -11,6 +11,7 @@
 # --- SEM data I/O ---
 hyperspy>=2.3.0          # Bruker BCF file reading
 rosettasciio>=0.10.0     # file format backends used by HyperSpy
+exspy>=0.3               # HyperSpy's EDS signal types (no "EDS_SEM not understood" warning on BCF reads)
 h5py>=3.0               # Oxford .h5oina (EBSD+EDS HDF5) reader in oxford_loader (usually pulled in by hyperspy)
 tifffile>=2024.1        # Oxford BSE TIFF write + read (oxford_loader)
 

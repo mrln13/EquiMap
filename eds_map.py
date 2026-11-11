@@ -7,9 +7,17 @@ from typing import Iterable, Tuple, Dict, List, Optional
 import os
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
+import warnings
+
 import numpy as np
 import hyperspy.api as hs
 from tqdm import tqdm
+
+# exspy 0.3.2 (HyperSpy's EDS signal types) imports a few signal classes from
+# module paths HyperSpy 2.4 has deprecated; each BCF load would print three
+# "Importing `Lazy...` from `hyperspy._signals...` is deprecated" warnings that
+# a user can do nothing about. Only those messages are silenced.
+warnings.filterwarnings("ignore", message=r"Importing `\w+` from `hyperspy\._signals\.")
 
 
 # ---------- EDS discovery ----------

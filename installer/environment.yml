@@ -6,7 +6,8 @@
 #     conda activate equimap
 #
 # Versions are PINNED to a tested set (2026-11-05: the 276-test suite passes and
-# the napari viewer opens with exactly these), so every install of a release
+# the napari viewer opens with exactly these; exspy added 2026-11-11, 280 tests
+# pass), so every install of a release
 # gets the stack it was tested with. To move to newer versions, change the pins,
 # rebuild, run `pytest -q tests` and open the viewer before releasing.
 #
@@ -23,6 +24,8 @@ dependencies:
   # --- SEM data I/O ---
   - hyperspy==2.4.0          # Bruker BCF reading
   - rosettasciio==0.14.0     # file-format backends used by HyperSpy
+  - exspy==0.3.2             # HyperSpy's EDS signal types; without it every BCF
+                             # read warns "signal_type='EDS_SEM' not understood"
   - h5py==3.16.0             # Oxford .h5oina (EBSD+EDS HDF5) reader
   - tifffile==2026.3.3       # Oxford BSE TIFF read/write
   - imageio==2.37.0          # image read/write (BSE mosaic)
