@@ -262,6 +262,8 @@ def test_extent_bse_and_status(tmp_path):
     assert edsc.extent_bse({"H": 10, "W": 12, "ds": 3, "H_bse": 30, "W_bse": 36}) == (30, 36)
     # Older manifests without H_bse/W_bse: cache grid times ds.
     assert edsc.extent_bse({"H": 10, "W": 12, "ds": 2}) == (20, 24)
+    # ds=2 cache of a 15 x 19 mosaic holds 7 x 9 cells = 14 x 18 BSE pixels.
+    assert edsc.extent_bse({"H": 7, "W": 9, "ds": 2, "H_bse": 15, "W_bse": 19}) == (14, 18)
     assert edsc.extent_bse(None) is None
     assert edsc.extent_bse({"ds": 1}) is None
 
@@ -271,3 +273,46 @@ def test_extent_bse_and_status(tmp_path):
     _build_cache(cache, 4, 6, ["Si"], fingerprint=edsc.stitch_fingerprint(csv))
     st = edsc.status_for(cache, csv)
     assert st["valid"] and st["extent_bse"] == (4, 6)
+
+
+def test_damaged_weights_read_as_no_data(tmp_path, capsys):
+    """A cache region with NaN, negative or denormal weights (seen on a cache
+    built in a OneDrive folder) reads as zero instead of NaN or overflow."""
+    H, W = 6, 8
+    cache = tmp_path / "c"
+    pats = _build_cache(cache, H, W, ["Si"], weight_val=2.0)
+    w = np.lib.format.open_memmap(edsc._weight_path(cache), mode="r+")
+    w[-1, 0] = np.nan
+    w[-1, 1] = -3.0
+    w[-1, 2] = 2.4e-39          # 1/w overflows float32
+    w.flush()
+    m = np.lib.format.open_memmap(edsc._element_path(cache, "Si", "main"), mode="r+")
+    m[-1, 3] = np.inf
+    m.flush()
+    del w, m
+    with np.errstate(all="raise"):
+        maps = edsc.roi_from_cache(cache, (0, H, 0, W), ["Si"], progress=False)
+    out = maps["Si"]["main"]
+    assert np.isfinite(out).all()
+    assert (out[-1, :3] == 0).all() and out[-1, 3] == 0
+    assert np.allclose(out[:-1], pats["Si"][:-1] / 2.0)
+    assert np.allclose(out[-1, 4:], pats["Si"][-1, 4:] / 2.0)
+    assert "damaged" in capsys.readouterr().out          # tells the user to rebuild
+    _, weight = edsc.roi_from_cache(cache, (0, H, 0, W), ["Si"], progress=False,
+                                    return_weight=True)
+    assert np.isfinite(weight).all() and (weight >= 0).all()
+    reader = edsc.CacheWindowReader(cache, ["Si"])
+    assert np.isfinite(reader.net_sums((0, H, 0, W))["Si"])
+
+
+def test_zero_unwritten_clears_only_uncovered_pixels():
+    garbage = np.full((7, 9), np.nan, np.float32)
+    other = np.full((7, 9), -5.0, np.float32)
+    written = [(0, 4, 0, 5), (2, 6, 4, 9)]
+    n = edsc._zero_unwritten([garbage, other], written, chunk_rows=3)
+    cov = np.zeros((7, 9), bool)
+    cov[0:4, 0:5] = True
+    cov[2:6, 4:9] = True
+    assert n == int((~cov).sum())
+    assert (garbage[~cov] == 0).all() and np.isnan(garbage[cov]).all()
+    assert (other[~cov] == 0).all() and (other[cov] == -5.0).all()

@@ -48,3 +48,36 @@ def test_build_cache_odd_mosaic(tmp_path, monkeypatch, ds):
     assert w.shape == (15 // ds, 19 // ds)
     assert w[:, -1].min() > 0 and w[-1, :].min() > 0     # the edge cells are filled
     assert eds_cache.is_valid_for(tmp_path / "eds_cache", man)
+
+
+@pytest.mark.parametrize("ds", [1, 2])
+def test_build_cache_zeroes_pixels_no_tile_wrote(tmp_path, monkeypatch, ds):
+    """Pixels no tile covers must read as 0 even when the file system does not
+    return zeros for never-written space (a cache built in a OneDrive folder
+    had NaN, negative and denormal values in its never-written last row)."""
+    monkeypatch.setattr(eds_map, "_process_one_tile", _fake_tile)
+    real_zero = eds_cache._zero_unwritten
+
+    def poison_then_zero(arrays, written, **kw):
+        gap = np.asarray(arrays[0]) == 0         # no tile wrote these pixels
+        for a in arrays:
+            a[gap] = np.nan
+        return real_zero(arrays, written, **kw)
+
+    monkeypatch.setattr(eds_cache, "_zero_unwritten", poison_then_zero)
+    tiles = TILES[:3]                      # bottom-right tile missing: a gap
+    lines = [HEADER] + [f"{r},{c},{y},{x},t_{r}_{c}.bcf,{h},{w},{h},{w},1,1,0,0,0,0.01,2048,keV,,,\n"
+                        for r, c, y, x, h, w in tiles]
+    man = tmp_path / "stitch_manifest.csv"
+    man.write_text("".join(lines))
+    eds_cache.build_cache(man, ["Si"], ds=ds, progress=False, max_workers=1)
+    cd = tmp_path / "eds_cache"
+    w = np.load(cd / "weight.npy")
+    main = np.load(cd / "Si__main.npy")
+    assert np.isfinite(w).all() and (w >= 0).all()
+    assert w[-1, -1] == 0 and main[-1, -1] == 0            # inside the missing tile
+    assert w[0, 0] > 0
+    # The whole BSE extent, past the cells a ds>1 cache holds: padded, not an error.
+    maps = eds_cache.roi_from_cache(cd, (0, 15, 0, 19), ["Si"], progress=False)
+    assert maps["Si"]["main"].shape == (15, 19)
+    assert np.isfinite(maps["Si"]["main"]).all()

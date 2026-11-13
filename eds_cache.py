@@ -184,18 +184,19 @@ def extent_bse(data: Optional[dict]) -> Optional[Tuple[int, int]]:
 
     The BSE mosaic can be a pixel larger than the cache (the cache takes the
     mosaic extent from the manifest's whole-pixel tile positions), so an ROI
-    clipped to the BSE image alone can still reach past the cache.
+    clipped to the BSE image alone can still reach past the cache. A cache at
+    ``ds`` > 1 holds ``H_bse // ds`` rows, so it covers ``(H_bse // ds) * ds``
+    BSE rows, not the last ``H_bse % ds`` (same for columns).
     """
     if not data:
         return None
     try:
-        H = data.get("H_bse")
-        W = data.get("W_bse")
-        if not H or not W:
-            ds = int(data.get("ds") or 1)
-            H = int(data["H"]) * ds
-            W = int(data["W"]) * ds
-        H, W = int(H), int(W)
+        ds = int(data.get("ds") or 1)
+        H = int(data["H"]) * ds
+        W = int(data["W"]) * ds
+        if data.get("H_bse") and data.get("W_bse"):
+            H = min(H, int(data["H_bse"]))
+            W = min(W, int(data["W_bse"]))
     except (KeyError, TypeError, ValueError):
         return None
     return (H, W) if H > 0 and W > 0 else None
@@ -263,6 +264,84 @@ def allocate_memmaps(cache_dir: Path, elements: List[str], shape: Tuple[int, int
                                            mode="w+", dtype=np.float32, shape=(H, W))
             accum[el][band] = mm
     return accum, weight
+
+
+def _zero_unwritten(arrays: Sequence[np.ndarray],
+                    written: Sequence[Tuple[int, int, int, int]],
+                    chunk_rows: int = 512) -> int:
+    """Set every pixel outside the ``written`` rectangles to zero in all ``arrays``.
+
+    ``written`` holds ``(y0, y1, x0, x1)`` cache-pixel rectangles that tiles
+    accumulated into. The arrays (same 2-D shape) are processed in row chunks,
+    and only chunks with uncovered pixels are written, so a mosaic whose tiles
+    cover nearly everything costs little. Returns the number of pixels zeroed.
+    """
+    if not arrays:
+        return 0
+    H, W = arrays[0].shape
+    n_zeroed = 0
+    for c0 in range(0, H, chunk_rows):
+        c1 = min(H, c0 + chunk_rows)
+        cov = np.zeros((c1 - c0, W), dtype=bool)
+        for y0, y1, x0, x1 in written:
+            a, b = max(y0, c0), min(y1, c1)
+            if b <= a:
+                continue
+            cov[a - c0:b - c0, max(0, x0):min(W, x1)] = True
+        if cov.all():
+            continue
+        unwritten = ~cov
+        n_zeroed += int(unwritten.sum())
+        for arr in arrays:
+            arr[c0:c1][unwritten] = 0
+    return n_zeroed
+
+
+def _inverse_weight(w: np.ndarray) -> Tuple[np.ndarray, np.ndarray]:
+    """``(valid, invw)`` for weight-normalising cache sums.
+
+    A pixel is valid only when its weight is finite and positive; ``invw`` is
+    ``1/w`` there and 0 elsewhere. Callers zero their output outside ``valid``
+    so a damaged cache region (NaN or denormal weights, infinite sums) reads
+    as no data instead of turning a whole ROI into NaN.
+    """
+    valid = np.isfinite(w) & (w > 0)
+    invw = np.zeros(w.shape, dtype=np.float32)
+    with np.errstate(over="ignore", divide="ignore", invalid="ignore"):
+        np.divide(1.0, w, out=invw, where=valid)
+    valid &= np.isfinite(invw)
+    invw[~valid] = 0.0
+    return valid, invw
+
+
+def _check_weight(w: np.ndarray, cache_dir: Path) -> np.ndarray:
+    """Return ``w`` with NaN, infinite and negative weights set to 0.
+
+    A weight is a sum of tile windows, so such values mean the cache file is
+    damaged (seen in the never-written part of a cache built in a OneDrive
+    folder). Its sums there can be huge but finite, which no reader can tell
+    from data, so this also prints how to rebuild the cache.
+    """
+    bad = ~np.isfinite(w) | (w < 0)
+    n_bad = int(bad.sum())
+    if not n_bad:
+        return w
+    print(f"[eds-cache] WARNING: {n_bad} pixel(s) in this region have invalid weights "
+          f"(NaN or negative): the cache at {cache_dir} is damaged and results over "
+          f"those parts may be wrong. Delete that folder and rebuild the cache "
+          f"(Tools > Build / refresh EDS cache).", flush=True)
+    w = np.array(w, dtype=np.float32, copy=True)
+    w[bad] = 0.0
+    return w
+
+
+def _normalise_by_weight(arr: np.ndarray, valid: np.ndarray, invw: np.ndarray) -> np.ndarray:
+    """``arr * invw`` with every invalid pixel set to 0 (in place when possible)."""
+    out = arr if (arr.dtype == np.float32 and arr.flags.writeable) else arr.astype(np.float32)
+    with np.errstate(over="ignore", invalid="ignore"):
+        out *= invw
+    out[~(valid & np.isfinite(out))] = 0.0
+    return out
 
 
 def open_for_read(cache_dir: Path, elements: List[str]
@@ -429,18 +508,16 @@ def roi_from_cache(cache_dir: Path, roi: Tuple[int, int, int, int],
                         _slice_chunked, _element_path(cache_dir, el, band)
                     )
 
-            w_slice = weight_fut.result()
+            w_slice = _check_weight(weight_fut.result(), cache_dir)
             if cancel_flag is not None and cancel_flag():
                 raise RuntimeError("Cancelled")
 
             if blend_mode not in ("mean", "sum"):
                 blend_mode = "mean"
 
-            m = w_slice > 0 if blend_mode == "mean" else None
-            invw = None
-            if blend_mode == "mean" and m.any():
-                invw = np.zeros_like(w_slice)
-                invw[m] = 1.0 / w_slice[m]
+            invw = valid = None
+            if blend_mode == "mean":
+                valid, invw = _inverse_weight(w_slice)
 
             # Decimate a full-resolution ROI mask to the output grid so the
             # element-wise multiply below has matching shapes under out_ds>1.
@@ -454,8 +531,8 @@ def roi_from_cache(cache_dir: Path, roi: Tuple[int, int, int, int],
             out: Dict[str, Dict[str, np.ndarray]] = {}
             for (el, band), fut in band_futs.items():
                 arr = fut.result()
-                if blend_mode == "mean" and invw is not None:
-                    arr = arr * invw
+                if invw is not None:
+                    arr = _normalise_by_weight(arr, valid, invw)
                 if mask_f is not None:
                     arr = arr * mask_f
                 out.setdefault(el, {})[band] = arr
@@ -542,11 +619,10 @@ class CacheWindowReader:
         y0, y1, x0, x1 = (int(v) for v in bbox)
         step = max(1, int(step))
         ys, xs = slice(y0, y1, step), slice(x0, x1, step)
-        invw = None
+        invw = valid = None
         if self.blend_mode == "mean":
             w = np.asarray(self._weight[ys, xs], dtype=np.float32)
-            invw = np.zeros_like(w)
-            np.divide(1.0, w, out=invw, where=w > 0)
+            valid, invw = _inverse_weight(w)
         m = None
         if mask is not None:
             m = np.asarray(mask, dtype=bool)
@@ -566,7 +642,7 @@ class CacheWindowReader:
             if net is None:
                 continue
             if invw is not None:
-                net *= invw
+                net = _normalise_by_weight(net, valid, invw)
             if m is not None:
                 net *= m
             totals[el] = float(np.nansum(net))
@@ -701,19 +777,22 @@ def roi_from_cache_ds(cache_dir: Path, roi: Tuple[int, int, int, int],
             progress_cb(d, total_steps)
 
     def _slice_chunked(path: Path) -> np.ndarray:
+        # The cache grid is the mosaic floor-divided by ds, so an ROI reaching
+        # the last (H_bse % ds) BSE rows or columns asks for one cell more than
+        # the cache holds. Cells past the cache stay 0: weight 0, no data.
         mm = np.lib.format.open_memmap(path, mode="r")
-        out = np.empty((H_cache_roi, W_cache_roi), dtype=np.float32)
+        out = np.zeros((H_cache_roi, W_cache_roi), dtype=np.float32)
         for y0_chunk in range(0, H_cache_roi, chunk_rows):
             if cancel_flag is not None and cancel_flag():
                 raise RuntimeError("Cancelled")
             y1_chunk = min(H_cache_roi, y0_chunk + chunk_rows)
             if use_full_rows:
-                full_rows = np.asarray(
-                    mm[cy0 + y0_chunk:cy0 + y1_chunk, :], dtype=np.float32)
-                out[y0_chunk:y1_chunk] = full_rows[:, cx0:cx1]
+                part = np.asarray(
+                    mm[cy0 + y0_chunk:cy0 + y1_chunk, :], dtype=np.float32)[:, cx0:cx1]
             else:
-                out[y0_chunk:y1_chunk] = np.asarray(
+                part = np.asarray(
                     mm[cy0 + y0_chunk:cy0 + y1_chunk, cx0:cx1], dtype=np.float32)
+            out[y0_chunk:y0_chunk + part.shape[0], :part.shape[1]] = part
             _tick()
         return out
 
@@ -734,18 +813,16 @@ def roi_from_cache_ds(cache_dir: Path, roi: Tuple[int, int, int, int],
                         _slice_chunked, _element_path(cache_dir, el, band)
                     )
 
-            w_ds = weight_fut.result()
+            w_ds = _check_weight(weight_fut.result(), cache_dir)
             if cancel_flag is not None and cancel_flag():
                 raise RuntimeError("Cancelled")
 
             if blend_mode not in ("mean", "sum"):
                 blend_mode = "mean"
 
-            m = w_ds > 0 if blend_mode == "mean" else None
-            invw = None
-            if blend_mode == "mean" and m.any():
-                invw = np.zeros_like(w_ds)
-                invw[m] = 1.0 / w_ds[m]
+            invw = valid = None
+            if blend_mode == "mean":
+                valid, invw = _inverse_weight(w_ds)
 
             # Decimate a full-resolution ROI mask to the output grid so the
             # element-wise multiply below has matching shapes under out_ds>1.
@@ -759,8 +836,8 @@ def roi_from_cache_ds(cache_dir: Path, roi: Tuple[int, int, int, int],
             out: Dict[str, Dict[str, np.ndarray]] = {}
             for (el, band), fut in band_futs.items():
                 arr_ds = fut.result()
-                if blend_mode == "mean" and invw is not None:
-                    arr_ds = arr_ds * invw
+                if invw is not None:
+                    arr_ds = _normalise_by_weight(arr_ds, valid, invw)
                 arr = resize(arr_ds, (H_out, W_out), order=1,
                              preserve_range=True, anti_aliasing=False).astype(np.float32, copy=False)
                 if mask_f is not None:
@@ -900,6 +977,10 @@ def build_cache(
         8,
     )
 
+    # Cache-pixel rectangles the tiles wrote into; whatever lies outside them
+    # is zeroed explicitly at the end (see _zero_unwritten).
+    written: List[Tuple[int, int, int, int]] = []
+
     def _accum_result(result):
         yB0 = result["yB0"]; yB1 = result["yB1"]
         xB0 = result["xB0"]; xB1 = result["xB1"]
@@ -908,6 +989,7 @@ def build_cache(
         patches = result["patches"]
 
         if ds == 1:
+            written.append((yB0, max(yB1, y_end), xB0, max(xB1, x_end)))
             for e in elements:
                 pe = patches.get(e, {})
                 for band in BANDS:
@@ -946,6 +1028,7 @@ def build_cache(
             ww_src = ww_eff if result["has_mask"] else ww
             ww_ds = _fit(ww_src)
             cy1, cx1 = ty0 + ny, tx0 + nx
+            written.append((ty0, cy1, tx0, cx1))
             weight[ty0:cy1, tx0:cx1] += ww_ds
 
             for e in elements:
@@ -1010,6 +1093,13 @@ def build_cache(
         finally:
             if pbar is not None:
                 pbar.close()
+
+    # Pixels no tile wrote are expected to read as zeros, but on a synced
+    # folder (OneDrive) the never-written end of the files came back as
+    # garbage: NaN, negative and denormal weights that made every ROI over
+    # them NaN. Zero them explicitly; this touches only the uncovered margins.
+    _zero_unwritten([weight] + [accum[e][b] for e in elements for b in BANDS],
+                    written)
 
     # Flush memmaps to disk before writing the manifest
     weight.flush()
