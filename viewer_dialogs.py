@@ -775,10 +775,17 @@ class _PhaseSegDialog(QtWidgets.QDialog):
         preview_elements: Optional[List[str]] = None,
         fullres_elements: Optional[List[str]] = None,
         parent=None,
+        pixel_um: Optional[float] = None,
+        ds_by_source: Optional[Dict[str, int]] = None,
+        count_maps: bool = True,
     ):
         super().__init__(parent)
         self._preview_elements = sorted(preview_elements or [])
         self._fullres_elements = sorted(fullres_elements or [])
+        # mosaic pixel size and the decimation of each source's maps, for the
+        # µm readout beside the pixel settings
+        self._pixel_um = pixel_um
+        self._ds_by_source = dict(ds_by_source or {})
         self.setWindowTitle("Phase segmentation")
 
         layout = QtWidgets.QVBoxLayout(self)
@@ -909,6 +916,41 @@ class _PhaseSegDialog(QtWidgets.QDialog):
             "0 = no cleanup."
         )
         pre_lay.addRow("Min. region size (cleanup):", self.spin_minsize)
+        # Opt-in: set sigma and the minimum region from the counts per pixel
+        # (viewer_segment_helpers._auto_smoothing), so the smoothing follows
+        # the data's counting noise rather than its pixel size.
+        auto_row = QtWidgets.QHBoxLayout()
+        self.chk_auto_smooth = QtWidgets.QCheckBox("Set both from the counts per pixel, pooling")
+        self.chk_auto_smooth.setChecked(False)
+        self.spin_auto_target = QtWidgets.QSpinBox()
+        self.spin_auto_target.setRange(100, 20000)
+        self.spin_auto_target.setSingleStep(100)
+        self.spin_auto_target.setValue(1000)
+        self.spin_auto_target.setSuffix(" counts")
+        auto_tip = (
+            "Choose sigma so the smoothing pools this many counts per pixel\n"
+            "(the Gaussian pools about 4·π·sigma² pixels), and the minimum region\n"
+            "as one kernel width (FWHM) across. 1000 counts measure an element\n"
+            "that carries 10 % of the counts to about 10 %. The values used are\n"
+            "printed and stored in the segmentation recipe.")
+        self.chk_auto_smooth.setToolTip(auto_tip)
+        self.spin_auto_target.setToolTip(auto_tip)
+        auto_row.addWidget(self.chk_auto_smooth)
+        auto_row.addWidget(self.spin_auto_target)
+        auto_row.addStretch()
+        pre_lay.addRow("", auto_row)
+        self._count_maps = bool(count_maps)
+        self.spin_auto_target.setEnabled(False)
+        self.lbl_smooth_um = QtWidgets.QLabel()
+        self.lbl_smooth_um.setStyleSheet("color: gray;")
+        pre_lay.addRow("", self.lbl_smooth_um)
+
+        self.chk_auto_smooth.toggled.connect(self._refresh_smooth_um)
+        self.spin_sigma.valueChanged.connect(self._refresh_smooth_um)
+        self.spin_minsize.valueChanged.connect(self._refresh_smooth_um)
+        for rb in (self.rb_full, self.rb_roi_ds, self.rb_roi_full):
+            rb.toggled.connect(self._refresh_smooth_um)
+        self._refresh_smooth_um()
         self.cmb_norm = QtWidgets.QComboBox()
         self.cmb_norm.addItem("Row-normalize (compositions)", "row")
         self.cmb_norm.addItem("Anscombe √counts (low-count data)", "anscombe")
@@ -1122,13 +1164,45 @@ class _PhaseSegDialog(QtWidgets.QDialog):
                 )
             self._update_element_button_label()
 
-    def get_options(self) -> dict:
+    def _current_source(self) -> str:
         if self.rb_roi_full.isChecked():
-            source = "fullres_roi"
-        elif self.rb_roi_ds.isChecked():
-            source = "preview_roi"
-        else:
-            source = "preview_full"
+            return "fullres_roi"
+        if self.rb_roi_ds.isChecked():
+            return "preview_roi"
+        return "preview_full"
+
+    def _refresh_smooth_um(self, *_):
+        """Show sigma and the minimum region in µm for the selected source."""
+        # Counting needs raw count maps: the full-resolution ROI maps of a
+        # count dataset (not weight percent, not the display previews).
+        can_count = self._count_maps and self._current_source() == "fullres_roi"
+        self.chk_auto_smooth.setEnabled(can_count)
+        if not can_count:
+            self.chk_auto_smooth.setToolTip(
+                "Needs the ROI full-resolution maps of count data "
+                "(not weight-percent maps or previews).")
+        auto_on = self.chk_auto_smooth.isChecked() and can_count
+        self.spin_sigma.setEnabled(not auto_on)
+        self.spin_minsize.setEnabled(not auto_on)
+        self.spin_auto_target.setEnabled(auto_on)
+        if auto_on:
+            self.lbl_smooth_um.setText(
+                "sigma and the minimum region are set when segmentation runs")
+            return
+        ds = int(self._ds_by_source.get(self._current_source(), 1) or 1)
+        if not self._pixel_um:
+            self.lbl_smooth_um.setText(
+                f"map pixel = {ds} mosaic px (pixel size unknown)" if ds > 1 else "")
+            return
+        px = float(self._pixel_um) * ds
+        sig_um = self.spin_sigma.value() * px
+        area_um2 = self.spin_minsize.value() * px * px
+        self.lbl_smooth_um.setText(
+            f"map pixel {px:.2f} µm: sigma = {sig_um:.1f} µm, "
+            f"min. region = {area_um2:,.0f} µm²")
+
+    def get_options(self) -> dict:
+        source = self._current_source()
 
         all_els = list(self._element_selection.keys())
         checked_els = [el for el, v in self._element_selection.items() if v]
@@ -1143,6 +1217,9 @@ class _PhaseSegDialog(QtWidgets.QDialog):
             "norm_method": self.cmb_norm.currentData(),
             "smooth_sigma": self.spin_sigma.value(),
             "min_region_size": self.spin_minsize.value(),
+            "auto_smoothing": (self.chk_auto_smooth.isChecked()
+                               and self.chk_auto_smooth.isEnabled()),
+            "auto_smooth_target": float(self.spin_auto_target.value()),
             "min_count_pct": self.spin_min_count_pct.value(),
             "min_count_ratio": self.spin_min_count_ratio.value(),
             "max_zero_pct": self.spin_max_zero_pct.value(),

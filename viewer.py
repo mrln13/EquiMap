@@ -147,7 +147,7 @@ from viewer_segment_helpers import (
     _collect_segment_maps, _smooth_element_maps, _clean_label_map,
     _compute_overlap_mask_from_weight, _compute_overlap_mask_from_manifest,
     _build_feature_matrix, _normalize_features,
-    _sparse_element_exclusions,
+    _sparse_element_exclusions, _auto_smoothing,
     _find_knee, _select_k_auto, _run_clustering, _fill_unlabeled,
     _zero_signal_mask,
     _cluster_dominant_elements, _label_map_to_rgba,
@@ -3305,11 +3305,23 @@ class EDSControlPanel(QtWidgets.QWidget):
 
         # 1. Settings dialog
         fullres_els = sorted(self.last_band_maps.keys()) if self.last_band_maps else []
+        # decimation of each source's maps relative to the mosaic, for the
+        # dialog's µm readout
+        ds_by_source = {"fullres_roi": max(1, int(self.last_band_maps_ds or 1))}
+        if preview_els:
+            try:
+                prev_ds = int(round(self.viewer.layers[f"{preview_els[0]} preview"].scale[0]))
+                ds_by_source["preview_full"] = ds_by_source["preview_roi"] = max(1, prev_ds)
+            except Exception:
+                pass
         dlg = _PhaseSegDialog(
             has_previews, has_roi, has_fullres,
             preview_elements=preview_els,
             fullres_elements=fullres_els,
             parent=self,
+            pixel_um=self._pixel_um(),
+            ds_by_source=ds_by_source,
+            count_maps=self._cache_data_type() != "oxford_wt_pct",
         )
         if not dlg.exec_():
             return
@@ -3399,6 +3411,28 @@ class EDSControlPanel(QtWidgets.QWidget):
                           "— left unclassified", flush=True)
                 else:
                     raw_zero = None
+
+            # Opt-in count-based smoothing: sigma pools a target number of
+            # counts per pixel, the minimum region is one kernel FWHM across.
+            # The resolved values replace the dialog's and are what the
+            # recipe stores, so a replay needs no recount.
+            if opts.get("auto_smoothing") and source == "fullres_roi" and maps:
+                res = _auto_smoothing(
+                    maps,
+                    valid_pixels=(~raw_zero if raw_zero is not None else None),
+                    target_counts=float(opts.get("auto_smooth_target", 1000.0)),
+                    exclude=tuple(self._coating_elements()),
+                )
+                opts["smooth_sigma"] = float(res["sigma"])
+                opts["min_region_size"] = int(res["min_region_size"])
+                opts["smoothing_auto"] = {
+                    "target_counts": float(res["target_counts"]),
+                    "counts_per_px": round(float(res["counts_per_px"]), 3),
+                }
+                print(f"[segment] Smoothing from counts: {res['counts_per_px']:.1f} counts "
+                      f"per pixel -> sigma {res['sigma']:.1f} px pools "
+                      f"~{res['target_counts']:.0f}; min. region "
+                      f"{res['min_region_size']} px", flush=True)
 
             # Auto-exclude sparse elements. Runs BEFORE smoothing on the raw
             # maps, but the criterion is smoothing-aware: an element is dropped
@@ -3592,6 +3626,11 @@ class EDSControlPanel(QtWidgets.QWidget):
             # (viewer_segment_helpers._smooth_element_maps); 0 for legacy nets
             "noise_floor": _bg_scheme() != "sideband",
         }
+        if opts.get("smoothing_auto"):
+            # sigma and min_region_size above are the values the count rule
+            # chose; this records how (absent for a sigma set by hand, so
+            # those recipes are unchanged)
+            seg_params["smoothing_auto"] = dict(opts["smoothing_auto"])
         import json as _json
         print("[segment] recipe: " + _json.dumps(seg_params, default=str),
               flush=True)

@@ -17,7 +17,7 @@ Moved out of viewer.py as part of the tier-B refactor.
 """
 from __future__ import annotations
 
-from typing import List, Tuple, Optional, Dict
+from typing import List, Tuple, Optional, Dict, Sequence
 
 import numpy as np
 import matplotlib
@@ -227,6 +227,69 @@ def _compute_overlap_mask_from_manifest(
         if cy1 > cy0 and cx1 > cx0:
             coverage[cy0:cy1, cx0:cx1] += 1
     return coverage > 1
+
+
+# Count-based smoothing (opt-in; the dialog default stays a fixed sigma).
+# The Gaussian pools ~4*pi*sigma**2 pixels, so pooling N counts needs
+# sigma = sqrt(N / (4*pi*rate)), whatever the pixel size, dwell time, beam
+# current or decimation. N = 1000 measures an element that carries 10 % of
+# the counts to about 10 % (1/sqrt(100)).
+AUTO_SMOOTH_TARGET_COUNTS = 1000.0
+AUTO_SMOOTH_SIGMA_RANGE = (0.5, 10.0)
+
+
+def _min_region_for_sigma(sigma: float) -> int:
+    """Smallest region the cleanup keeps for a given smoothing sigma (px).
+
+    The area of a disc one FWHM of the kernel across (FWHM = 2.355 sigma):
+    a region smaller than that is below the resolution the smoothing leaves.
+    """
+    import math as _math
+    if sigma <= 0:
+        return 0
+    return int(round(_math.pi * (1.1774 * float(sigma)) ** 2))
+
+
+def _auto_smoothing(
+    maps: Dict[str, np.ndarray],
+    valid_pixels: Optional[np.ndarray] = None,
+    target_counts: float = AUTO_SMOOTH_TARGET_COUNTS,
+    exclude: Sequence[str] = ("C",),
+    sigma_range: Tuple[float, float] = AUTO_SMOOTH_SIGMA_RANGE,
+) -> Dict[str, float]:
+    """Smoothing sigma (px) that pools ``target_counts`` per pixel, and the
+    matching minimum region size.
+
+    ``maps`` are the (signed) net-count maps that will be clustered. The rate
+    is the median summed count per measured pixel, over every element except
+    ``exclude`` (the coating). Only meaningful for COUNT maps: weight-percent
+    maps (Oxford Wt% CSV) are not counts, and the caller must not use it there.
+
+    Returns ``{"sigma", "min_region_size", "counts_per_px", "target_counts"}``;
+    sigma is clipped to ``sigma_range`` (a starved map gets the upper bound).
+    """
+    import math as _math
+    use = [el for el in maps if el not in set(exclude)]
+    if not use:
+        raise ValueError("no element maps to count")
+    total = np.zeros_like(np.asarray(maps[use[0]], dtype=np.float64))
+    for el in use:
+        total += np.nan_to_num(np.asarray(maps[el], dtype=np.float64))
+    if valid_pixels is None:
+        valid_pixels = np.zeros(total.shape, dtype=bool)
+        for el in maps:
+            valid_pixels |= np.nan_to_num(np.asarray(maps[el])) != 0
+    vals = total[valid_pixels]
+    rate = float(np.median(vals)) if vals.size else 0.0
+    lo, hi = float(sigma_range[0]), float(sigma_range[1])
+    if rate <= 0:
+        sigma = hi
+    else:
+        sigma = _math.sqrt(float(target_counts) / (4.0 * _math.pi * rate))
+        sigma = min(hi, max(lo, sigma))
+    sigma = round(sigma, 1)
+    return {"sigma": sigma, "min_region_size": _min_region_for_sigma(sigma),
+            "counts_per_px": rate, "target_counts": float(target_counts)}
 
 
 def _sparse_element_exclusions(
