@@ -253,3 +253,21 @@ def test_is_valid_for_fingerprint(tmp_path):
     # Mutating the manifest CSV changes the fingerprint → cache invalid.
     csv.write_text("row,col\n0,1\n", encoding="utf-8")
     assert edsc.is_valid_for(cache, csv, required_elements=["Si"]) is False
+
+
+def test_extent_bse_and_status(tmp_path):
+    """The area the cache covers, in BSE pixels, so the viewer can clip ROIs to it."""
+    assert edsc.extent_bse({"H": 10, "W": 12, "ds": 1, "H_bse": 10, "W_bse": 12}) == (10, 12)
+    # Two-resolution Oxford cache: native BSE size is recorded separately.
+    assert edsc.extent_bse({"H": 10, "W": 12, "ds": 3, "H_bse": 30, "W_bse": 36}) == (30, 36)
+    # Older manifests without H_bse/W_bse: cache grid times ds.
+    assert edsc.extent_bse({"H": 10, "W": 12, "ds": 2}) == (20, 24)
+    assert edsc.extent_bse(None) is None
+    assert edsc.extent_bse({"ds": 1}) is None
+
+    csv = tmp_path / "stitch_manifest.csv"
+    csv.write_text("row,col\n0,0\n", encoding="utf-8")
+    cache = tmp_path / "eds_cache"
+    _build_cache(cache, 4, 6, ["Si"], fingerprint=edsc.stitch_fingerprint(csv))
+    st = edsc.status_for(cache, csv)
+    assert st["valid"] and st["extent_bse"] == (4, 6)

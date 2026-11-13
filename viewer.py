@@ -458,30 +458,39 @@ class EDSControlPanel(QtWidgets.QWidget):
         return els
 
     def _data_bounds(self) -> Optional[Tuple[int, int]]:
-        """Return ``(H, W)`` of the underlying mosaic, or None if unknown.
+        """Return ``(H, W)`` of the area that has data, or None if unknown.
 
-        Sourced from the BSE napari layer. Handles both single-scale and
-        multiscale pyramid layers; for multiscale the largest level (index 0)
-        is used.
+        Sourced from the BSE napari layer (single-scale or multiscale; for
+        multiscale the largest level, index 0). When a valid EDS cache exists,
+        the bounds are cut to the area it covers too: the BSE mosaic can be a
+        pixel larger than the cache, and an ROI reaching into that pixel made
+        the cache read fail ("could not broadcast ... (299,299) into (300,300)").
         """
+        bounds = None
         try:
             lyr = self.viewer.layers[self.bse_layer_name]
         except (KeyError, IndexError):
-            return None
-        data = lyr.data
-        try:
-            if isinstance(data, list) and data:
-                # multiscale pyramid: data[0] is the largest level
-                shape = data[0].shape
-            else:
-                shape = data.shape
-            H = int(shape[0])
-            W = int(shape[1])
-            if H > 0 and W > 0:
-                return H, W
-        except Exception:
-            pass
-        return None
+            lyr = None
+        if lyr is not None:
+            data = lyr.data
+            try:
+                if isinstance(data, list) and data:
+                    # multiscale pyramid: data[0] is the largest level
+                    shape = data[0].shape
+                else:
+                    shape = data.shape
+                H = int(shape[0])
+                W = int(shape[1])
+                if H > 0 and W > 0:
+                    bounds = (H, W)
+            except Exception:
+                pass
+        st = self._eds_cache_status()
+        ext = st.get("extent_bse") if st.get("valid") else None
+        if ext:
+            bounds = ext if bounds is None else (min(bounds[0], ext[0]),
+                                                 min(bounds[1], ext[1]))
+        return bounds
 
     def _get_roi_bbox_and_mask(self) -> Tuple[Tuple[int, int, int, int], Optional[np.ndarray]]:
         shapes = None

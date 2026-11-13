@@ -179,10 +179,34 @@ def is_valid_for(cache_dir: Path, stitch_manifest_csv: Path,
     return True
 
 
+def extent_bse(data: Optional[dict]) -> Optional[Tuple[int, int]]:
+    """Mosaic area the cache covers, ``(H, W)`` in BSE pixels, or None.
+
+    The BSE mosaic can be a pixel larger than the cache (the cache takes the
+    mosaic extent from the manifest's whole-pixel tile positions), so an ROI
+    clipped to the BSE image alone can still reach past the cache.
+    """
+    if not data:
+        return None
+    try:
+        H = data.get("H_bse")
+        W = data.get("W_bse")
+        if not H or not W:
+            ds = int(data.get("ds") or 1)
+            H = int(data["H"]) * ds
+            W = int(data["W"]) * ds
+        H, W = int(H), int(W)
+    except (KeyError, TypeError, ValueError):
+        return None
+    return (H, W) if H > 0 and W > 0 else None
+
+
 def status_for(cache_dir: Path, stitch_manifest_csv: Path) -> dict:
-    """Describe the cache state. Keys: exists, valid, stale, elements, width_eV, ds, H, W, fingerprint, data_type."""
+    """Describe the cache state. Keys: exists, valid, stale, elements, width_eV, ds, H, W,
+    extent_bse, fingerprint, data_type."""
     out = {"exists": cache_dir.exists(), "valid": False, "stale": False,
            "elements": [], "width_eV": None, "ds": None, "H": None, "W": None,
+           "extent_bse": None,
            "fingerprint": None, "data_type": None, "source": None}
     data = load_manifest(cache_dir)
     if not data:
@@ -192,6 +216,7 @@ def status_for(cache_dir: Path, stitch_manifest_csv: Path) -> dict:
     out["ds"]      = data.get("ds")
     out["H"]       = data.get("H")
     out["W"]       = data.get("W")
+    out["extent_bse"] = extent_bse(data)
     out["fingerprint"] = data.get("stitch_fingerprint")
     out["data_type"]   = data.get("data_type") or "bcf_net_counts"
     out["source"]      = data.get("source")
