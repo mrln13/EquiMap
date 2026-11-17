@@ -3852,8 +3852,9 @@ class EDSControlPanel(QtWidgets.QWidget):
                 weights=self.last_phase_pt_weights,
                 extra=self.last_phase_extra,
                 open_tol=self.last_phase_open_tol)
-        if self.last_phase_comp_erosion:
-            cls_dlg.set_erosion(self.last_phase_comp_erosion)
+        # Always restore, 0 included: the dialog opens with interior-only on,
+        # and a phase map named with full masks must reopen that way.
+        cls_dlg.set_erosion(self.last_phase_comp_erosion)
         if self.last_phase_unmix and hasattr(cls_dlg, "set_unmix"):
             cls_dlg.set_unmix(self.last_phase_unmix)
         result = cls_dlg.exec_()
@@ -6915,8 +6916,9 @@ class EDSControlPanel(QtWidgets.QWidget):
                 # JSON keys must be strings
                 phase_meta["minerals"] = {str(k): v for k, v in self.last_phase_minerals.items()}
                 phase_meta["fe3_fraction"] = float(self.last_phase_fe3)
-            if self.last_phase_comp_erosion:
-                phase_meta["comp_erosion_px"] = int(self.last_phase_comp_erosion)
+            # Always written (0 = full masks). A session without the key
+            # predates the interior-only default and restores as 0 (off).
+            phase_meta["comp_erosion_px"] = int(self.last_phase_comp_erosion or 0)
             if self.last_phase_unmix:
                 phase_meta["unmix"] = {str(c): {
                     "fractions": {str(e): float(f)

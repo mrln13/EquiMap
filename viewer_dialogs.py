@@ -1705,6 +1705,14 @@ class _MapInspectDialog(QtWidgets.QDialog):
             self._lbl_hover.setText("")
 
 
+# Interior-only naming is on by default (since 1.0.0): a domain's mean
+# composition is taken from its mask eroded by this many phase-map pixels, so
+# grain-boundary mixed pixels do not pull the name toward an intermediate
+# mineral. A session saved before this default carries no erosion value and
+# reopens with interior-only off, as it was made.
+DEFAULT_COMP_EROSION_PX = 3
+
+
 class _PhaseClassDialog(QtWidgets.QDialog):
     """Post-clustering dialog: colored label map + editable cluster name table.
 
@@ -1971,13 +1979,16 @@ class _PhaseClassDialog(QtWidgets.QDialog):
             "A domain that vanishes entirely at this erosion falls back to its\n"
             "full mask (logged). Modal proportions always use the full mask.\n"
             "NB pixels are phase-map pixels: at 1/ds resolution one pixel is ds\n"
-            "mosaic pixels wide. Re-run Identify minerals after changing this.")
+            "mosaic pixels wide. Re-run Identify minerals after changing this.\n"
+            f"On by default ({DEFAULT_COMP_EROSION_PX} px); a session saved before\n"
+            "this default reopens with it off, as it was made.")
+        self._chk_interior.setChecked(DEFAULT_COMP_EROSION_PX > 0)
         id_row.addWidget(self._chk_interior)
         self._erode_spin = QtWidgets.QSpinBox()
         self._erode_spin.setRange(1, 20)
-        self._erode_spin.setValue(3)
+        self._erode_spin.setValue(max(1, DEFAULT_COMP_EROSION_PX))
         self._erode_spin.setSuffix(" px")
-        self._erode_spin.setEnabled(False)
+        self._erode_spin.setEnabled(self._chk_interior.isChecked())
         self._erode_spin.setToolTip(self._chk_interior.toolTip())
         id_row.addWidget(self._erode_spin)
         # The same pixel count means a different distance on every dataset
@@ -3135,8 +3146,9 @@ class _PhaseClassDialog(QtWidgets.QDialog):
         if self._seg_params or erosion or self._unmix:
             import json as _json
             recipe = dict(self._seg_params or {})
+            # always recorded (0 = full masks): interior-only is on by default
+            recipe["comp_erosion_px"] = int(erosion)
             if erosion:
-                recipe["comp_erosion_px"] = int(erosion)
                 um = self.erosion_um()
                 if um is not None:
                     recipe["comp_erosion_um"] = round(um, 3)
